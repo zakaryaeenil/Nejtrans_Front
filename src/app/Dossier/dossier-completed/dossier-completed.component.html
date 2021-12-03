@@ -1,0 +1,84 @@
+<div class="page-header">
+  <div class="page-title">
+<div class="row">
+        <div class="col"><h3>Dossiers Complets : {{doss_completed.length}}</h3>
+        </div>
+        <div class="col">
+          <button class="float-right btn btn-primary" type="button">
+            Creer Dossier &nbsp;
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder-plus"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+          </button>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="row" id="cancel-row">
+
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+          <div class="widget-content widget-content-area br-6">
+            <table  id="html5-extension" class="table table-hover non-hover " style="width:100%">
+              <thead>
+              <tr>
+                <th>Client</th>
+                <th>Type</th>
+                <th>Nombre Documents</th>
+                <th>Disponiblité</th>
+                <th>Reseravation</th>
+                <th>Etat d'avancement</th>
+                <th>Creer À</th>
+                <th class=" dt-no-sorting">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <tr *ngFor="let dossier of doss_completed">
+
+                <!-- Username  -->
+                <td><span style="font-weight: bold">test</span></td>
+
+                <!--Type Dossier -->
+                <td *ngIf="dossier.typeDossier == import; else contenu_pas_bon"><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td>
+                <ng-template #contenu_pas_bon> <td><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td></ng-template>
+
+                <!-- nb Documents -->
+                <td >{{dossier.nb_documents}}</td>
+
+                <!-- Available -->
+                <td><span class="shadow-none badge badge-info">Terminer</span></td>
+
+                <!--Reservation name -->
+                <td *ngIf="dossier.employeeUsername ==  '' ; else res_name"><span style="font-weight: bold">Aucun</span></td>
+                <ng-template #res_name><td><span class="shadow-none badge badge-secondary">{{dossier.employeeUsername}}</span></td> </ng-template>
+
+                <!-- Etat -->
+                <td *ngIf="dossier.etat == null ; else etat">Aucun</td>
+                <ng-template #etat><td>En programation</td> </ng-template>
+
+                <!-- Creation Date -->
+                <td>{{dossier.createdAt |  date:'medium'}}</td>
+
+
+                <!-- Boutton Actions -->
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-dark btn-sm" >Open</button>
+                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
+                      <a class="dropdown-item" >Voir</a>
+                      <a class="dropdown-item" href="#">Modifier</a>
+                      <a class="dropdown-item" >Supprimer</a>
+                    </div>
+                  </div>
+                </td>
+
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
