@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DossierListComponent } from './Dossier/dossier-list/dossier-list.component';
@@ -21,17 +20,13 @@ import { SidebarComponent } from './Helpers/sidebar/sidebar.component';
 import { ToDoComponent } from './App/to-do/to-do.component';
 import { NotesComponent } from './App/notes/notes.component';
 import {ChartsModule} from "ng2-charts";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatInputModule} from "@angular/material/input";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatTableModule} from "@angular/material/table";
-import {MatSortModule} from "@angular/material/sort";
-import {MatButtonModule} from "@angular/material/button";
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './Dashboard/dashboard.component';
 import { TableViewComponent } from './User/client-details/table-view/table-view.component';
-
-
+import { CallendarviewComponent } from './Dashboard/callendarview/callendarview.component';
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -55,13 +50,20 @@ import { TableViewComponent } from './User/client-details/table-view/table-view.
     NotesComponent,
     DashboardComponent,
     TableViewComponent,
+    CallendarviewComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    NgbModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

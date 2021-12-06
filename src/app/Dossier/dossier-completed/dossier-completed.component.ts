@@ -28,7 +28,6 @@ export class DossierCompletedComponent implements OnInit {
         this.doss_completed = data;
         this.doss_completed = this.doss_completed._embedded.dossiers;
         this.loadScripts();
-        console.log(this.doss_completed);
       });
   }
 

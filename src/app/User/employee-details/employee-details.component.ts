@@ -1,42 +1,106 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {UserService} from "../../Services/user.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
+import {Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet} from "ng2-charts";
+import {Employeechart} from "../../Models/employeechart";
 
 @Component({
+  encapsulation : ViewEncapsulation.None,
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.css']
 })
 export class EmployeeDetailsComponent implements OnInit {
+  anio: number = new Date().getFullYear();
+  client : any;
+  completed :any;
+  doss_import : number;
+  doss_export : number;
 
-  constructor() { }
+  // barcharts for Dossier per year
+  barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  barChartLabels: Label[] = [];
+  barChartType: ChartType = 'bar';
+  barChartLegend = true;
+  barChartPlugins = [];
 
-  ngOnInit(): void {
+  barChartData: ChartDataSets[] = [];
+  public barChartColors: Color[] = [
+    { backgroundColor: 'red' },
+    { backgroundColor: 'green' },
+  ]
+
+
+
+  //Charts Import Export //
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public pieChartLabels: Label[] = [];
+  public pieChartData: SingleDataSet = [];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [];
+  public pieChartColors: Array < any > = [{
+    backgroundColor: [ '#7CBFFD','#6BA45D'],
+  }];
+
+  constructor(private service : UserService ,private router:Router,private activatedRoute: ActivatedRoute)
+  {
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
   }
 
-  // javascript scripts affichage
-  loadScripts() {
+  ngOnInit(): void {
+    this.getInfoClient();
+    this.getDossierperyearwithUsername(this.anio);
+    this.getDossiersEmployeeImportCount();
+    this.getDossiersEmployeeExportCount();
+  }
+  getInfoClient(){
+    this.service.getClientInfo(this.activatedRoute.snapshot.params['id']).subscribe(data=>{
+      this.client=data;
+    })
+  }
 
-    // This array contains all the files/CDNs
-    const dynamicScripts = [
-      'assets/assets/js/libs/jquery-3.1.1.min.js',
-      'assets/bootstrap/js/popper.min.js',
-      'assets/bootstrap/js/bootstrap.min.js',
-      'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js',
-      'assets/assets/js/app.js',
-      'assets/app_init.js',
-      'assets/assets/js/custom.js',
-      'assets/plugins/table/datatable/datatables.js',
-      'assets/plugins/table/datatable/button-ext/dataTables.buttons.min.js',
-      'assets/plugins/table/datatable/button-ext/jszip.min.js',
-      'assets/plugins/table/datatable/button-ext/buttons.html5.min.js',
-      'assets/plugins/table/datatable/button-ext/buttons.print.min.js',
-      'assets/export_table.js',
-      //Load all your script files here'
-    ];
-    for (let i = 0; i < dynamicScripts.length; i++) {
-      const node = document.createElement('script');
-      node.src = dynamicScripts[i];
-      node.type = 'text/javascript';
-      node.async = false;
-      document.getElementsByTagName('head')[0].appendChild(node);
-    } }
+  getDossierperyearwithUsername(year : number){
+
+    this.service.getEmployeeFoldercountByYear(this.activatedRoute.snapshot.params['username'],2,year).subscribe(data=>{
+      this.completed=data;
+      var month = this.completed.map(function (elem){
+        return elem.month;
+      })
+      var count = this.completed.map(function (elem){
+        return elem.count;
+      })
+      this.barChartLabels = month;
+      this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
+
+    })
+  }
+
+
+  // ALL Dossier by Employee Import Count
+  getDossiersEmployeeImportCount(){
+    this.service.getEmployeeFoldercountPerType(this.activatedRoute.snapshot.params['username'],'Import').subscribe(data=>{
+      this.doss_import=data;
+      console.log(data);
+    })
+  }
+
+  // ALL Dossier by Employee Export Count
+    getDossiersEmployeeExportCount(){
+    this.service.getEmployeeFoldercountPerType(this.activatedRoute.snapshot.params['username'],'Export').subscribe(data=>{
+      this.doss_export=data;
+      console.log(data);
+      this.pieChartLabels =['Import', 'Export'];
+      this.pieChartData =[this.doss_import,this.doss_export];
+    })
+
+  }
+
+
 }

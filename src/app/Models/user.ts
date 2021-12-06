@@ -9,6 +9,8 @@ export class User {
    username : string;
    address : string ;
   telephone : string;
+  countDossiers : number;
+  countReservations : number;
    email : string;
    password :string;
   createdAt : Date;

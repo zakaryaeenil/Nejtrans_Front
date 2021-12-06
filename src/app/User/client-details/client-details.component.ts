@@ -81,6 +81,7 @@ export class ClientDetailsComponent implements OnInit {
     this.getDossiersCLient();
     this.getDossierperyearwithId(this.anio);
 
+
   }
 
   // ALL Dossier by Client
@@ -119,6 +120,7 @@ export class ClientDetailsComponent implements OnInit {
       this.doss_details_export=data;
       this.pieChartLabels =['Import', 'Export'];
       this.pieChartData =[this.doss_details_import.length,this.doss_details_export.length];
+
     })
 
   }
@@ -140,9 +142,7 @@ export class ClientDetailsComponent implements OnInit {
         return elem.count;
       })
       this.barChartLabels = month;
-
      this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
-      console.log(count);
     })
 
   }

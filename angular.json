@@ -27,11 +27,14 @@
               "src/assets"
             ],
             "styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/bootstrap/css/bootstrap.min.css",
               "src/assets/assets/css/plugins.css"
             ],
             "scripts": [
               "src/assets/assets/js/libs/jquery-3.1.1.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "src/assets/bootstrap/js/popper.min.js",
               "src/assets/bootstrap/js/bootstrap.min.js",
               "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js",

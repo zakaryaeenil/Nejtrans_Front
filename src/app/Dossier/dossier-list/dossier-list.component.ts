@@ -17,8 +17,6 @@ export class DossierListComponent implements OnInit{
    public comp = 3;
    public enatt = 1;
    public entrai = 2;
-
-
   constructor(private service : DossierService ,private router : Router) {
 
   }
@@ -36,7 +34,6 @@ export class DossierListComponent implements OnInit{
     this.service.getAllDossiers().subscribe(
       data =>{
         this.dossiers = data;
-        console.log(this.dossiers);
         this.loadScripts();
       });
    }

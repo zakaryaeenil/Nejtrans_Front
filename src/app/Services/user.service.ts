@@ -19,10 +19,9 @@ export class UserService {
   getClients() : Observable<User[]>{
     return this.http.get<User[]>("http://localhost:8080/users/search/findByRoles_Id?id=3");
   }
-
-  //ALL Employees
-  getEmployees() : Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:8080/users/search/findByRoles_Id?id=2");
+  //Top Client
+  getTopClients() : Observable<any[]>{
+    return this.http.get<any[]>("http://localhost:8080/users/search/findByRoles_Id?id=3&sort=CountDossiers,desc");
   }
 
 // ALL Dossier Client
@@ -43,5 +42,34 @@ export class UserService {
     return  this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/user/${id}/folders/${year}`);
   }
 
+  //ALL Employees
+  getEmployees() : Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:8080/users/search/findByRoles_Id?id=2");
+  }
+
+  //Top Employee
+  getTopEmployees() : Observable<any[]>{
+    return this.http.get<any[]>("http://localhost:8080/users/search/findByRoles_Id?id=2&sort=countReservations,desc");
+  }
+
+
+  getEmployeeFoldercountByYear(username : string, id: number , year : number) : Observable<DossiersbyUserAndYear[]>{
+    return this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/employee/${username}/folders/${id}/${year}`);
+  }
+
+  getEmployeeFoldercountPerType(username : string, type: string) : Observable<number>{
+    return this.http.get<number>(`http://localhost:8080/api/admin/employee/${username}/folders/${type}`);
+  }
+
+
+  //Count Dashboard Stats
+  getDashboardcountStats(type : string) : Observable<number>{
+    return this.http.get<number>(`http://localhost:8080/api/admin/dossiers/count/${type}`);
+  }
+
+  // Stats All Folders By year
+  getAllFolderbyYear(year : number) : Observable<DossiersbyUserAndYear[]>{
+    return this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/dossiers/count/total/${year}`);
+  }
 
 }

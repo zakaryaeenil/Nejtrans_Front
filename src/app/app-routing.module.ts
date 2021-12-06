@@ -12,6 +12,8 @@ import {EmployeeListComponent} from "./User/employee-list/employee-list.componen
 import {DossierCreateComponent} from "./Dossier/dossier-create/dossier-create.component";
 import {ClientDetailsComponent} from "./User/client-details/client-details.component";
 import {ToDoComponent} from "./App/to-do/to-do.component";
+import {EmployeeDetailsComponent} from "./User/employee-details/employee-details.component";
+import {DashboardComponent} from "./Dashboard/dashboard.component";
 
 const routes: Routes = [
   {path:'dossiers',component:DossierListComponent},
@@ -25,7 +27,9 @@ const routes: Routes = [
   {path:'employees',component:EmployeeListComponent},
   {path:'create',component:DossierCreateComponent},
   {path:'client/:id/details',component:ClientDetailsComponent},
+  {path:'employee/:id/:username/details',component:EmployeeDetailsComponent},
   {path:'todo',component:ToDoComponent},
+  {path:'',component:DashboardComponent},
 
 ];
 
