@@ -6,7 +6,6 @@ import {Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Singl
 import {Employeechart} from "../../Models/employeechart";
 
 @Component({
-  encapsulation : ViewEncapsulation.None,
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.css']
@@ -17,6 +16,8 @@ export class EmployeeDetailsComponent implements OnInit {
   completed :any;
   doss_import : number;
   doss_export : number;
+  import : any;
+  export : any;
 
   // barcharts for Dossier per year
   barChartOptions: ChartOptions = {
@@ -58,7 +59,7 @@ export class EmployeeDetailsComponent implements OnInit {
     this.getInfoClient();
     this.getDossierperyearwithUsername(this.anio);
     this.getDossiersEmployeeImportCount();
-    this.getDossiersEmployeeExportCount();
+
   }
   getInfoClient(){
     this.service.getClientInfo(this.activatedRoute.snapshot.params['id']).subscribe(data=>{
@@ -87,19 +88,25 @@ export class EmployeeDetailsComponent implements OnInit {
   getDossiersEmployeeImportCount(){
     this.service.getEmployeeFoldercountPerType(this.activatedRoute.snapshot.params['username'],'Import').subscribe(data=>{
       this.doss_import=data;
-      console.log(data);
+      this.service.getEmployeeFoldercountPerType(this.activatedRoute.snapshot.params['username'],'Export').subscribe(data=>{
+        this.doss_export=data;
+        console.log(data);
+        this.pieChartLabels =['Import', 'Export'];
+        this.pieChartData =[this.doss_import,this.doss_export];
+      })
     })
   }
 
-  // ALL Dossier by Employee Export Count
-    getDossiersEmployeeExportCount(){
-    this.service.getEmployeeFoldercountPerType(this.activatedRoute.snapshot.params['username'],'Export').subscribe(data=>{
-      this.doss_export=data;
-      console.log(data);
-      this.pieChartLabels =['Import', 'Export'];
-      this.pieChartData =[this.doss_import,this.doss_export];
+  getDossiersEmployeeImportCountPeryear(year : number){
+    this.service.getEmployeeFoldercountPerTypeWithYear(this.activatedRoute.snapshot.params['username'],'Import' , year).subscribe(data=>{
+      this.import=data;
+      this.service.getEmployeeFoldercountPerTypeWithYear(this.activatedRoute.snapshot.params['username'],'Export',year).subscribe(data=>{
+        this.export=data;
+        console.log(data);
+        this.pieChartLabels =['Import', 'Export'];
+        this.pieChartData =[this.import,this.export];
+      })
     })
-
   }
 
 

@@ -28,6 +28,11 @@ export class UserService {
   getClientsDossiers(id : number) : Observable<Dossier[]>{
     return this.http.get<Dossier[]>(`http://localhost:8080/api/admin/user/${id}/folders`);
   }
+
+  // ALL Dossier Client
+  getClientsDossiersPerYear(id : number , year :number) : Observable<Dossier[]>{
+    return this.http.get<Dossier[]>(`http://localhost:8080/api/admin/user/${id}/folder/${year}`);
+  }
   // ALL Dossier Client with type
   getClientsDossiersType(id : number, type :string) : Observable<Dossier[]>{
     return this.http.get<Dossier[]>(`http://localhost:8080/api/admin/user/${id}/dossiers/${type}`);
@@ -71,5 +76,29 @@ export class UserService {
   getAllFolderbyYear(year : number) : Observable<DossiersbyUserAndYear[]>{
     return this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/dossiers/count/total/${year}`);
   }
+  //stats
+  getClientsDossiersTypePerYear(id: number , type: string , year :number) : Observable<Dossier[]>{
+    return  this.http.get<Dossier[]>(`http://localhost:8080/api/admin/user/${id}/folders/${type}/${year}`);
+  }
 
+  getEmployeeFoldercountPerTypeWithYear(username :string , type : string , year :number) : Observable<number>{
+    return this.http.get<number>(`http://localhost:8080/api/admin/employee/${username}/count/${type}/${year}`);
+  }
+
+
+  getDashboardDossiersTypeAndYear(type :string , year : number) : Observable<number>{
+    return this.http.get<number>(`http://localhost:8080/api/admin/folders/${type}/${year}`);
+  }
+
+  createUser(user: User): Observable<Object>{
+    return this.http.post(`http://localhost:8080/api/admin/user/create/role/3`, user);
+  }
+  createEmployee(user: User): Observable<Object>{
+    return this.http.post(`http://localhost:8080/api/admin/user/create/role/2`, user);
+  }
+
+//Delete Dossier
+  DeleteClient(id: number) : Observable<any>{
+    return this.http.delete(`http://localhost:8080/users/${id}`,{responseType: 'text'});
+  }
 }

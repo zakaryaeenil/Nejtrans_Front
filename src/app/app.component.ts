@@ -7,7 +7,7 @@ import {AuthService} from "./Login/auth.service";
   styleUrls: ['./app.component.css'],
 
 })
-export class AppComponent {
+export class AppComponent  {
   title = 'Admin';
 public isLogged : boolean;
   constructor(private Auth : AuthService) {

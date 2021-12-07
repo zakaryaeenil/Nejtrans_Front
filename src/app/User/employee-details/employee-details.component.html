@@ -166,7 +166,26 @@
     </div>
     <div class="skills layout-spacing ">
       <div class="widget-content widget-content-area">
-        <h3 class="">Import / Export : Statistiques</h3>
+        <div class="row">
+          <div class="col-lg-10">
+            <h3>Import /Export Statistiques </h3>
+          </div>
+          <div class="col">
+            <div class="task-action">
+              <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" id="Task" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Task" style="will-change: transform;">
+                  <a class="dropdown-item" (click)="getDossiersEmployeeImportCount()">All</a>
+                  <a class="dropdown-item" (click)="getDossiersEmployeeImportCountPeryear(anio)">{{anio}}</a>
+                  <a class="dropdown-item" (click)="getDossiersEmployeeImportCountPeryear(anio-1)">{{anio-1}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="chart-wrapper">
           <canvas baseChart
                   [data]="pieChartData"

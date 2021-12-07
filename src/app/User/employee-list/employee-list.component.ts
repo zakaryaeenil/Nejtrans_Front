@@ -1,5 +1,7 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../Services/user.service";
+import {User} from "../../Models/user";
+import {Router} from "@angular/router";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -9,10 +11,10 @@ import {UserService} from "../../Services/user.service";
 })
 export class EmployeeListComponent implements OnInit {
 
-
+  user:User =new User();
   Employee : any;
-
-  constructor(private service : UserService) { }
+  @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
+  constructor(private service : UserService ,private router : Router) { }
 
   ngOnInit(): void {
     this.getEmployee()
@@ -30,6 +32,26 @@ getEmployee(){
       });
 }
 
+  onSubmit(){
+    this.saveUser();
+    this.goToUserList();
+  }
+
+  saveUser(){
+    this.service.createEmployee(this.user).subscribe(data =>{
+        console.log(data);
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate(['/employees']);
+        });
+      },
+      error=> console.log(error));
+
+  }
+
+  goToUserList(){
+    this.closeAddExpenseModal.nativeElement.click();
+  }
+//call this wherever you want to close modal
 
 
   loadScripts() {
@@ -42,6 +64,8 @@ getEmployee(){
       'assets/plugins/table/datatable/button-ext/buttons.html5.min.js',
       'assets/plugins/table/datatable/button-ext/buttons.print.min.js',
       'assets/export_table.js',
+      'assets/plugins/highlight/highlight.pack.js',
+      'assets/assets/js/scrollspyNav.js'
       //Load all your script files here'
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {

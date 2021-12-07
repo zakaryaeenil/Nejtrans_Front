@@ -29,7 +29,6 @@ export class DossierEntraitementComponent implements OnInit {
         this.doss_enTraitement = data;
         this.doss_enTraitement = this.doss_enTraitement._embedded.dossiers;
         this.loadScripts();
-        console.log(this.doss_enTraitement);
       });
   }
 

@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit {
   doss_import: any;
   doss_export : any;
   anio: number = new Date().getFullYear();
+  import : any;
+  export : any;
 
   //Charts Import Export //
   public pieChartOptions: ChartOptions = {
@@ -51,6 +53,7 @@ export class DashboardComponent implements OnInit {
   constructor(private service: UserService) { }
 
   ngOnInit(): void {
+    this.getImportExportwithYear(this.anio);
     this.getTopClients();
     this.getTopEmployees();
     this.getDashStatsClientsTotal();
@@ -58,7 +61,7 @@ export class DashboardComponent implements OnInit {
     this.getDashStatsExportTotal();
     this.getDashStatsFolderTotal();
     this.getDashStatsEmpTotal();
-    this.getAllDossierperyear(2021);
+    this.getAllDossierperyear(this.anio);
 
   }
   getTopClients(){
@@ -119,21 +122,17 @@ export class DashboardComponent implements OnInit {
     })
 
   }
-  // ALL Dossier by Client Import
- // getAllDossiersImport(){
-  //  this.service.getClientsDossiersType('Export').subscribe(data=>{
-    //  this.doss_import=data;
-  //  })
-  //}
+ // ALL Dossier by Client with type and Year
+  getImportExportwithYear(year : number){
+    this.service.getDashboardDossiersTypeAndYear('Export',year).subscribe(data=>{
+     this.import=data;
+      this.service.getDashboardDossiersTypeAndYear('Import',year).subscribe(data=>{
+        this.export=data;
+        this.pieChartLabels =['Import', 'Export'];
+        this.pieChartData =[this.import,this.export];
+      })
+   })
+  }
 
-  // ALL Dossier by Client Export
-  //getAllDossiersCLientExport(){
-  //  this.service.getClientsDossiersType('Import').subscribe(data=>{
-   //   this.doss_details_export=data;
-    //  this.pieChartLabels =['Import', 'Export'];
-  //    this.pieChartData =[this.doss_details_import.length,this.doss_details_export.length];
-  //  })
-
-  //}
 
 }

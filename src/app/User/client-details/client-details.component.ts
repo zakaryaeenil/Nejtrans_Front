@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../Services/user.service";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color} from 'ng2-charts';
 @Component({
-  encapsulation : ViewEncapsulation.None,
   selector: 'app-client-details',
   templateUrl: './client-details.component.html',
   styleUrls: ['./client-details.component.css']
@@ -22,7 +21,8 @@ export class ClientDetailsComponent implements OnInit {
   a : number =0;
   t : number =0;
   c : number =0;
-
+  import : any;
+  export : any;
 
 
   //Charts Import Export //
@@ -81,7 +81,6 @@ export class ClientDetailsComponent implements OnInit {
     this.getDossiersCLient();
     this.getDossierperyearwithId(this.anio);
 
-
   }
 
   // ALL Dossier by Client
@@ -99,6 +98,27 @@ export class ClientDetailsComponent implements OnInit {
         }
       });
      this.pieChartLabels1 =['En Attente', 'En Traitement' , 'Terminer'];
+      this.pieChartData1 =[a,t,c];
+    });
+
+
+
+  }
+
+  getDossiersCLientPerYear(year : number) {
+    let a = this.a;
+    let t = this.t;
+    let c = this.c;
+    this.service.getClientsDossiersPerYear(this.activatedRoute.snapshot.params['id'], year).subscribe(data=>{
+      this.doss_details=data;
+      this.doss_details.forEach(function (value) {
+        switch (value.available){
+          case 1 : {a = a+1; break;}
+          case 2 : {t = t+1; break;}
+          case 3 : {c = c+1; break;}
+        }
+      });
+      this.pieChartLabels1 =['En Attente', 'En Traitement' , 'Terminer'];
       this.pieChartData1 =[a,t,c];
 
     });
@@ -146,6 +166,21 @@ export class ClientDetailsComponent implements OnInit {
     })
 
   }
+
+
+  // ALL Dossier by Client Import Per Year and type
+  getDossiersCLientPerYearAndType(year : number){
+    this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Import' , year).subscribe(data=>{
+      this.import=data;
+      this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Export' , year).subscribe(data=>{
+        this.export=data;
+        this.pieChartLabels =['Import', 'Export'];
+        this.pieChartData =[this.import.length,this.export.length];
+      })
+    })
+
+  }
+
 
 }
 
