@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../../Services/user.service";
 
 @Component({
+  encapsulation : ViewEncapsulation.None,
   selector: 'app-table-view',
   templateUrl: './table-view.component.html',
   styleUrls: ['./table-view.component.css']

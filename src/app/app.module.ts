@@ -28,6 +28,8 @@ import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {FlatpickrModule} from "angularx-flatpickr";
 
 
 @NgModule({
@@ -67,6 +69,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    FlatpickrModule.forRoot(),
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

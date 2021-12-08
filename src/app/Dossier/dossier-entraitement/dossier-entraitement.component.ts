@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DossierService} from "../../Services/dossier.service";
+import {Dossier} from "../../Models/dossier";
+import {Router} from "@angular/router";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -12,7 +14,7 @@ export class DossierEntraitementComponent implements OnInit {
   public import : 'import';
   public export : 'export';
 
-  constructor( private service : DossierService ) {
+  constructor( private service : DossierService , private router : Router) {
   }
 
 
@@ -32,6 +34,17 @@ export class DossierEntraitementComponent implements OnInit {
       });
   }
 
+  //Delete Dossier
+  DeleteDossier( p : Dossier){
+    console.log(p);
+    let conf = confirm("Are you sure ?");
+    if (conf)
+      this.service.DeleteDossier(p.id).subscribe(() => {
+        console.log("Booking deleted");
+        this.router.navigate(['entraitement']);
+        window.location.reload();
+      });
+  }
 
   loadScripts() {
 

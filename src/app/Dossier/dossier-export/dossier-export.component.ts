@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {DossierService} from "../../Services/dossier.service";
+import {Dossier} from "../../Models/dossier";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dossier-export',
@@ -14,7 +16,7 @@ export class DossierExportComponent implements OnInit{
   public enatt = 1;
   public entrai = 2;
 
-  constructor( private service : DossierService ) {
+  constructor( private service : DossierService, private router : Router) {
   }
 
 
@@ -32,6 +34,18 @@ export class DossierExportComponent implements OnInit{
         this.doss_export = this.doss_export._embedded.dossiers;
         this.loadScripts();
         console.log(this.doss_export);
+      });
+  }
+
+  //Delete Dossier
+  DeleteDossier( p : Dossier){
+    console.log(p);
+    let conf = confirm("Are you sure ?");
+    if (conf)
+      this.service.DeleteDossier(p.id).subscribe(() => {
+        console.log("Booking deleted");
+        this.router.navigate(['export']);
+        window.location.reload();
       });
   }
 

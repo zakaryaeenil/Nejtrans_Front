@@ -1,6 +1,8 @@
- <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+<div class="row" id="cancel-row">
+
+  <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="widget-content widget-content-area br-6">
-      <table  *ngIf="doss" id="html5-extension" class="table table-hover non-hover " style="width:100%">
+      <table id="html5-extension" class="table table-hover non-hover " style="width:100%">
         <thead>
         <tr>
           <th>Type</th>
@@ -13,6 +15,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let dossier of doss">
+
 
           <!--Type Dossier -->
           <td *ngIf="dossier.typeDossier == import; else contenu_pas_bon"><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td>
@@ -37,10 +40,14 @@
           <!-- Creation Date -->
           <td>{{dossier.createdAt |  date:'medium'}}</td>
 
+
+
         </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+</div>
 
 

@@ -44,15 +44,15 @@ export class CallendarviewComponent implements OnInit {
     this.service.getEvents().subscribe(data =>{
       this.book = data;
       for (let x of this.book) {
-          this.events = [
-            ...this.events,
-            {
-              start:new Date(x.startDate),
-              end:new Date(x.endDate),
-              title :"Date Debut Title : " +x.title+" Description :"+x.description + "User : "+x.eventUser.username ,
-              }
-          ]
-        }
+        this.events = [
+          ...this.events,
+          {
+            start:new Date(x.startDate),
+            end:new Date(x.endDate),
+            title :"Date Debut Title : " +x.title+" Description :"+x.description + "User : "+x.eventUser.username ,
+          }
+        ]
+      }
     });
 
   }
