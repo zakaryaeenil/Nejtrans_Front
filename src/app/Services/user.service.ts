@@ -96,7 +96,10 @@ export class UserService {
   createEmployee(user: User): Observable<Object>{
     return this.http.post(`http://localhost:8080/api/admin/user/create/role/2`, user);
   }
-
+// ALL Dossier Client
+  getEmployeeDossiers(username : string) : Observable<Dossier[]>{
+    return this.http.get<Dossier[]>(`http://localhost:8080/api/admin/employee/${username}/folders`);
+  }
 //Delete Dossier
   DeleteClient(id: number) : Observable<any>{
     return this.http.delete(`http://localhost:8080/users/${id}`,{responseType: 'text'});

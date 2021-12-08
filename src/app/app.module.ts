@@ -30,6 +30,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {FlatpickrModule} from "angularx-flatpickr";
+import { TableViewEmployeeComponent } from './User/employee-details/table-view-employee/table-view-employee.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {FlatpickrModule} from "angularx-flatpickr";
     DashboardComponent,
     TableViewComponent,
     CallendarviewComponent,
+    TableViewEmployeeComponent,
 
   ],
   imports: [
