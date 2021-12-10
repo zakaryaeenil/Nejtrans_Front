@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./client-list.component.css']
 })
 export class ClientListComponent implements OnInit {
-  client:User =new User();
+   client  =new User();
   Clients : any;
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
   constructor(private service : UserService , private router: Router) { }
