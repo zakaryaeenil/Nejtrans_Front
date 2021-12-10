@@ -9,9 +9,9 @@ import {AuthService} from "../../Login/auth.service";
 })
 export class NavbarComponent {
 
-  public isLogged : boolean;
-  constructor(private Auth : AuthService) {
-    this.isLogged = this.Auth.isLoggedin;
+  constructor(public Auth : AuthService) {
   }
-
+  onLogout() {
+    this.Auth.logout();
+  }
 }

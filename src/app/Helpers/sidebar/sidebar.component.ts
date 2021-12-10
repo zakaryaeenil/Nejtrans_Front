@@ -7,12 +7,12 @@ import {AuthService} from "../../Login/auth.service";
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
+export class SidebarComponent{
 
-  public isLogged : boolean;
-  constructor(private Auth : AuthService) {
-    this.isLogged = this.Auth.isLoggedin;
+  constructor(public Auth : AuthService) {
+
   }
+
 
 
 }

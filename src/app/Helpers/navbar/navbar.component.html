@@ -1,6 +1,6 @@
 <!--  BEGIN NAVBAR  -->
-<div class="header-container fixed-top">
-  <header class="header navbar navbar-expand-sm expand-header">
+<div *ngIf="Auth.isloggedIn" class="header-container fixed-top">
+  <header  class="header navbar navbar-expand-sm expand-header">
     <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></a>
 
     <ul class="navbar-item flex-row ml-auto">
@@ -14,8 +14,8 @@
             <div class="media mx-auto">
               <img src="assets/assets/img/logo-1.png" class="img-fluid mr-2" alt="avatar">
               <div class="media-body">
-                <h5>Shaun Park</h5>
-                <p>Project Leader</p>
+                <h5>{{Auth.loggedUser}}</h5>
+                <p>Admin</p>
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
             </a>
           </div>
           <div class="dropdown-item">
-            <a href="auth_login.html">
+            <a (click)="onLogout()">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span>Log Out</span>
             </a>
           </div>

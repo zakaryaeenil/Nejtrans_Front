@@ -1,4 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {AuthService} from "../auth.service";
+import {User} from "../../Models/user";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-form',
@@ -7,12 +10,29 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
   encapsulation : ViewEncapsulation.None
 })
 export class LoginFormComponent implements OnInit {
+  user = new User();
+  err:number = 0;
 
-  constructor() { }
+  constructor(private authService : AuthService,
+              public router: Router) { }
 
   ngOnInit(): void {
-    this.loadScripts();
   }
+
+  onLoggedin()
+  {
+    this.authService.login(this.user).subscribe((data)=> {
+      // @ts-ignore
+      let jwToken = data.body["access_token"];
+      if (jwToken != null) {
+        this.authService.saveToken(jwToken);
+      }
+      this.router.navigate(['/']);
+    },(err)=>{   this.err = 1;
+    });
+
+  }
+
 
   // javascript scripts affichage
   loadScripts() {
