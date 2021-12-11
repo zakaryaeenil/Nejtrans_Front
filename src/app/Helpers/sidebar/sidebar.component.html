@@ -63,25 +63,28 @@
           </a>
           <ul class="collapse submenu list-unstyled" id="invoice" data-parent="#accordionExample">
             <li>
-              <a routerLink="create"> Ajouter Dossiers </a>
+              <a routerLink="dossiers/create"> Ajouter Dossiers </a>
             </li>
-            <li>
-              <a routerLink="dossiers"> Voir Dossiers </a>
+            <li *ngIf="Auth.isEmployee() || Auth.isClient()">
+              <a routerLink="dossiers/myfolders"> Mes Dossiers </a>
             </li>
-            <li>
-              <a routerLink="import"> Import </a>
+            <li *ngIf="Auth.isEmployee() || Auth.isAdmin()">
+              <a routerLink="dossiers/all"> Voir Dossiers </a>
             </li>
-            <li>
-              <a routerLink="export"> Export </a>
+            <li *ngIf="Auth.isEmployee() || Auth.isAdmin() || Auth.isClient()">
+              <a routerLink="dossiers/import"> Import </a>
             </li>
-            <li>
-              <a routerLink="enattente"> En Attente </a>
+            <li *ngIf="Auth.isEmployee() || Auth.isAdmin() || Auth.isClient()">
+              <a routerLink="dossiers/export"> Export </a>
             </li>
-            <li>
-              <a routerLink="entraitement"> En Traitement </a>
+            <li *ngIf="Auth.isAdmin() || Auth.isClient()">
+              <a routerLink="dossiers/enattente"> En Attente </a>
             </li>
-            <li>
-              <a routerLink="completed"> Terminer </a>
+            <li *ngIf="Auth.isEmployee() || Auth.isAdmin() || Auth.isClient()">
+              <a routerLink="dossiers/entraitement"> En Traitement </a>
+            </li >
+            <li *ngIf="Auth.isEmployee() || Auth.isAdmin() || Auth.isClient()">
+              <a routerLink="dossiers/completed"> Terminer </a>
             </li>
           </ul>
         </li>
@@ -98,10 +101,10 @@
           </a>
           <ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
             <li>
-              <a routerLink="clients"> Clients </a>
+              <a routerLink="users/clients"> Clients </a>
             </li>
             <li>
-              <a routerLink="employees"> Agents  </a>
+              <a routerLink="users/employees"> Agents  </a>
             </li>
           </ul>
         </li>

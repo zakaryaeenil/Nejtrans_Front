@@ -1,0 +1,107 @@
+<div class="page-header">
+  <div class="page-title">
+  <div class="row justify-content-md-center">
+      <div class="col col-lg-8">
+        <h3>Clients  : {{Clients.length}}</h3>
+      </div>
+    <div  class="col col-md-auto">
+      <button type="button" class="btn btn-secondary mb-2 mr-2" data-toggle="modal" data-target="#registerModal">
+        Register
+      </button>
+    </div>
+       <!-- Modal -->
+       <div class="modal fade register-modal" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header" id="registerModalLabel">
+          <h4 class="modal-title">Register</h4>
+          <button #closeAddExpenseModal type="button" class="close" data-dismiss="modal" aria-hidden="true"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit) = "onSubmit()" class="mt-0">
+            <div class="form-group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <input name="username"  [(ngModel)] = "user.username" type="text" class="form-control mb-2" id="exampleInputUsername1" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <input name="telephone"  [(ngModel)] = "user.telephone" type="tel" class="form-control mb-2" id="exampleInputtel1" placeholder="Telephone">
+            </div>
+            <div class="form-group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-at-sign"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path></svg>
+              <input name="email" [(ngModel)] = "user.email" type="email" class="form-control mb-2" id="exampleInputEmail2" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <input name="password" [(ngModel)] = "user.password" type="password" class="form-control mb-4" id="exampleInputPassword2" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2 mb-2 btn-block">Creer Client</button>
+          </form>
+        </div>
+        </div>
+      </div>
+    </div>
+      <!-- End Modal -->
+  </div>
+  </div>
+</div>
+
+<div class="row" id="cancel-row">
+
+        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+          <div class="widget-content widget-content-area br-6">
+            <table  *ngIf="Clients" id="html5-extension" class="table table-hover non-hover " style="width:100%">
+              <thead>
+              <tr>
+                <th>Client</th>
+                <th>Fisrt Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Adresse</th>
+                <th>Creer À</th>
+                <th class=" dt-no-sorting">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let client of Clients">
+
+                <!-- Username  -->
+                <td><span style="font-weight: bold">{{client.username}}</span></td>
+
+                <!--First name -->
+                <td><span style="font-weight: bold">{{client.firstName}}</span></td>
+                <!-- last name -->
+                <td><span style="font-weight: bold">{{client.lastName}}</span></td>
+
+                <!-- email -->
+                <td><span style="font-weight: bold">{{client.email}}</span></td>
+                <!--Adresse -->
+                <td><span style="font-weight: bold">{{client.adress}}</span></td>
+
+                <!-- Creation Date -->
+                <td>{{client.createdAt |  date:'medium'}}</td>
+
+                <!-- Boutton Actions -->
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-dark btn-sm" >Open</button>
+                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
+                      <a class="dropdown-item" [routerLink]="['/users/client/'+client.id+'/details']">Voir</a>
+                      <a class="dropdown-item" href="#">Modifier</a>
+                      <a class="dropdown-item" (click)="DeleteClient(client)"  >Supprimer</a>
+                    </div>
+                  </div>
+                </td>
+
+
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>

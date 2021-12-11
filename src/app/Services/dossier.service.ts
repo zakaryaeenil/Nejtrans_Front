@@ -45,4 +45,20 @@ export class DossierService {
   DeleteDossier(id: number) : Observable<any>{
     return this.http.delete(`http://localhost:8080/api/dossier/${id}`,{responseType: 'text'});
   }
+
+  // Get Folder By loggedIn Client
+  getLoggedInClientFolders(type : string) : Observable<Dossier[]>{
+    return this.http.get<Dossier[]>(`http://localhost:8080/api/client/myfolders/${type}`);
+  }
+
+  // Get Folder By loggedIn Client
+  getLoggedInEmployeeFolders(type : string) : Observable<Dossier[]>{
+    return this.http.get<Dossier[]>(`http://localhost:8080/api/employee/myfolders/${type}`);
+  }
+
+  // Get Free folders
+  getFreeFolders() : Observable<Dossier[]>{
+    return this.http.get<Dossier[]>("http://localhost:8080/api/employee/freefolders");
+  }
+
 }
