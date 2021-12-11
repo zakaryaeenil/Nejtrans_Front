@@ -1,0 +1,86 @@
+@import "../../assets/bootstrap/css/bootstrap.min.css";
+@import "../../assets/assets/css/plugins.css";
+@import "../../assets/assets/css/widgets/modules-widgets.css";
+
+.rounded {
+  -webkit-border-radius: 3px !important;
+  -moz-border-radius: 3px !important;
+  border-radius: 3px !important;
+}
+
+.mini-stat {
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.mini-stat-icon {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  line-height: 60px;
+  text-align: center;
+  font-size: 30px;
+  background: none repeat scroll 0% 0% #EEE;
+  border-radius: 100%;
+  float: left;
+  margin-right: 10px;
+  color: #FFF;
+}
+
+.mini-stat-info {
+  font-size: 12px;
+  padding-top: 2px;
+}
+
+
+.mini-stat-info span {
+  display: block;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 7px;
+}
+
+/* ================ colors =====================*/
+.bg-import {
+  background-color: #1E8132 !important;
+  border: 1px solid #1E8132;
+  color: white;
+}
+.bg-export {
+  background-color: #3634D5 !important;
+  border: 1px solid #3634D5;
+  color: white;
+}
+.bg-folders {
+  background-color: #7BD4E7 !important;
+  border: 1px solid #7BD4E7;
+  color: white;
+}
+.bg-clients {
+  background-color: #ED1E1E !important;
+  border: 1px solid #ED1E1E;
+  color: white;
+}
+.bg-employees {
+  background-color: #ED9F1E !important;
+  border: 1px solid #ED9F1E;
+  color: white;
+}
+
+.fg-import {
+  color: #1E8132 !important;
+}
+.fg-export {
+  color: #3634D5 !important;
+}
+.fg-folders {
+  color: #7BD4E7 !important;
+}
+
+.fg-client {
+  color: #ED1E1E !important;
+}
+.fg-employee {
+  color: #ED9F1E !important;
+}
