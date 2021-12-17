@@ -74,10 +74,10 @@ export class EmployeeDetailsComponent implements OnInit {
         return elem.month;
       })
       var count = this.completed.map(function (elem){
-        return elem.count;
+        return elem.count+1;
       })
       this.barChartLabels = month;
-      this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
+      this.barChartData = [{data : count+1 , label : 'Dossiers  Year '+year}];
 
     })
   }
@@ -89,7 +89,6 @@ export class EmployeeDetailsComponent implements OnInit {
       this.doss_import=data;
       this.service.getEmployeeFoldercountPerType(this.activatedRoute.snapshot.params['username'],'Export').subscribe(data=>{
         this.doss_export=data;
-        console.log(data);
         this.pieChartLabels =['Import', 'Export'];
         this.pieChartData =[this.doss_import,this.doss_export];
       })
@@ -101,7 +100,6 @@ export class EmployeeDetailsComponent implements OnInit {
       this.import=data;
       this.service.getEmployeeFoldercountPerTypeWithYear(this.activatedRoute.snapshot.params['username'],'Export',year).subscribe(data=>{
         this.export=data;
-        console.log(data);
         this.pieChartLabels =['Import', 'Export'];
         this.pieChartData =[this.import,this.export];
       })

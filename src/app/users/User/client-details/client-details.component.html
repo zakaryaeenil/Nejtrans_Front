@@ -7,42 +7,65 @@
       <div class="widget-content widget-content-area">
         <div class="d-flex justify-content-between">
           <h3 class="">Profile</h3>
-          <button type="button" class="mt-2 edit-profile" data-toggle="modal" data-target=".bd-example-modal-xl"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></button>
+          <button type="button" class="mt-2 edit-profile" data-toggle="modal" data-target="#exampleModal"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></button>
         </div>
-        <!--modal   -->
-        <div class="modal fade bd-example-modal-xl" tabindex="-1" aria-labelledby="myExtraLargeModalLabel" style="display: none;" aria-hidden="true">
-          <div class="modal-dialog modal-xl" role="document">
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="myExtraLargeModalLabel">Edit Info</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Client Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
               </div>
               <div class="modal-body">
-                    <div class="border-right">
-                      <div class="row mt-2">
-                          <div class="col-md-4"><label class="labels">Username</label><input type="text" class="form-control" placeholder="{{client.username}}" value="{{client.username}}"></div>
-                          <div class="col-md-4"><label class="labels">Email</label><input type="email" class="form-control" value="{{client.email}}" placeholder="{{client.email}}"></div>
-                          <div class="col-md-4">
-                             <div class="row">
-                          <label class="labels">Activated Account </label>
-                          </div>
-                             <div class="row d-flex justify-content-center">
-                             <label class="switch s-icons s-outline s-outline-primary "><input type="checkbox" ><span class="slider"></span></label>
-                             </div>
-                          </div>
+                <form>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col">
+                    <label for="InputFirstName">FisrtName</label>
+                    <input type="text" class="form-control" id="InputFirstName" placeholder="{{client.firstName}}">
                       </div>
-                      <div class="row mt-2">
-                        <div class="col-md-4"><label class="labels">fisrtName</label><input type="text" class="form-control" placeholder="{{client.firstName}}" value="{{client.firstName}}"></div>
-                        <div class="col-md-4"><label class="labels">lastName</label><input type="text" class="form-control" value="{{client.lastName}}" placeholder="{{client.lastName}}"></div>
-                        <div class="col-md-4"><label class="labels">Telephone</label><input type="tel" class="form-control" value="{{client.telephone}}" placeholder="{{client.telephone}}"></div>
-                      </div>
-                      <div class="row mt-3">
-                          <div class="col-md-12"><label class="labels">Address Line 1</label><textarea type="text" class="form-control" placeholder="enter address line 1" value=""></textarea></div>
+                      <div class="col">
+                        <label for="InputLastName">Last Name</label>
+                        <input type="text" class="form-control" id="InputLastName"  placeholder="{{client.lastName}}">
                         </div>
                     </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" class="form-control" id="Username" placeholder="{{client.username}}">
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" id="Email" placeholder="{{client.email}}">
+                      </div>
+                      <div class="col">
+                        <label for="tel">Telephone</label>
+                        <input type="tel" class="form-control" id="tel"  placeholder="{{client.telephone}}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Adresse">Adresse</label>
+                    <textarea  class="form-control" id="Adresse" placeholder="{{client.address}}"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label *ngIf="client.enabled == true" class=" switch s-icons s-outline s-outline-success mr-2">
+                      <input type="checkbox" >
+                      <span class="slider round"></span>
+                    </label>
+                    <label *ngIf="client.enabled == false" class=" switch s-icons s-outline s-outline-success mr-2">
+                      <input type="checkbox" checked>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
 
+                </form>
               </div>
               <div class="modal-footer">
                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
@@ -286,5 +309,7 @@
   </div>
 
     <app-table-view [id] = client.id></app-table-view>
+  <!-- END GLOBAL MANDATORY SCRIPTS -->
+  <script src="assets/assets/js/authentication/form-2.js"></script>
 
 </div>

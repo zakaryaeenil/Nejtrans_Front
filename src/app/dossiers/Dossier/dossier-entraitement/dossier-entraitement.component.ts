@@ -54,11 +54,9 @@ export class DossierEntraitementComponent implements OnInit {
 
   //Delete Dossier
   DeleteDossier( p : Dossier){
-    console.log(p);
     let conf = confirm("Are you sure ?");
     if (conf)
       this.service.DeleteDossier(p.id).subscribe(() => {
-        console.log("Booking deleted");
         this.router.navigate(['entraitement']);
         window.location.reload();
       });

@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../../Services/user.service";
 import {User} from "../../../Models/user";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -14,7 +15,7 @@ export class EmployeeListComponent implements OnInit {
   user:User =new User();
   Employee : any;
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
-  constructor(private service : UserService ,private router : Router) { }
+  constructor(private service : UserService ,private router : Router , private toastr : ToastrService) { }
 
   ngOnInit(): void {
     this.getEmployee()
@@ -27,7 +28,6 @@ getEmployee(){
       data =>{
         this.Employee = data;
         this.Employee = this.Employee._embedded.users;
-        console.log(this.Employee);
         this.loadScripts();
       });
 }
@@ -39,7 +39,6 @@ getEmployee(){
 
   saveUser(){
     this.service.createEmployee(this.user).subscribe(data =>{
-        console.log(data);
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate(['/employees']);
         });
@@ -52,6 +51,18 @@ getEmployee(){
     this.closeAddExpenseModal.nativeElement.click();
   }
 //call this wherever you want to close modal
+  //Delete Dossier
+  DeleteClient( u : User){
+    let conf = confirm("Are you sure ?");
+    if (conf)
+      this.service.DeleteClient(u.id).subscribe(() => {
+        this.toastr.success('Employee a été supprimer avec success', 'Suppression Employee');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
+      });
+  }
 
 
   loadScripts() {

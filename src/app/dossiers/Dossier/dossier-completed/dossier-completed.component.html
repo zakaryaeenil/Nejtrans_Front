@@ -1,7 +1,7 @@
 <div class="page-header">
   <div class="page-title">
 <div class="row">
-        <div class="col"><h3>Dossiers Complets : {{doss_completed.length}}</h3>
+        <div class="col"><h3>Dossiers Complets : </h3>
         </div>
         <div class="col">
           <button class="float-right btn btn-primary" type="button">
@@ -20,9 +20,10 @@
             <table  id="html5-extension" class="table table-hover non-hover " style="width:100%">
               <thead>
               <tr>
+                <th>Code</th>
                 <th>Client</th>
                 <th>Type</th>
-                <th>Nombre Documents</th>
+                <th>Nb. Documents</th>
                 <th>Disponiblité</th>
                 <th>Reseravation</th>
                 <th>Etat d'avancement</th>
@@ -34,8 +35,10 @@
 
               <tr *ngFor="let dossier of doss_completed">
 
+                <!-- Code  -->
+                <td><span style="font-weight: bold">#{{dossier.id}}</span></td>
                 <!-- Username  -->
-                <td><span style="font-weight: bold">{{dossier.user.username}}</span></td>
+                <td><span style="font-weight: bold">test</span></td>
 
                 <!--Type Dossier -->
                 <td *ngIf="dossier.typeDossier == import; else contenu_pas_bon"><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td>
@@ -67,7 +70,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                      <a class="dropdown-item" >Voir</a>
+                      <a data-toggle="modal" data-target=".bd-example-modal-xl" (click)="detailsInfo(dossier)" class="dropdown-item" >Voir</a>
                       <a class="dropdown-item" href="#">Modifier</a>
                       <a class="dropdown-item" (click)="DeleteDossier(dossier)" >Supprimer</a>
                     </div>
@@ -82,3 +85,26 @@
         </div>
 
       </div>
+
+<!-- modal-->
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myExtraLargeModalLabel">Extra Large</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text"  placeholder="{{details}}">
+         </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Discard</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End modal-->
+

@@ -3,6 +3,8 @@ import {DossierService} from "../../../Services/dossier.service";
 import {Dossier} from "../../../Models/dossier";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
+import {ToastrService} from "ngx-toastr";
+import {User} from "../../../Models/user";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -14,8 +16,8 @@ export class DossierCompletedComponent implements OnInit {
   doss_completed : any;
   public import : 'import';
   public export : 'export';
-
-  constructor( private service : DossierService , private router: Router , private Auth:AuthService) {
+  public details : number;
+  constructor( private service : DossierService , private router: Router , private Auth:AuthService , private toastr : ToastrService) {
   }
 
 
@@ -53,16 +55,20 @@ export class DossierCompletedComponent implements OnInit {
 
   //Delete Dossier
   DeleteDossier( p : Dossier){
-    console.log(p);
     let conf = confirm("Are you sure ?");
     if (conf)
       this.service.DeleteDossier(p.id).subscribe(() => {
-        console.log("Booking deleted");
-        this.router.navigate(['completed']);
-        window.location.reload();
+        this.toastr.success('Dossier a été supprimer avec success', 'Suppression dossier');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
       });
   }
 
+  detailsInfo(d : any){
+    this.details = d.id;
+  }
 
   loadScripts() {
 

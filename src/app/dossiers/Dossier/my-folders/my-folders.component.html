@@ -2,7 +2,7 @@
 <div class="page-header">
   <div class="page-title">
     <div class="row">
-      <div class="col"><h3>Voir Dossiers : {{dossiers.length}}</h3>
+      <div class="col"><h3>Voir Dossiers : </h3>
       </div>
       <div class="col">
         <button class="float-right btn btn-primary" type="button">
@@ -23,11 +23,12 @@
         <tr>
           <th>Client</th>
           <th>Type</th>
-          <th>Nombre Documents</th>
+          <th>Nb. Documents</th>
           <th>Disponiblité</th>
           <th>Reseravation</th>
           <th>Etat d'avanecement </th>
           <th>Creer À</th>
+          <th *ngIf="Auth.isEmployee()" >Terminer</th>
           <th class=" dt-no-sorting">Action</th>
         </tr>
         </thead>
@@ -60,6 +61,11 @@
           <!-- Creation Date -->
           <td>{{dossier.createdAt |  date:'medium'}}</td>
 
+          <!-- Reserve Button  -->
+          <td *ngIf="Auth.isEmployee()" ><button *ngIf="dossier.available != 3" (click)="CompletedFolder(dossier)" class="btn btn-success mb-2 mr-2 rounded-circle"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></button></td>
+
+
+
           <!-- Boutton Actions -->
           <td>
             <div class="btn-group">
@@ -70,7 +76,8 @@
               <div class="dropdown-menu" >
                 <a class="dropdown-item" >Voir</a>
                 <a class="dropdown-item" href="#">Modifier</a>
-                <a class="dropdown-item" (click)="DeleteDossier(dossier)" >Supprimer</a>
+                <a *ngIf="Auth.isEmployee()" class="dropdown-item" (click)="Desabonner(dossier)" >Desabonner</a>
+                <a *ngIf="Auth.isClient() ||Auth.isAdmin() " class="dropdown-item" (click)="DeleteDossier(dossier)" >Supprimer</a>
               </div>
             </div>
           </td>

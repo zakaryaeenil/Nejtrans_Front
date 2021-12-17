@@ -213,10 +213,10 @@
   width: 10px; }
 
 .invoice-detail-items tbody td.description {
-  width: 365px; }
+  width: 110px; }
 
 .invoice-detail-items tbody td.rate, .invoice-detail-items tbody td.qty {
-  width: 110px; }
+  width: 365px; }
 
 .invoice-detail-items tbody td.amount {
   width: 60px; }

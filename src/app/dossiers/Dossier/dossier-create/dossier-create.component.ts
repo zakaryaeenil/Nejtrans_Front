@@ -19,12 +19,14 @@ export class DossierCreateComponent implements OnInit {
 
     // This array contains all the files/CDNs
     const dynamicScripts = [
-      'assets/plugins/table/datatable/datatables.js',
-      'assets/plugins/table/datatable/button-ext/dataTables.buttons.min.js',
-      'assets/plugins/table/datatable/button-ext/jszip.min.js',
-      'assets/plugins/table/datatable/button-ext/buttons.html5.min.js',
-      'assets/plugins/table/datatable/button-ext/buttons.print.min.js',
-      'assets/export_table.js',
+      'assets/assets/js/libs/jquery-3.1.1.min.js',
+      'assets/bootstrap/js/popper.min.js',
+      'assets/bootstrap/js/bootstrap.min.js',
+      'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js',
+      'assets/assets/js/app.js',
+      'assets/assets/js/custom.js',
+      'assets/plugins/dropify/dropify.min.js',
+      'assets/assets/js/apps/invoice-add.js',
       //Load all your script files here'
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {

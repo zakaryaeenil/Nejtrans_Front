@@ -21,7 +21,7 @@ export class TableViewEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.getDossiersEmployee();
   }
-  // ALL Dossier by Client
+  // ALL Dossier by Employee
   getDossiersEmployee() {
 
     this.service.getEmployeeDossiers(this.username).subscribe(data=>{

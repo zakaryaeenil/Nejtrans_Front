@@ -1,6 +1,6 @@
 <div class="row layout-top-spacing">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  <div class="container bootstrap snippets bootdey">
+  <div *ngIf="Auth.isAdmin()" class="container bootstrap snippets bootdey">
     <div class="row">
       <div class="col">
         <div class="mini-stat clearfix bg-folders rounded">
@@ -44,6 +44,113 @@
           <div class="mini-stat-info">
             <span>{{EmpTotal}}</span>
             Total Agents
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="Auth.isEmployee()" class="container bootstrap snippets bootdey">
+    <div class="row">
+      <div class="col">
+        <div class="mini-stat clearfix bg-folders rounded">
+          <span class="mini-stat-icon"><i class="fa fa-folder-open fg-folders"></i></span>
+          <div class="mini-stat-info">
+            <span>{{EmployeeFolders}}</span>
+            Total Dossiers
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-import rounded">
+          <span class="mini-stat-icon"><i class="fa fa-folder fg-import"></i></span>
+          <div class="mini-stat-info">
+            <span>{{EmployeeFoldersImport}}</span>
+            Total Import
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-export rounded">
+          <span class="mini-stat-icon"><i class="fa fa-folder fg-export"></i></span>
+          <div class="mini-stat-info">
+            <span>{{EmployeeFoldersExport}}</span>
+            Total Export
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-clients rounded">
+          <span class="mini-stat-icon"><i class="fa fa-users fg-client"></i></span>
+          <div class="mini-stat-info">
+            <span>{{EmployeeFoldersEnattente}}</span>
+             En Traitement
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-employees rounded">
+          <span class="mini-stat-icon"><i class="fa fa-user fg-employee"></i></span>
+          <div class="mini-stat-info">
+            <span>{{EmployeeFoldersCompleted}}</span>
+            Terminer
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="Auth.isClient()" class="container bootstrap snippets bootdey">
+    <div class="row">
+      <div class="col">
+        <div class="mini-stat clearfix bg-folders rounded">
+          <span class="mini-stat-icon"><i class="fa fa-folder-open fg-folders"></i></span>
+          <div class="mini-stat-info">
+            <span>{{ClientFolders}}</span>
+            Total
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-import rounded">
+          <span class="mini-stat-icon"><i class="fa fa-folder fg-import"></i></span>
+          <div class="mini-stat-info">
+            <span>{{ClientFoldersImport}}</span>
+            Import
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-export rounded">
+          <span class="mini-stat-icon"><i class="fa fa-folder fg-export"></i></span>
+          <div class="mini-stat-info">
+            <span>{{ClientFoldersExport}}</span>
+            Export
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-clients rounded">
+          <span class="mini-stat-icon"><i class="fa fa-users fg-client"></i></span>
+          <div class="mini-stat-info">
+            <span>{{ClientFoldersEnattente}}</span>
+            Attente
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-employees rounded">
+          <span class="mini-stat-icon"><i class="fa fa-user fg-employee"></i></span>
+          <div class="mini-stat-info">
+            <span>{{ClientFoldersEntraitement}}</span>
+            Traitement
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mini-stat clearfix bg-employees rounded">
+          <span class="mini-stat-icon"><i class="fa fa-user fg-employee"></i></span>
+          <div class="mini-stat-info">
+            <span>{{ClientFoldersCompleted}}</span>
+            Terminer
           </div>
         </div>
       </div>
@@ -99,10 +206,17 @@
                 <a class="dropdown-toggle" href="#" role="button" id="Task" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
                 </a>
-
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="Task" style="will-change: transform;">
+                <div *ngIf="Auth.isAdmin()" class="dropdown-menu dropdown-menu-right" aria-labelledby="Task" style="will-change: transform;">
                   <a class="dropdown-item" (click)="getImportExportwithYear(anio)">{{anio }}</a>
                   <a class="dropdown-item" (click)="getImportExportwithYear(anio - 1)">{{anio -1}}</a>
+                </div>
+                <div *ngIf="Auth.isClient()" class="dropdown-menu dropdown-menu-right" aria-labelledby="Task" style="will-change: transform;">
+                  <a class="dropdown-item" (click)="getDossiersCLientPerYearAndType(anio)">{{anio }}</a>
+                  <a class="dropdown-item" (click)="getDossiersCLientPerYearAndType(anio - 1)">{{anio -1}}</a>
+                </div>
+                <div *ngIf="Auth.isEmployee()" class="dropdown-menu dropdown-menu-right" aria-labelledby="Task" style="will-change: transform;">
+                  <a class="dropdown-item" (click)="getDossiersEmployeeImportCountPeryear(anio)">{{anio }}</a>
+                  <a class="dropdown-item" (click)="getDossiersEmployeeImportCountPeryear(anio - 1)">{{anio -1}}</a>
                 </div>
               </div>
             </div>
@@ -123,9 +237,10 @@
     </div>
   </div>
 </div>
-<div class="row layout-top-spacing">
 
-  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+<div  *ngIf="Auth.isEmployee() || Auth.isAdmin()" class="row layout-top-spacing">
+
+  <div  class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
     <div class="widget widget-table-two">
 
       <div class="widget-heading">
@@ -157,7 +272,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+  <div  class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
     <div class="widget widget-table-three">
 
       <div class="widget-heading">
@@ -186,7 +301,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+  <div  class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
     <div class="widget widget-chart-three">
       <div class="widget-heading">
         <div class="">
@@ -199,7 +314,7 @@
         </div>
   </div>
 </div>
-  <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+  <div   class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
       <div class="widget widget-chart-two">
         <div class="widget-heading">
         <h5 class="">Ajouter Events</h5>

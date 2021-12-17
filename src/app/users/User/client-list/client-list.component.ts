@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angu
 import {UserService} from "../../../Services/user.service";
 import {User} from "../../../Models/user";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -14,7 +15,7 @@ export class ClientListComponent implements OnInit {
   user:User =new User();
   Clients : any;
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
-  constructor(private service : UserService , private router: Router) { }
+  constructor(private service : UserService , private router: Router , private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getClients();
@@ -26,7 +27,6 @@ export class ClientListComponent implements OnInit {
       data =>{
         this.Clients = data;
         this.Clients = this.Clients._embedded.users;
-        console.log(this.Clients);
         this.loadScripts();
       });
   }
@@ -38,7 +38,6 @@ export class ClientListComponent implements OnInit {
 
   saveUser(){
     this.service.createUser(this.user).subscribe(data =>{
-        console.log(data);
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate(['/employees']);
         });
@@ -54,13 +53,14 @@ export class ClientListComponent implements OnInit {
 
   //Delete Dossier
   DeleteClient( u : User){
-    console.log(u);
     let conf = confirm("Are you sure ?");
     if (conf)
       this.service.DeleteClient(u.id).subscribe(() => {
-        console.log("Booking deleted");
-        this.router.navigate(['clients']);
-        window.location.reload();
+        this.toastr.success('Client a été supprimer avec success', 'Suppression Client');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
       });
   }
 

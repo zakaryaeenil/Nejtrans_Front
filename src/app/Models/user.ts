@@ -8,6 +8,7 @@ export class User {
    lastName : string;
    username : string;
    address : string ;
+  enabled : boolean;
   telephone : string;
   countDossiers : number;
   countReservations : number;

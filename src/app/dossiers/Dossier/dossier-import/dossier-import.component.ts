@@ -3,6 +3,7 @@ import {DossierService} from "../../../Services/dossier.service";
 import {Dossier} from "../../../Models/dossier";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -19,7 +20,7 @@ export class DossierImportComponent implements OnInit {
   public entrai = 2;
 
 
-  constructor( private service : DossierService , private router : Router, private Auth : AuthService) {
+  constructor( private service : DossierService , private router : Router, private Auth : AuthService, private toastr : ToastrService) {
   }
 
 
@@ -37,7 +38,6 @@ export class DossierImportComponent implements OnInit {
         this.doss_import = data;
         this.doss_import = this.doss_import._embedded.dossiers;
         this.loadScripts();
-        console.log(this.doss_import);
       });
   }
     else if (this.Auth.isEmployee()){
@@ -59,13 +59,14 @@ export class DossierImportComponent implements OnInit {
 
   //Delete Dossier
   DeleteDossier( p : Dossier){
-    console.log(p);
     let conf = confirm("Are you sure ?");
     if (conf)
       this.service.DeleteDossier(p.id).subscribe(() => {
-        console.log("Booking deleted");
-        this.router.navigate(['import']);
-        window.location.reload();
+        this.toastr.success('Dossier a été supprimer avec success', 'Suppression dossier');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
       });
   }
 

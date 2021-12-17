@@ -10,12 +10,10 @@ export class AdminGuard implements CanActivate {
   constructor(private Auth : AuthService ,private router : Router) {
   }
   canActivate(){
-    if (this.Auth.isAdmin()){
+    if (!this.Auth.isloggedIn){
       return true;
     }
-    alert("You must to be An admin to View this")
-    this.Auth.logout();
-   this.router.navigate(['login']);
+    this.router.navigate(['']);
      return false;
   }
 

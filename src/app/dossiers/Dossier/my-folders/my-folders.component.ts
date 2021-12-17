@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Dossier} from "../../../Models/dossier";
 import {DossierService} from "../../../Services/dossier.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
+  encapsulation : ViewEncapsulation.None,
   selector: 'app-my-folders',
   templateUrl: './my-folders.component.html',
   styleUrls: ['./my-folders.component.css']
@@ -17,7 +19,7 @@ export class MyFoldersComponent implements OnInit {
   public comp = 3;
   public enatt = 1;
   public entrai = 2;
-  constructor(private service : DossierService ,private router : Router ,private Auth :AuthService) {
+  constructor(private service : DossierService ,private router : Router ,public Auth :AuthService, private toastr : ToastrService) {
 
   }
 
@@ -52,14 +54,28 @@ export class MyFoldersComponent implements OnInit {
 
   //Delete Dossier
   DeleteDossier( p : Dossier){
-    console.log(p);
     let conf = confirm("Are you sure ?");
     if (conf)
       this.service.DeleteDossier(p.id).subscribe(() => {
-        console.log("Booking deleted");
-        this.router.navigate(['dossiers']);
-        window.location.reload();
+        this.toastr.success('Dossier a été supprimer avec success', 'Suppression dossier');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
       });
+  }
+
+  CompletedFolder(folder : Dossier){
+    this.service.CompletedFolder(folder).subscribe(data =>{
+
+        this.toastr.success('Dossier Completed avec success', ' Dossier Terminer');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
+      },
+      error=> this.toastr.error('Error','Error'));
+
   }
 
   loadScripts() {
@@ -81,4 +97,17 @@ export class MyFoldersComponent implements OnInit {
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);
     } }
+
+  Desabonner(dossier : Dossier) {
+    this.service.Desabonner(dossier).subscribe(data =>{
+
+        this.toastr.success('Dossier Completed avec success', ' Dossier Terminer');
+        setTimeout(() => {
+          window.location.reload();
+          // And any other code that should run only after 5s
+        }, 2000);
+      },
+      error=> this.toastr.error('Error','Error'));
+
+  }
 }

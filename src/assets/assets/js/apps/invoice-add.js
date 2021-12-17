@@ -4,13 +4,6 @@ $('.dropify').dropify({
   messages: { 'default': 'Click to Upload Picture/Logo', 'replace': 'Upload or Drag n Drop' }
 });
 
-var f1 = flatpickr(document.getElementById('date'), {
-  defaultDate: currentDate,
-});
-
-var f2 = flatpickr(document.getElementById('due'), {
-  defaultDate: currentDate.setDate(currentDate.getDate() + 5),
-});
 
 function deleteItemRow() {
     deleteItem = document.querySelectorAll('.delete-item');
@@ -35,7 +28,7 @@ function selectableDropdown(getElement, myCallback) {
         if(dataValue === null && dataImage === null) {
           console.warn('No attributes are defined. Kindly define one attribute atleast')
         }
-        
+
         if (dataValue != '' && dataValue != null) {
           this.parentElement.parentNode.querySelector('.dropdown-toggle > .selectable-text').innerText = dataValue;
         }
@@ -102,19 +95,23 @@ document.getElementsByClassName('additem')[0].addEventListener('click', function
           '<li><a href="javascript:void(0);" class="delete-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>'+
       '</ul>'+
     '</td>'+
-    '<td class="description"><input type="text" class="form-control  form-control-sm" placeholder="Item Description"> <textarea class="form-control" placeholder="Additional Details"></textarea></td>'+
+    '<td class="description"><select class="form-control">\n' +
+    '                        <option value="Facture" selected="selected">Facture</option>\n' +
+    '                        <option value="Connaissement/BL">Connaissement/BL</option>\n' +
+    '                        <option value="Certif. d\'origine">Certif. d\'origine</option>\n' +
+    '                        <option value="Certif. d\'origine">bon a delivrer</option>\n' +
+    '                        <option value="CMR">CMR</option>\n' +
+    '                        <option value="Eng.import(Portnet">Eng.import(Portnet)</option>\n' +
+    '                        <option value="Lisence d\'import">Lisence d\'import</option>\n' +
+    '                        <option value="liscence d\'export">liscence d\'export</option>\n' +
+    '                        <option value="Scellee">Scellee</option>\n' +
+    '                        <option value="Autoris.Douane">Autoris.Douane</option>\n' +
+    '                        <option value="Certif.Phytosanitaire/veterinaire">Certif.Phytosanitaire/veterinaire </option>\n' +
+    '                        <option value="Autres">Autres</option>\n' +
+    '                      </select></td>'+
     '<td class="rate">'+
-        '<input type="text" class="form-control  form-control-sm" placeholder="Price">'+
+        '<input type="file" class="form-control  form-control-sm" placeholder="Price">'+
    ' </td>'+
-    '<td class="text-right qty"><input type="text" class="form-control  form-control-sm" placeholder="Quantity"></td>'+
-    '<td class="text-right amount"><span class="editable-amount"><span class="currency">$</span> <span class="amount">0.00</span></td>'+
-    '<td class="text-center tax">'+
-        '<div class="n-chk">'+
-            '<label class="new-control new-checkbox new-checkbox-text checkbox-primary" style="height: 18px; margin: 0 auto;">'+
-              '<input type="checkbox" class="new-control-input">'+
-              '<span class="new-control-indicator"></span><span class="new-chk-content">Tax</span>'+
-           ' </label>'+
-        '</div>'+
     '</td>'+
     '</tr>';
 

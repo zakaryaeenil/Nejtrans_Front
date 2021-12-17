@@ -21,6 +21,10 @@ import {authInterceptorProviders} from "./Login/interceptor.service";
 import {UserService} from "./Services/user.service";
 import {AuthService} from "./Login/auth.service";
 import {AppRoutingModule} from "./app-routing.module";
+import { ForgotformComponent } from './Login/forgotform/forgotform.component';
+import {ToastrModule} from "ngx-toastr";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -33,6 +37,7 @@ import {AppRoutingModule} from "./app-routing.module";
     NotesComponent,
     DashboardComponent,
     CallendarviewComponent,
+    ForgotformComponent,
 
   ],
   imports: [
@@ -49,9 +54,16 @@ import {AppRoutingModule} from "./app-routing.module";
     FormsModule,
     ReactiveFormsModule,
     FlatpickrModule.forRoot(),
+    ToastrModule.forRoot(),
     CommonModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
-  providers: [authInterceptorProviders,AuthService ,UserService],
+  providers: [authInterceptorProviders,AuthService ,UserService,LoginFormComponent,ToastrModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

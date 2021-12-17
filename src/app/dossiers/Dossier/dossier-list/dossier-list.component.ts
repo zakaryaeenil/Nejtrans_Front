@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {Dossier} from "../../../Models/dossier";
 import {DossierService} from "../../../Services/dossier.service";
 import {AuthService} from "../../../Login/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -18,15 +19,14 @@ export class DossierListComponent implements OnInit{
    public comp = 3;
    public enatt = 1;
    public entrai = 2;
-  constructor(private service : DossierService ,private router : Router ,private Auth :AuthService) {
+   public details : number;
+  constructor(private service : DossierService ,private router : Router ,public Auth :AuthService, private toastr: ToastrService) {
 
   }
-
 
   ngOnInit(): void {
 
     this.getDossiersALl();
-
   }
 
 
@@ -51,16 +51,30 @@ export class DossierListComponent implements OnInit{
    }
 
 
+   ReservedFolder(folder : Dossier){
+     this.service.ReservedFolder(folder).subscribe(data =>{
+
+        this.toastr.success('Dossier Reservé avec success', 'Reservation dossier');
+         setTimeout(() => {
+           window.location.reload();
+           // And any other code that should run only after 5s
+         }, 2000);
+       },
+       error=> this.toastr.error('Error','Error'));
+
+   }
+
 
    //Delete Dossier
   DeleteDossier( p : Dossier){
-    console.log(p);
   let conf = confirm("Are you sure ?");
   if (conf)
     this.service.DeleteDossier(p.id).subscribe(() => {
-      console.log("Booking deleted");
-      this.router.navigate(['dossiers']);
-      window.location.reload();
+      this.toastr.success('Dossier a été supprimer avec success', 'Suppression dossier');
+      setTimeout(() => {
+        window.location.reload();
+        // And any other code that should run only after 5s
+      }, 2000);
     });
 }
 
@@ -83,4 +97,9 @@ export class DossierListComponent implements OnInit{
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);
     } }
+
+  detailsInfo(d : any){
+    this.details = d.id;
+  }
+
 }

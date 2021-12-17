@@ -14,7 +14,6 @@ export class AuthService {
   public isloggedIn: boolean = false ;
   public roles:string[];
   private helper = new JwtHelperService();
-
   constructor(private router : Router , private http : HttpClient) { }
 
   login(user : User){
@@ -24,7 +23,6 @@ export class AuthService {
     localStorage.setItem('jwt',jwt);
     this.token = jwt;
     this.isloggedIn = true;
-    console.log(this.isloggedIn);
     this.decodeJWT();
   }
 
@@ -35,9 +33,11 @@ export class AuthService {
     this.roles = decodedToken.roles;
     this.isloggedIn = true;
     this.loggedUser = decodedToken.sub;
-    console.log(this.loggedUser);
   }
 
+  forgot(email :string){
+    return this.http.put(`http://localhost:8080/api/auth/resetpassword/${email}`,email, {responseType: 'text'});
+  }
 
 
   loadToken() {

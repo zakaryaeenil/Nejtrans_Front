@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Dossier} from "../Models/dossier";
+import {User} from "../Models/user";
 
 
 @Injectable({
@@ -59,6 +60,17 @@ export class DossierService {
   // Get Free folders
   getFreeFolders() : Observable<Dossier[]>{
     return this.http.get<Dossier[]>("http://localhost:8080/api/employee/freefolders");
+  }
+
+  ReservedFolder(folder : Dossier): Observable<Object>{
+    return this.http.patch(`http://localhost:8080/api/employee/bookfoolder/${folder.id}`,folder,{responseType: 'text'});
+  }
+  CompletedFolder(folder : Dossier): Observable<Object>{
+    return this.http.patch(`http://localhost:8080/api/employee/terminer/${folder.id}`,folder,{responseType: 'text'});
+  }
+
+  Desabonner(folder : Dossier): Observable<Object>{
+    return this.http.patch(`http://localhost:8080/api/employee/unbookfoolder/${folder.id}`,folder,{responseType: 'text'});
   }
 
 }

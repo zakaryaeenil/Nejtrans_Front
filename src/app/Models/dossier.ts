@@ -8,6 +8,7 @@ export class Dossier {
   available : number;
   employeeUsername : string ;
   etat : string;
+  operation : string;
   documents : Document;
   createdAt : Date;
   user : User;

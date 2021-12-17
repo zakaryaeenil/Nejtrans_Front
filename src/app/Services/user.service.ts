@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {User} from "../Models/user";
 import {Dossier} from "../Models/dossier";
 import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
+import {AuthService} from "../Login/auth.service";
 
 
 @Injectable({
@@ -12,9 +13,21 @@ import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
 export class UserService {
 
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient ,  private Auth : AuthService) { }
 
+  //Current User
+  getCurrentUser() : Observable<User>{
+    return this.http.get<User>(`http://localhost:8080/users/search/findByUsername?username=${this.Auth.loggedUser}`);
+  }
 
+  //Count Folders Employee
+  getCountFoldersEmployee(type : string) :Observable<number>{
+    return this.http.get<number>(`http://localhost:8080/api/employee/myfolders/count/${type}`);
+  }
+  //Count Folders Employee
+  getCountFoldersClient(type : string) :Observable<number>{
+    return this.http.get<number>(`http://localhost:8080/api/client/myfolders/count/${type}`);
+  }
   //ALL Clients
   getClients() : Observable<User[]>{
     return this.http.get<User[]>("http://localhost:8080/users/search/findByRoles_Id?id=3");

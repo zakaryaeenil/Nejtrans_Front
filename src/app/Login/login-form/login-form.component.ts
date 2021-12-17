@@ -7,16 +7,15 @@ import {Router} from "@angular/router";
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
-  encapsulation : ViewEncapsulation.None
 })
 export class LoginFormComponent implements OnInit {
   user = new User();
   err:number = 0;
-
   constructor(private authService : AuthService,
               public router: Router) { }
 
   ngOnInit(): void {
+    //this.loadScripts();
   }
 
   onLoggedin()
@@ -27,7 +26,8 @@ export class LoginFormComponent implements OnInit {
       if (jwToken != null) {
         this.authService.saveToken(jwToken);
       }
-      this.router.navigate(['/']);
+      this.router.navigate(['']);
+
     },(err)=>{   this.err = 1;
     });
 
@@ -42,6 +42,10 @@ export class LoginFormComponent implements OnInit {
       'assets/assets/js/libs/jquery-3.1.1.min.js',
       'assets/bootstrap/js/popper.min.js',
       'assets/bootstrap/js/bootstrap.min.js',
+      'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js',
+      'assets/assets/js/app.js',
+      'assets/app_init.js',
+      'assets/assets/js/custom.js',
       'assets/assets/js/authentication/form-1.js'
       //Load all your script files here'
     ];

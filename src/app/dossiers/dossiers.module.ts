@@ -9,6 +9,7 @@ import {DossierEnattenteComponent} from "./Dossier/dossier-enattente/dossier-ena
 import {DossierEntraitementComponent} from "./Dossier/dossier-entraitement/dossier-entraitement.component";
 import {DossierCompletedComponent} from "./Dossier/dossier-completed/dossier-completed.component";
 import { MyFoldersComponent } from './Dossier/my-folders/my-folders.component';
+import {DossierCreateComponent} from "./Dossier/dossier-create/dossier-create.component";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MyFoldersComponent } from './Dossier/my-folders/my-folders.component';
     DossierEnattenteComponent,
     DossierEntraitementComponent,
     DossierCompletedComponent,
-    MyFoldersComponent
+    MyFoldersComponent,
+    DossierCreateComponent
   ],
   imports: [
     CommonModule,
