@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit {
               public router: Router) { }
 
   ngOnInit(): void {
-    //this.loadScripts();
+    this.loadScripts();
   }
 
   onLoggedin()
@@ -39,13 +39,6 @@ export class LoginFormComponent implements OnInit {
 
     // This array contains all the files/CDNs
     const dynamicScripts = [
-      'assets/assets/js/libs/jquery-3.1.1.min.js',
-      'assets/bootstrap/js/popper.min.js',
-      'assets/bootstrap/js/bootstrap.min.js',
-      'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js',
-      'assets/assets/js/app.js',
-      'assets/app_init.js',
-      'assets/assets/js/custom.js',
       'assets/assets/js/authentication/form-1.js'
       //Load all your script files here'
     ];

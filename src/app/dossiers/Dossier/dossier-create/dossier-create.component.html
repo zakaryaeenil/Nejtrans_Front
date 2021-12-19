@@ -1,4 +1,5 @@
-<div class="row invoice layout-top-spacing layout-spacing">
+
+ <div class="row invoice layout-top-spacing layout-spacing">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
     <div class="doc-container">
@@ -18,7 +19,7 @@
 
                     <div class="form-group mb-4">
                       <label for="number">Type Dossier</label>
-                      <select id="number" class="form-control  ">
+                      <select id="number" #dossiertype class="form-control  ">
                         <option value="Import" selected="selected">Import</option>
                         <option value="Export">Export</option>
                       </select>
@@ -30,7 +31,7 @@
 
                     <div class="form-group mb-4">
                       <label for="hello">Type d'operation</label>
-                      <select id="hello" class="form-control ">
+                      <select #operation id="hello" class="form-control ">
                         <option value="Normale" selected="selected">Operation Normale</option>
                         <option value="Urgent">Operation Urgente</option>
                         <option value="TR">TR Travail Renumere</option>
@@ -43,9 +44,7 @@
 
               </div>
 
-
               <div class="invoice-detail-items">
-
                 <div class="table-responsive">
                   <table class="table table-bordered item-table">
                     <thead>
@@ -62,7 +61,7 @@
                           <li><a href="javascript:void(0);" class="delete-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>
                         </ul>
                       </td>
-                      <td class="description"><select class="form-control">
+                      <td class="description"><select #type class="form-control">
                         <option value="Facture" selected="selected">Facture</option>
                         <option value="Connaissement/BL">Connaissement/BL</option>
                         <option value="Certif. d'origine">Certif. d'origine</option>
@@ -78,7 +77,8 @@
                       </select>
                       </td>
                       <td class="rate">
-                        <input type="file" class="form-control form-control-sm" placeholder="Price">
+                        <input type="file" class="file-input"
+                               (change)="selectedFile($event)">
                       </td>
                     </tr>
                     </tbody>
@@ -87,16 +87,14 @@
 
                 <button class="btn btn-secondary additem btn-sm">Add Item</button>
               </div>
-
+              <button type="submit" (click)="onFileSelected()">TEST</button>
             </div>
 
           </div>
-
         </div>
       </div>
-
-
     </div>
 
   </div>
 </div>
+

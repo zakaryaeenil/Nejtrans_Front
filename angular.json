@@ -32,7 +32,8 @@
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/bootstrap/css/bootstrap.min.css",
-              "src/assets/assets/css/plugins.css"
+              "src/assets/assets/css/plugins.css",
+              "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.css"
             ],
             "scripts": [
               "src/assets/assets/js/libs/jquery-3.1.1.min.js",
@@ -74,7 +75,7 @@
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": false,
+              "sourceMap": true,
               "namedChunks": true
             }
           },

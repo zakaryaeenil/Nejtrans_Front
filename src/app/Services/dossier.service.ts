@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Dossier} from "../Models/dossier";
-import {User} from "../Models/user";
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DossierService {
-
   constructor(private http : HttpClient) { }
 
   //All Dossier
@@ -71,6 +70,24 @@ export class DossierService {
 
   Desabonner(folder : Dossier): Observable<Object>{
     return this.http.patch(`http://localhost:8080/api/employee/unbookfoolder/${folder.id}`,folder,{responseType: 'text'});
+  }
+
+
+  // define function to upload files
+  upload(file: File , type : string , id : number) {
+    const document : FormData = new FormData();
+
+    document.append("document", file);
+
+   return this.http.post(`http://localhost:8080/api/documents/${id}/upload/${type}`, document , {
+      responseType: 'json',});
+
+
+
+  }
+
+  ClientCreateFolder(dossier : Dossier) : Observable<Object>{
+    return this.http.post("http://localhost:8080/api/client/createfolder", dossier, {responseType: 'text'});
   }
 
 }

@@ -10,6 +10,7 @@ import {DossierEntraitementComponent} from "./Dossier/dossier-entraitement/dossi
 import {DossierCompletedComponent} from "./Dossier/dossier-completed/dossier-completed.component";
 import { MyFoldersComponent } from './Dossier/my-folders/my-folders.component';
 import {DossierCreateComponent} from "./Dossier/dossier-create/dossier-create.component";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {DossierCreateComponent} from "./Dossier/dossier-create/dossier-create.co
     DossierCreateComponent
   ],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     DossiersRoutingModule
   ]

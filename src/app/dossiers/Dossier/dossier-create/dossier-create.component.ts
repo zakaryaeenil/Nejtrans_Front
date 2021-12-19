@@ -1,4 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {DossierService} from "../../../Services/dossier.service";
+import {FormBuilder} from "@angular/forms";
+import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {Dossier} from "../../../Models/dossier";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -8,10 +13,42 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 })
 export class DossierCreateComponent implements OnInit {
 
-  constructor() { }
+  public selectFile : File ;
+  public type : string;
+  @ViewChild('type') typeo;
+  @ViewChild('operation') operation;
+  @ViewChild('dossiertype') dossiertype;
+  public dossier : Dossier = new Dossier();
+  constructor(private service : DossierService , private http : HttpClient) { }
 
   ngOnInit(): void {
+
     this.loadScripts();
+  }
+
+ // CreateFolder(){
+  //  this.service.ClientCreateFolder().subscribe( data =>{
+   //   console.log(data);
+  //  })
+ // }
+
+
+  selectedFile(event){
+    this.selectFile = event.target.files[0];
+    this.type = this.typeo.nativeElement.value.toString();
+  }
+
+  onFileSelected() {
+    this.dossier.typeDossier = this.dossiertype.nativeElement.value.toString();
+    this.dossier.operation = this.operation.nativeElement.value.toString();
+this.service.ClientCreateFolder(this.dossier).subscribe(data =>{
+      if (this.selectFile) {
+      this.service.upload(this.selectFile,this.type , this.dossier.id).subscribe(data =>{
+      console.log(data)
+    })
+
+  }
+})
   }
 
 
@@ -19,12 +56,6 @@ export class DossierCreateComponent implements OnInit {
 
     // This array contains all the files/CDNs
     const dynamicScripts = [
-      'assets/assets/js/libs/jquery-3.1.1.min.js',
-      'assets/bootstrap/js/popper.min.js',
-      'assets/bootstrap/js/bootstrap.min.js',
-      'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js',
-      'assets/assets/js/app.js',
-      'assets/assets/js/custom.js',
       'assets/plugins/dropify/dropify.min.js',
       'assets/assets/js/apps/invoice-add.js',
       //Load all your script files here'

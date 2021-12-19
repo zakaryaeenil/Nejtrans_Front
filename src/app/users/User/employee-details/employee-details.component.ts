@@ -3,6 +3,7 @@ import {UserService} from "../../../Services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
 import {Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet} from "ng2-charts";
+import {User} from "../../../Models/user";
 
 @Component({
   selector: 'app-employee-details',
@@ -11,7 +12,7 @@ import {Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Singl
 })
 export class EmployeeDetailsComponent implements OnInit {
   anio: number = new Date().getFullYear();
-  client : any;
+  client : User;
   completed :any;
   doss_import : number;
   doss_export : number;

@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../Services/user.service";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color} from 'ng2-charts';
+import {User} from "../../../Models/user";
 @Component({
   selector: 'app-client-details',
   templateUrl: './client-details.component.html',
@@ -10,7 +11,7 @@ import {Label, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsToolti
 })
 export class ClientDetailsComponent implements OnInit {
   anio: number = new Date().getFullYear();
-  client : any;
+  client : User;
   folders_year : any;
   doss_details : any;
   doss_details_import : any;

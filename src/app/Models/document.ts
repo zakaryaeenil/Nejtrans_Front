@@ -1,8 +1,11 @@
-import {Dossier} from "../Dossier/dossier";
+import {Dossier} from "./dossier";
+import {Byte} from "@angular/compiler/src/util";
 
 export class Document {
-   id : number;
-  name : string;
-  Type_Document: string;
-  doc_dossier : Dossier;
+   id  : number
+   name : string;
+  typeDocument : string;
+   uploadDate : Date;
+   content : Byte[];
+   dossier : Dossier;
 }
