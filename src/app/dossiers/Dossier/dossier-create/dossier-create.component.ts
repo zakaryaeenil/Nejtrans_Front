@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {DossierService} from "../../../Services/dossier.service";
-import {FormBuilder} from "@angular/forms";
-import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Dossier} from "../../../Models/dossier";
+import {UserService} from "../../../Services/user.service";
+
+import {HelperForm} from "../../../Models/helper-form";
+import {AuthService} from "../../../Login/auth.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -14,16 +15,23 @@ import {Dossier} from "../../../Models/dossier";
 export class DossierCreateComponent implements OnInit {
 
   public selectFile : File ;
-  public type : string;
+  public selectedFiles : File[] = [];
+  public type : string = '';
   @ViewChild('type') typeo;
   @ViewChild('operation') operation;
   @ViewChild('dossiertype') dossiertype;
-  public dossier : Dossier = new Dossier();
-  constructor(private service : DossierService , private http : HttpClient) { }
+  @ViewChild('username') username;
+  public helperform = new HelperForm();
+  public users : any;
+  public i : number =1;
+  constructor(private service : DossierService , private userservice : UserService,public Auth: AuthService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
     this.loadScripts();
+    if (!this.Auth.isClient()){
+      this.getClient();
+    }
   }
 
  // CreateFolder(){
@@ -35,20 +43,51 @@ export class DossierCreateComponent implements OnInit {
 
   selectedFile(event){
     this.selectFile = event.target.files[0];
-    this.type = this.typeo.nativeElement.value.toString();
+    this.selectedFiles.push(this.selectFile);
+    console.log(event.target.files[0])
+
+  }
+  addrow(){
+    this.i++;
+  }
+
+  deleterow(){
+    this.i--;
+  }
+
+  counter(i :number){
+    return new Array(this.i);
+  }
+  getClient(){
+    this.userservice.getClients().subscribe(data =>{
+      this.users = data;
+      this.users = this.users._embedded.users;
+    })
   }
 
   onFileSelected() {
-    this.dossier.typeDossier = this.dossiertype.nativeElement.value.toString();
-    this.dossier.operation = this.operation.nativeElement.value.toString();
-this.service.ClientCreateFolder(this.dossier).subscribe(data =>{
-      if (this.selectFile) {
-      this.service.upload(this.selectFile,this.type , this.dossier.id).subscribe(data =>{
-      console.log(data)
-    })
+    this.helperform.typeDossier=this.dossiertype.nativeElement.value.toString();
+    this.helperform.operation=this.operation.nativeElement.value.toString();
+    if (this.Auth.isClient()){
+      this.helperform.username="";
+    }
+    else {
+      this.helperform.username=this.username.nativeElement.value.toString();
+    }
+    this.type = this.typeo.nativeElement.value.toString();
 
+    if (this.selectedFile) {
+      this.service.ClientCreateFolder(this.helperform,this.selectedFiles).subscribe(data =>{
+
+          this.toastr.success('Dossier Created avec success', 'Creation dossier');
+          setTimeout(() => {
+            window.location.reload();
+            // And any other code that should run only after 5s
+          }, 2000);
+        },
+        error=>
+          this.toastr.error('Failled To Create Folder','Create Folder'));
   }
-})
   }
 
 
@@ -57,7 +96,6 @@ this.service.ClientCreateFolder(this.dossier).subscribe(data =>{
     // This array contains all the files/CDNs
     const dynamicScripts = [
       'assets/plugins/dropify/dropify.min.js',
-      'assets/assets/js/apps/invoice-add.js',
       //Load all your script files here'
     ];
     for (let i = 0; i < dynamicScripts.length; i++) {

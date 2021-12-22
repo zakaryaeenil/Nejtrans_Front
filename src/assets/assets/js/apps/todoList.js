@@ -410,34 +410,3 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
 })
 
 // Validation Process
-
-var $_getValidationField = document.getElementsByClassName('validation-text');
-
-getTaskTitleInput = document.getElementById('task');
-
-getTaskTitleInput.addEventListener('input', function() {
-
-  getTaskTitleInputValue = this.value;
-
-  if (getTaskTitleInputValue == "") {
-    $_getValidationField[0].innerHTML = 'Title Required';
-    $_getValidationField[0].style.display = 'block';
-  } else {
-    $_getValidationField[0].style.display = 'none';
-  }
-})
-
-getTaskDescriptionInput = document.getElementById('taskdescription');
-
-getTaskDescriptionInput.addEventListener('input', function() {
-
-  getTaskDescriptionInputValue = this.value;
-
-  if (getTaskDescriptionInputValue == "") {
-    $_getValidationField[1].innerHTML = 'Description Required';
-    $_getValidationField[1].style.display = 'block';
-  } else {
-    $_getValidationField[1].style.display = 'none';
-  }
-
-})

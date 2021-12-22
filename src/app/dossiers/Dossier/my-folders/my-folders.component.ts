@@ -4,6 +4,7 @@ import {DossierService} from "../../../Services/dossier.service";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
 import {ToastrService} from "ngx-toastr";
+import * as FileSaver from "file-saver";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -19,6 +20,8 @@ export class MyFoldersComponent implements OnInit {
   public comp = 3;
   public enatt = 1;
   public entrai = 2;
+  public err= 0;
+  public details : any;
   constructor(private service : DossierService ,private router : Router ,public Auth :AuthService, private toastr : ToastrService) {
 
   }
@@ -109,5 +112,22 @@ export class MyFoldersComponent implements OnInit {
       },
       error=> this.toastr.error('Error','Error'));
 
+  }
+  detailsInfo(d : any){
+    this.service.getDocuments(d.id).subscribe(data =>{
+      this.details=data;
+      this.details = this.details._embedded.documents;
+      if (this.details ? this.details.length : '0'){
+        this.err = 1
+      }
+      else {
+        this.err = 0;
+      }
+    })
+  }
+  OnDownload(doc : any){
+    this.service.DownloadDocument(doc.id).subscribe(blob => {
+      FileSaver(blob, doc.name);
+    })
   }
 }

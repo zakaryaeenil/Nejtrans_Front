@@ -4,6 +4,7 @@ import {User} from "../../Models/user";
 import {Router} from "@angular/router";
 
 @Component({
+  encapsulation :ViewEncapsulation.None,
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],

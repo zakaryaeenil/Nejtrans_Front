@@ -4,6 +4,7 @@ import {Dossier} from "../../../Models/dossier";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
 import {ToastrService} from "ngx-toastr";
+import * as FileSaver from "file-saver";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -18,6 +19,8 @@ export class DossierImportComponent implements OnInit {
   public comp = 3;
   public enatt = 1;
   public entrai = 2;
+  public err= 0;
+  public details : any;
 
 
   constructor( private service : DossierService , private router : Router, private Auth : AuthService, private toastr : ToastrService) {
@@ -91,5 +94,23 @@ export class DossierImportComponent implements OnInit {
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);
     } }
+  detailsInfo(d : any){
+    this.service.getDocuments(d.id).subscribe(data =>{
+      this.details=data;
+      this.details = this.details._embedded.documents;
+      if (this.details ? this.details.length : '0'){
+        this.err = 1
+      }
+      else {
+        this.err = 0;
+      }
+      console.log(this.err);
+    })
+  }
+  OnDownload(doc : any){
+    this.service.DownloadDocument(doc.id).subscribe(blob => {
+      FileSaver(blob, doc.name);
+    })
+  }
 
 }

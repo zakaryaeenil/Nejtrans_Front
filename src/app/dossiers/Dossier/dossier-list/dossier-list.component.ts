@@ -4,6 +4,7 @@ import {Dossier} from "../../../Models/dossier";
 import {DossierService} from "../../../Services/dossier.service";
 import {AuthService} from "../../../Login/auth.service";
 import {ToastrService} from "ngx-toastr";
+import * as FileSaver from "file-saver";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -12,14 +13,14 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./dossier-list.component.css'],
 })
 export class DossierListComponent implements OnInit{
-
+  public err= 0;
    dossiers : Dossier[];
    public import = "Import";
    public export = "Export";
    public comp = 3;
    public enatt = 1;
    public entrai = 2;
-   public details : number;
+   public details : any;
   constructor(private service : DossierService ,private router : Router ,public Auth :AuthService, private toastr: ToastrService) {
 
   }
@@ -64,6 +65,11 @@ export class DossierListComponent implements OnInit{
 
    }
 
+   OnDownload(doc : any){
+    this.service.DownloadDocument(doc.id).subscribe(blob => {
+      FileSaver(blob, doc.name);
+    })
+   }
 
    //Delete Dossier
   DeleteDossier( p : Dossier){
@@ -99,7 +105,17 @@ export class DossierListComponent implements OnInit{
     } }
 
   detailsInfo(d : any){
-    this.details = d.id;
+    this.service.getDocuments(d.id).subscribe(data =>{
+      this.details=data;
+      this.details = this.details._embedded.documents;
+      if (this.details ? this.details.length : '0'){
+        this.err = 1
+      }
+      else {
+        this.err = 0;
+      }
+      console.log(this.err);
+    })
   }
 
 }

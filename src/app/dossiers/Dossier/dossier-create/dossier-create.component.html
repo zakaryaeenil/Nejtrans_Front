@@ -3,14 +3,14 @@
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
     <div class="doc-container">
-
       <div class="row">
         <div class="col">
 
           <div class="invoice-content">
-
             <div class="invoice-detail-body">
-
+              <div style="text-align:center">
+                <h2 style="font-style: initial">Ajouter Dossier</h2>
+              </div>
               <div class="invoice-detail-terms">
 
                 <div class="row justify-content-between">
@@ -38,7 +38,15 @@
                       </select>
                     </div>
                   </div>
+                  <div *ngIf="!Auth.isClient() " class="col">
 
+                    <div class="form-group mb-4">
+                      <label for="hello">Clients</label>
+                      <select #username *ngFor="let user of users"  id="users" class="form-control ">
+                        <option  value="{{user.username}}" >{{user.username}}</option>
+                      </select>
+                    </div>
+                  </div>
 
                 </div>
 
@@ -55,13 +63,15 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <ng-container *ngFor="let in  of counter(i); let a = index " >
                     <tr>
                       <td class="delete-item-row">
                         <ul class="table-controls">
-                          <li><a href="javascript:void(0);" class="delete-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>
+                          <li><a (click)="deleterow()" href="javascript:void(0);"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>
                         </ul>
                       </td>
-                      <td class="description"><select #type class="form-control">
+                      <td class="description">
+                        <select #type class="form-control">
                         <option value="Facture" selected="selected">Facture</option>
                         <option value="Connaissement/BL">Connaissement/BL</option>
                         <option value="Certif. d'origine">Certif. d'origine</option>
@@ -81,20 +91,23 @@
                                (change)="selectedFile($event)">
                       </td>
                     </tr>
+                    </ng-container>
                     </tbody>
                   </table>
                 </div>
 
-                <button class="btn btn-secondary additem btn-sm">Add Item</button>
+                <button (click)="addrow()" class="btn btn-secondary  btn-sm">Add Item</button>
               </div>
-              <button type="submit" (click)="onFileSelected()">TEST</button>
+              <div style="text-align:center">
+              <button type="submit" (click)="onFileSelected()" class="btn btn-primary mb-4 mr-2 btn-lg">Large button</button>
+              </div>
             </div>
 
           </div>
+
         </div>
       </div>
     </div>
-
   </div>
-</div>
+ </div>
 

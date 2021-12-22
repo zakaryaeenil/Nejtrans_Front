@@ -95,7 +95,7 @@ document.getElementsByClassName('additem')[0].addEventListener('click', function
           '<li><a href="javascript:void(0);" class="delete-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>'+
       '</ul>'+
     '</td>'+
-    '<td class="description"><select class="form-control">\n' +
+    '<td class="description"><select #type class="form-control">\n' +
     '                        <option value="Facture" selected="selected">Facture</option>\n' +
     '                        <option value="Connaissement/BL">Connaissement/BL</option>\n' +
     '                        <option value="Certif. d\'origine">Certif. d\'origine</option>\n' +
@@ -110,8 +110,8 @@ document.getElementsByClassName('additem')[0].addEventListener('click', function
     '                        <option value="Autres">Autres</option>\n' +
     '                      </select></td>'+
     '<td class="rate">'+
-        '<input type="file" class="form-control  form-control-sm" placeholder="Price">'+
-   ' </td>'+
+        ' <input type="file" class="file-input"(change)="selectedFile($event)">'+
+    '</td>'+
     '</td>'+
     '</tr>';
 

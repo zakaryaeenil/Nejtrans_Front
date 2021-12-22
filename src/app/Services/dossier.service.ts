@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Dossier} from "../Models/dossier";
+import {HelperForm} from "../Models/helper-form";
 
 
 
@@ -74,20 +75,42 @@ export class DossierService {
 
 
   // define function to upload files
-  upload(file: File , type : string , id : number) {
+  upload(file: File ,type : string) {
     const document : FormData = new FormData();
 
-    document.append("document", file);
+    document.append("document", file,type);
 
-   return this.http.post(`http://localhost:8080/api/documents/${id}/upload/${type}`, document , {
+   return this.http.post(`http://localhost:8080/api/documents/2/upload`, document , {
       responseType: 'json',});
 
 
 
   }
 
-  ClientCreateFolder(dossier : Dossier) : Observable<Object>{
-    return this.http.post("http://localhost:8080/api/client/createfolder", dossier, {responseType: 'text'});
+  ClientCreateFolder(dossier : HelperForm , files : File[]) {
+    const formData = new FormData();
+    const json = JSON.stringify(dossier);
+    const blob = new Blob([json], {
+      type: 'application/json'
+    });
+
+    formData.append("form", blob);
+    for (var i = 0; i < files.length; i++) {
+
+      formData.append("document", files[i]);
+
+    }
+
+     console.log(formData.get("form"));
+    return this.http.post("http://localhost:8080/api/dossier/save",formData , {responseType : 'text' , headers : {
+        'Accept':'application/octet-stream'}});
+
   }
 
+  getDocuments(id : number) : Observable<Document[]>{
+    return this.http.get<Document[]>(`http://localhost:8080/dossiers/${id}/documents`)
+  }
+  DownloadDocument(id : number) :Observable<Blob> {
+    return this.http.get<Blob>(`http://localhost:8080/api/documents/${id}/download`,{ responseType: 'blob' as 'json' });
+  }
 }

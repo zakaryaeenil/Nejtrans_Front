@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
     // Get the modal
     var modal = document.getElementById("addEventsModal");
 
@@ -12,7 +13,7 @@ $(document).ready(function() {
     var editEvent = document.getElementById("edit-event");
     // Get the Discard Modal button
     var discardModal = document.querySelectorAll("[data-dismiss='modal']")[0];
-    
+
     // Get the Add Event button
     var addEventTitle = document.getElementsByClassName("add-event-title")[0];
     // Get the Edit Event button
@@ -127,6 +128,8 @@ $(document).ready(function() {
 
     /* initialize the calendar
     -----------------------------------------------------------------*/
+    console.log(data.book);
+
 
     var calendar = $('#calendar').fullCalendar({
         header: {
@@ -278,7 +281,7 @@ $(document).ready(function() {
 
             var taskInputEndDate = $("#end-date");
             var taskInputEndtDateValue = taskInputEndDate.val(info.end.format("YYYY-MM-DD HH:mm:ss"));
-        
+
             var startDate = flatpickr(document.getElementById('start-date'), {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -321,7 +324,7 @@ $(document).ready(function() {
             });
         }
     })
-    
+
 
     function enableDatePicker() {
         var startDate = flatpickr(document.getElementById('start-date'), {
@@ -411,15 +414,17 @@ $(document).ready(function() {
     const mailScroll = new PerfectScrollbar('.fc-scroller', {
         suppressScrollX : true
     });
-    
+
     var fcButtons = document.getElementsByClassName('fc-button');
     for(var i = 0; i < fcButtons.length; i++) {
         fcButtons[i].addEventListener('click', function() {
             const mailScroll = new PerfectScrollbar('.fc-scroller', {
                 suppressScrollX : true
-            });        
+            });
             $('.fc-scroller').animate({ scrollTop: 0 }, 100);
             setCurrentDateHighlightStyle();
         })
     }
 });
+
+

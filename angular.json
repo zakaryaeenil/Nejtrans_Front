@@ -33,7 +33,10 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/bootstrap/css/bootstrap.min.css",
               "src/assets/assets/css/plugins.css",
-              "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.css"
+              "src/assets/plugins/perfect-scrollbar/perfect-scrollbar.css",
+              "src/assets/plugins/animate/animate.css",
+              "src/assets/assets/css/scrollspyNav.css",
+              "src/assets/assets/css/components/custom-modal.css"
             ],
             "scripts": [
               "src/assets/assets/js/libs/jquery-3.1.1.min.js",

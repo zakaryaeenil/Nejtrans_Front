@@ -11,7 +11,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./callendarview.component.css']
 })
 export class CallendarviewComponent implements OnInit {
-  book : any;
+  public book : any;
   events: Array<CalendarEvent<{ time: any }>> = [];
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
@@ -21,7 +21,9 @@ export class CallendarviewComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
-  constructor( private service : DashboardService ,private  modal :NgbModal) { }
+  constructor( private service : DashboardService ,private  modal :NgbModal) {
+  }
+
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   handleEvent(action: string, event: CalendarEvent): void {
@@ -65,5 +67,6 @@ export class CallendarviewComponent implements OnInit {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
 
 }

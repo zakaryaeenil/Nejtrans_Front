@@ -13,7 +13,9 @@ const routes: Routes = [
   {path:'',component:DashboardComponent , canActivate: [ReturnGuard]},
   { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) , canActivate: [ReturnGuard] },
   { path: 'dossiers', loadChildren: () => import('./dossiers/dossiers.module').then(m => m.DossiersModule)  , canActivate: [ReturnGuard]},
-  {path : 'forgot' , component:ForgotformComponent }
+  {path : 'forgot' , component:ForgotformComponent },
+  { path: 'rapports', loadChildren: () => import('./rapports/rapports.module').then(m => m.RapportsModule) ,  canActivate: [ReturnGuard] },
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) }
 ];
 
 @NgModule({
