@@ -2,12 +2,13 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {RapportService} from "../../Services/rapport.service";
 import {Rapportavg} from "../../Models/rapportavg";
 import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
-import {Label, SingleDataSet} from "ng2-charts";
+import { Label, SingleDataSet} from "ng2-charts";
 import {UserService} from "../../Services/user.service";
 import {RapportYearAvg} from "../../Models/rapport-year-avg";
+import {RapportLineHelper} from "../../Models/rapport-line-helper";
+
 
 @Component({
-  encapsulation : ViewEncapsulation.None,
   selector: 'app-entreprise-rapport',
   templateUrl: './entreprise-rapport.component.html',
   styleUrls: ['./entreprise-rapport.component.css']
@@ -35,8 +36,18 @@ export class EntrepriseRapportComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-
   barChartData: ChartDataSets[] = [];
+
+
+// barcharts for Dossier per year
+  barChartOptions_1: ChartOptions = {
+    responsive: true,
+  };
+  barChartLabels_1: Label[] =  ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',"JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+  barChartType_1: ChartType = 'bar';
+  barChartLegend_1 = true;
+  barChartPlugins_1 = [];
+  barChartData_1: ChartDataSets[] = [];
 
   anio: number = new Date().getFullYear();
   import : any;
@@ -51,7 +62,9 @@ export class EntrepriseRapportComponent implements OnInit {
   ImportYear : RapportYearAvg = new RapportYearAvg();
   ExportYear : RapportYearAvg = new RapportYearAvg();
 
-  constructor(private service_rapport : RapportService,private service: UserService) { }
+  LineData : RapportLineHelper[];
+
+  constructor(private service_rapport : RapportService,private service: UserService ) { }
 
   ngOnInit(): void {
     this.getFoldersAvg();
@@ -62,8 +75,11 @@ export class EntrepriseRapportComponent implements OnInit {
     this.getImportYearAvg();
     this.getExportYearAvg();
 
+    this.getlineData(this.anio);
+
     this.getAllDossierperyear(this.anio);
     this.getImportExportwithYear(this.anio);
+
   }
 
   getFoldersAvg(){
@@ -120,10 +136,10 @@ export class EntrepriseRapportComponent implements OnInit {
   getAllDossierperyear(year : number){
       this.service.getAllFolderbyYear(year).subscribe(data=>{
         this.doss=data;
-        var month = this.doss.map(function (elem){
+        let month = this.doss.map(function (elem){
           return elem.month;
         })
-        var count = this.doss.map(function (elem){
+        let count = this.doss.map(function (elem){
           return elem.count;
         })
         this.barChartLabels = month;
@@ -132,24 +148,25 @@ export class EntrepriseRapportComponent implements OnInit {
 
 
   }
-  // ALL Dossier by Client with type and Year
-  loadScripts() {
 
-    // This array contains all the files/CDNs
-    const dynamicScripts = [
-      'assets/plugins/table/datatable/datatables.js',
-      'assets/plugins/table/datatable/button-ext/dataTables.buttons.min.js',
-      'assets/plugins/table/datatable/button-ext/jszip.min.js',
-      'assets/plugins/table/datatable/button-ext/buttons.html5.min.js',
-      'assets/plugins/table/datatable/button-ext/buttons.print.min.js',
-      'assets/export_table.js',
-      //Load all your script files here'
-    ];
-    for (let i = 0; i < dynamicScripts.length; i++) {
-      const node = document.createElement('script');
-      node.src = dynamicScripts[i];
-      node.type = 'text/javascript';
-      node.async = false;
-      document.getElementsByTagName('head')[0].appendChild(node);
-    } }
+
+  getlineData(year : number){
+      this.service_rapport.getlineData(year).subscribe(data =>{
+      this.LineData = data;
+       console.log(this.LineData);
+        let total = this.LineData.map(function (elem){
+          return elem.countTotal;
+        })
+        let import_a = this.LineData.map(function (elem){
+          return elem.countImport;
+        })
+        let export_a = this.LineData.map(function (elem){
+          return elem.countExport;
+        })
+
+        this.barChartData_1 = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
+      })
+  }
+
+
 }

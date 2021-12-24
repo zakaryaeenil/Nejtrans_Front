@@ -1,0 +1,8 @@
+@import "../../../../assets/plugins/table/datatable/datatables.css";
+@import "../../../../assets/plugins/table/datatable/custom_dt_html5.css";
+@import "../../../../assets/plugins/table/datatable/dt-global_style.css";
+.center-block {
+  display: table;  /* Instead of display:block */
+  margin-left: auto;
+  margin-right: auto;
+}

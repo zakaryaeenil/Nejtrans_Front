@@ -1,0 +1,58 @@
+<!-- End Titre Content -->
+<div class="row" id="cancel-row">
+
+  <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+      <table id="html5-extension" class="table table-hover non-hover " style="width:100%">
+        <thead>
+        <tr>
+          <th>Code</th>
+          <th>Client</th>
+          <th>Type</th>
+          <th>Nb.Documents</th>
+          <th>Dispo</th>
+          <th>Reseravation</th>
+          <th>Etat d'avanecement </th>
+          <th>Creer À</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let dossier of dossiers">
+
+          <!-- Code  -->
+          <td><span style="font-weight: bold">#{{dossier.id}}</span></td>
+
+          <!-- Username  -->
+          <td><span style="font-weight: bold">{{dossier.user.username}}</span></td>
+
+          <!--Type Dossier -->
+          <td *ngIf="dossier.typeDossier == 'Import'; else contenu_pas_bon"><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td>
+          <ng-template #contenu_pas_bon> <td><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td></ng-template>
+
+          <!-- nb Documents -->
+          <td >{{dossier.nb_documents}}</td>
+
+          <!-- Available -->
+          <td *ngIf="dossier.available == enatt"><span class="shadow-none badge badge-danger">En Attente</span></td>
+          <td *ngIf="dossier.available == entrai"><span class="shadow-none badge badge-warning">En Traitement</span></td>
+          <td *ngIf="dossier.available == comp"><span class="shadow-none badge badge-info">Terminer</span></td>
+
+          <!--Reservation name -->
+          <td *ngIf="dossier.employeeUsername == '' ; else res_name"><span style="font-weight: bold">Aucun</span></td>
+          <ng-template #res_name><td><span class="shadow-none badge badge-secondary">{{dossier.employeeUsername}}</span></td> </ng-template>
+
+          <!-- Etat -->
+          <td *ngIf="dossier.etat == null ; else etat">Aucun</td>
+          <ng-template #etat><td>En programation</td> </ng-template>
+
+
+          <!-- Creation Date -->
+          <td>{{dossier.createdAt |  date:'medium'}}</td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

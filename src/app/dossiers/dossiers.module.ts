@@ -14,20 +14,23 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
-  declarations: [
-    DossierListComponent,
-    DossierImportComponent,
-    DossierExportComponent,
-    DossierEnattenteComponent,
-    DossierEntraitementComponent,
-    DossierCompletedComponent,
-    MyFoldersComponent,
-    DossierCreateComponent
-  ],
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DossiersRoutingModule
-  ]
+    declarations: [
+        DossierListComponent,
+        DossierImportComponent,
+        DossierExportComponent,
+        DossierEnattenteComponent,
+        DossierEntraitementComponent,
+        DossierCompletedComponent,
+        MyFoldersComponent,
+        DossierCreateComponent
+    ],
+    exports: [
+        DossierListComponent
+    ],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DossiersRoutingModule
+    ]
 })
 export class DossiersModule { }

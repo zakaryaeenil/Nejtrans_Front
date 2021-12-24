@@ -6,6 +6,8 @@ import { ClientsRapportComponent } from './clients-rapport/clients-rapport.compo
 import { EntrepriseRapportComponent } from './entreprise-rapport/entreprise-rapport.component';
 import { AgentsRapportComponent } from './agents-rapport/agents-rapport.component';
 import {ChartsModule} from "ng2-charts";
+import { TableViewentrepriseComponent } from './entreprise-rapport/table-viewentreprise/table-viewentreprise.component';
+
 
 
 
@@ -13,7 +15,8 @@ import {ChartsModule} from "ng2-charts";
   declarations: [
     ClientsRapportComponent,
     EntrepriseRapportComponent,
-    AgentsRapportComponent
+    AgentsRapportComponent,
+    TableViewentrepriseComponent,
   ],
   imports: [
     CommonModule,

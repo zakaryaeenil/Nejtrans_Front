@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Rapportavg} from "../Models/rapportavg";
 import {RapportYearAvg} from "../Models/rapport-year-avg";
+import {RapportLineHelper} from "../Models/rapport-line-helper";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,8 @@ export class RapportService {
   }
   getFoldersAvgYearpertype(type : string) : Observable<RapportYearAvg>{
     return this.http.get<RapportYearAvg>(`http://localhost:8080/api/rapport/year/${type}`);
+  }
+  getlineData(year : number) : Observable<RapportLineHelper[]>{
+    return this.http.get<RapportLineHelper[]>(`http://localhost:8080/api/rapport/getmonths/${year}`);
   }
 }
