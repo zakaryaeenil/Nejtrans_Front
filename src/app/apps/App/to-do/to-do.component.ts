@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {TodoService} from "../../Services/todo.service";
-import {Todo} from "../../Models/todo";
+import {TodoService} from "../../../Services/todo.service";
+import {Todo} from "../../../Models/todo";
 
 
 @Component({

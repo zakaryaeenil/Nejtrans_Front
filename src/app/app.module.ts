@@ -5,8 +5,6 @@ import {HttpClientModule} from "@angular/common/http";
 import { LoginFormComponent } from './Login/login-form/login-form.component';
 import { NavbarComponent } from './Helpers/navbar/navbar.component';
 import { SidebarComponent } from './Helpers/sidebar/sidebar.component';
-import { ToDoComponent } from './App/to-do/to-do.component';
-import { NotesComponent } from './App/notes/notes.component';
 import {ChartsModule} from "ng2-charts";
 import { DashboardComponent } from './Dashboard/dashboard.component';
 import { CallendarviewComponent } from './Dashboard/callendarview/callendarview.component';
@@ -33,8 +31,6 @@ import { environment } from '../environments/environment';
     LoginFormComponent,
     NavbarComponent,
     SidebarComponent,
-    ToDoComponent,
-    NotesComponent,
     DashboardComponent,
     CallendarviewComponent,
     ForgotformComponent,
