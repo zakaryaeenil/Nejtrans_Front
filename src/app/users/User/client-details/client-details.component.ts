@@ -11,7 +11,7 @@ import {User} from "../../../Models/user";
 })
 export class ClientDetailsComponent implements OnInit {
   anio: number = new Date().getFullYear();
-  client : User;
+  client : User  = new User();
   folders_year : any;
   doss_details : any;
   doss_details_import : any;

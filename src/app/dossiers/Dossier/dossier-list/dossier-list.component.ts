@@ -15,8 +15,6 @@ import * as FileSaver from "file-saver";
 export class DossierListComponent implements OnInit{
   public err= 0;
    dossiers : Dossier[];
-   public import = "Import";
-   public export = "Export";
    public comp = 3;
    public enatt = 1;
    public entrai = 2;

@@ -1,18 +1,3 @@
-$('.input-search').on('keyup', function() {
-  var rex = new RegExp($(this).val(), 'i');
-  $('.todo-box .todo-item').hide();
-  $('.todo-box .todo-item').filter(function() {
-    return rex.test($(this).text());
-  }).show();
-});
-
-const taskViewScroll = new PerfectScrollbar('.task-text', {
-  wheelSpeed:.5,
-  swipeEasing:!0,
-  minScrollbarLength:40,
-  maxScrollbarLength:300,
-  suppressScrollX : true
-});
 function dynamicBadgeNotification( setTodoCategoryCount ) {
   var todoCategoryCount = setTodoCategoryCount;
 
@@ -93,17 +78,6 @@ new dynamicBadgeNotification('importantList');
   ====================
 */
 
-var quill = new Quill('#taskdescription', {
-  modules: {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline'],
-      ['image', 'code-block']
-    ]
-  },
-  placeholder: 'Compose an epic...',
-  theme: 'snow'  // or 'bubble'
-});
 
 $('#addTaskModal').on('hidden.bs.modal', function (e) {
   // do something...
@@ -122,6 +96,7 @@ $('.mail-overlay').on('click', function(event) {
   $('.tab-title').removeClass('mail-menu-show');
   $('.mail-overlay').removeClass('mail-overlay-show');
 })
+
 $('#addTask').on('click', function(event) {
   event.preventDefault();
   $('.add-tsk').show();
@@ -252,7 +227,8 @@ function editDropdown() {
     $('.edit-tsk').off('click').on('click', function(event) {
       var $_innerThis = $(this);
       var $_task = document.getElementById('task').value;
-      var $_taskDescription = document.getElementById('taskdescription').value;
+
+
 
       var today = new Date();
       var dd = String(today.getDate()).padStart(2, '0');

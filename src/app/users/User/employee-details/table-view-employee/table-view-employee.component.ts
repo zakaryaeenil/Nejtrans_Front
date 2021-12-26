@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../../../Services/user.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -8,14 +9,12 @@ import {UserService} from "../../../../Services/user.service";
   styleUrls: ['./table-view-employee.component.css']
 })
 export class TableViewEmployeeComponent implements OnInit {
-  @Input()
-  username: string;
   doss : any;
   public import = "Import";
   public export = "Export";
   public comp = 3;
   public entrai = 2;
-  constructor(private service : UserService) { }
+  constructor(private service : UserService  ,private activatedRoute: ActivatedRoute) { }
 
 
   ngOnInit(): void {
@@ -24,7 +23,7 @@ export class TableViewEmployeeComponent implements OnInit {
   // ALL Dossier by Employee
   getDossiersEmployee() {
 
-    this.service.getEmployeeDossiers(this.username).subscribe(data=>{
+    this.service.getEmployeeDossiers(this.activatedRoute.snapshot.params['username']).subscribe(data=>{
       this.doss=data;
       this.loadScripts();
     });

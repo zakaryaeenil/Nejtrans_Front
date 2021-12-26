@@ -43,16 +43,16 @@
                   <td><span style="font-weight: bold">{{dossier.user.username}}</span></td>
 
                 <!--Type Dossier -->
-                <td *ngIf="dossier.typeDossier == import; else contenu_pas_bon"><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td>
+                <td *ngIf="dossier.typeDossier == 'Import'; else contenu_pas_bon"><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td>
                 <ng-template #contenu_pas_bon> <td><span class="shadow-none badge badge-success">{{dossier.typeDossier}}</span></td></ng-template>
 
                   <!-- nb Documents -->
                  <td >{{dossier.nb_documents}}</td>
 
                   <!-- Available -->
-                  <td *ngIf="dossier.available == enatt"><span class="shadow-none badge badge-danger">En Attente</span></td>
-                  <td *ngIf="dossier.available == entrai"><span class="shadow-none badge badge-warning">En Traitement</span></td>
-                  <td *ngIf="dossier.available == comp"><span class="shadow-none badge badge-info">Terminer</span></td>
+                  <td *ngIf="dossier.available == 1"><span class="shadow-none badge badge-danger">En Attente</span></td>
+                  <td *ngIf="dossier.available == 2"><span class="shadow-none badge badge-warning">En Traitement</span></td>
+                  <td *ngIf="dossier.available == 3"><span class="shadow-none badge badge-info">Terminer</span></td>
 
                   <!--Reservation name -->
                   <td *ngIf="dossier.employeeUsername == '' ; else res_name"><span style="font-weight: bold">Aucun</span></td>

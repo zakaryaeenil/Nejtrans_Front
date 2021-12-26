@@ -10,7 +10,7 @@ import {Todo} from "../../../Models/todo";
   styleUrls: ['./to-do.component.css']
 })
 export class ToDoComponent implements OnInit {
-  todos  : any;
+  todos  : Todo[];
   Item:Todo =new Todo();
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
   @ViewChild('title') title;

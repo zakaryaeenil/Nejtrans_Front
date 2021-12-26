@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'dossiers', loadChildren: () => import('./dossiers/dossiers.module').then(m => m.DossiersModule)  , canActivate: [ReturnGuard]},
   {path : 'forgot' , component:ForgotformComponent },
   { path: 'rapports', loadChildren: () => import('./rapports/rapports.module').then(m => m.RapportsModule) ,  canActivate: [ReturnGuard] },
-  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
-  { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule) }
+  { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) ,canActivate: [ReturnGuard]},
+  { path: 'apps', loadChildren: () => import('./apps/apps.module').then(m => m.AppsModule),canActivate: [ReturnGuard] }
 ];
 
 @NgModule({

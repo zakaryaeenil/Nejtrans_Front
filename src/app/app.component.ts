@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthService} from "./Login/auth.service";
 
 @Component({
+  encapsulation : ViewEncapsulation.None,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -26,6 +27,5 @@ public isLogged : boolean;
       this.authService.isTokenExpired())
       this.router.navigate(['/login']);
   }
-
 
 }

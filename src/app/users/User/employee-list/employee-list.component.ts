@@ -13,7 +13,8 @@ import {ToastrService} from "ngx-toastr";
 export class EmployeeListComponent implements OnInit {
 
   user:User =new User();
-  Employee : any;
+  Employee : User[];
+  emlpyee_helper : any;
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
   constructor(private service : UserService ,private router : Router , private toastr : ToastrService) { }
 
@@ -26,8 +27,8 @@ export class EmployeeListComponent implements OnInit {
 getEmployee(){
     this.service.getEmployees().subscribe(
       data =>{
-        this.Employee = data;
-        this.Employee = this.Employee._embedded.users;
+        this.emlpyee_helper = data;
+        this.Employee = this.emlpyee_helper._embedded.users;
         this.loadScripts();
       });
 }

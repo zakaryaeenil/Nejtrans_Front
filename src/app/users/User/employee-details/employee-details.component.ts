@@ -12,7 +12,7 @@ import {User} from "../../../Models/user";
 })
 export class EmployeeDetailsComponent implements OnInit {
   anio: number = new Date().getFullYear();
-  client : User;
+  client : User  = new User();
   completed :any;
   doss_import : number;
   doss_export : number;
@@ -62,7 +62,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
   }
   getInfoClient(){
-    this.service.getClientInfo(this.activatedRoute.snapshot.params['id']).subscribe(data=>{
+    this.service.getEmployeeInfo(this.activatedRoute.snapshot.params['username']).subscribe(data=>{
       this.client=data;
     })
   }

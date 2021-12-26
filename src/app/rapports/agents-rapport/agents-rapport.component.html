@@ -1,5 +1,10 @@
+<div class="page-header">
+  <div class="page-title">
+    <h3>Agents Rapport :</h3>
+  </div>
+</div>
+
 <div class="row layout-top-spacing">
-<!-- End Titre Content -->
 <div class="row" id="cancel-row">
   <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="widget-content widget-content-area br-6">
@@ -13,6 +18,9 @@
           <th *ngFor="let help of helper" class="align-content-center" rowspan="1" colspan="3" >
             {{help.month}}
           </th>
+          <th  class="align-content-center" rowspan="1" colspan="2" >
+          resultat
+          </th>
         </tr>
         <tr>
 
@@ -20,8 +28,10 @@
           <ng-container *ngFor="let help_1 of helper">
             <th >Import&nbsp;&nbsp;</th>
             <th >Export&nbsp;&nbsp;</th>
-            <th >Total  </th>
+            <th >Sub Total  </th>
           </ng-container>
+          <th>Total&nbsp;&nbsp;</th>
+          <th>Avg&nbsp;&nbsp;</th>
         </tr>
         </thead>
         <tbody >
@@ -33,14 +43,61 @@
               <ng-container *ngIf="client.username == help_3.username">
                 <th >{{help_3.countImport}}&nbsp;&nbsp;</th>
                 <th >{{help_3.countExport}}&nbsp;&nbsp;</th>
-                <th >{{help_3.countTotal}} </th>
+                <th ><span class="badge badge-success">{{help_3.countTotal}}</span> </th>
               </ng-container>
             </ng-container>
           </ng-container>
+          <th>{{client.countReservations | number : '1.0-0'}}</th>
+          <th>{{client.countReservations/12}}</th>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+</div>
+
+<div class="row layout-top-spacing">
+  <div class="row" id="cancel-row_1">
+
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+      <div class="widget-content widget-content-area br-6">
+        <table id="default-ordering" class="table table-hover" style="width:100%">
+          <thead>
+          <tr>
+            <th>Client</th>
+            <th>Fisrt Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Nb. Dossier</th>
+            <th>Creer À</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of ClientsList">
+
+            <!-- Username  -->
+            <td><span style="font-weight: bold">{{c.username}}</span></td>
+
+            <!--First name -->
+            <td><span style="font-weight: bold">{{c.firstName}}</span></td>
+            <!-- last name -->
+            <td><span style="font-weight: bold">{{c.lastName}}</span></td>
+
+            <!-- email -->
+            <td><span style="font-weight: bold">{{c.email}}</span></td>
+            <!--count Dossier -->
+            <td><span style="font-weight: bold" class="badge badge-info">{{c.countReservations}}</span></td>
+
+
+            <!-- Creation Date -->
+            <td>{{c.createdAt |  date:'medium'}}</td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
 </div>

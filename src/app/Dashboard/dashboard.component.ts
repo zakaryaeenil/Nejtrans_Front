@@ -3,8 +3,8 @@ import {UserService} from "../Services/user.service";
 import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
 import {Label, SingleDataSet} from "ng2-charts";
 import {AuthService} from "../Login/auth.service";
-import {DossierService} from "../Services/dossier.service";
-import {LoginFormComponent} from "../Login/login-form/login-form.component";
+import {User} from "../Models/user";
+import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,40 +12,40 @@ import {LoginFormComponent} from "../Login/login-form/login-form.component";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  User : any;
-  Employee : any;
-  Clients : any;
+  User : User;
+  Employee : User[];
+  Clients : User[];
+  user_helper :any;
+
   EmpTotal : number;
   ClientTotal : number;
   ImportTotal : number;
   ExportTotal : number;
   FolTotal : number;
+
+
   doss : any;
-  doss_import: any;
-  doss_export : any;
   anio: number = new Date().getFullYear();
   import : any;
   export : any;
-  doss_details_export :any;
-  doss_details_import :any;
-  CurrentUser : any;
+  CurrentUser : User;
   folders_year : any;
-  completed : any;
+  completed : DossiersbyUserAndYear[];
+  folder_helper :any;
 
 
+  EmployeeFolders : number;
+  EmployeeFoldersImport : number;
+  EmployeeFoldersExport:number;
+  EmployeeFoldersEnattente :number;
+  EmployeeFoldersCompleted : number;
 
-  EmployeeFolders : any;
-  EmployeeFoldersImport;
-  EmployeeFoldersExport:any;
-  EmployeeFoldersEnattente :any;
-  EmployeeFoldersCompleted : any;
-
-  ClientFolders : any;
-  ClientFoldersImport;
-  ClientFoldersExport:any;
-  ClientFoldersEnattente :any;
-  ClientFoldersEntraitement :any;
-  ClientFoldersCompleted : any;
+  ClientFolders : number;
+  ClientFoldersImport : number;
+  ClientFoldersExport:number;
+  ClientFoldersEnattente :number;
+  ClientFoldersEntraitement :number;
+  ClientFoldersCompleted : number;
 
   //Charts Import Export //
   public pieChartOptions: ChartOptions = {
@@ -69,7 +69,6 @@ export class DashboardComponent implements OnInit {
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
-
   barChartData: ChartDataSets[] = [];
 
 
@@ -111,8 +110,8 @@ export class DashboardComponent implements OnInit {
   }
   getTopClients(){
     this.service.getTopClients().subscribe(data =>{
-      this.Clients = data;
-      this.Clients =this.Clients._embedded.users;
+      this.user_helper = data;
+      this.Clients =this.user_helper._embedded.users;
 
     })
   }
@@ -120,7 +119,7 @@ export class DashboardComponent implements OnInit {
   getTopEmployees(){
     this.service.getTopEmployees().subscribe(data =>{
       this.Employee =data;
-      this.Employee = this.Employee._embedded.users;
+      this.Employee = this.user_helper._embedded.users;
 
     }
     )
@@ -157,10 +156,10 @@ export class DashboardComponent implements OnInit {
       if (this.Auth.isAdmin()){
         this.service.getAllFolderbyYear(year).subscribe(data=>{
           this.doss=data;
-          var month = this.doss.map(function (elem){
+          let month = this.doss.map(function (elem){
             return elem.month;
           })
-          var count = this.doss.map(function (elem){
+          let count = this.doss.map(function (elem){
             return elem.count;
           })
           this.barChartLabels = month;
@@ -172,10 +171,10 @@ export class DashboardComponent implements OnInit {
           this.CurrentUser = data;
         this.service.getClientFolderCount(this.CurrentUser.id,year).subscribe(data=>{
           this.folders_year=data;
-          var month = this.folders_year.map(function (elem){
+          let month = this.folders_year.map(function (elem){
             return elem.month;
           })
-          var count = this.folders_year.map(function (elem){
+          let count = this.folders_year.map(function (elem){
             return elem.count;
           })
 
@@ -190,10 +189,10 @@ export class DashboardComponent implements OnInit {
           this.CurrentUser=data;
           this.service.getEmployeeFoldercountByYear(this.CurrentUser.username,2,year).subscribe(data=>{
             this.completed=data;
-            var month = this.completed.map(function (elem){
+            let month = this.completed.map(function (elem){
               return elem.month;
             })
-            var count = this.completed.map(function (elem){
+            let count = this.completed.map(function (elem){
               return elem.count+1;
             })
             this.barChartLabels = month;

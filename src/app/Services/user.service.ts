@@ -55,6 +55,10 @@ export class UserService {
   getClientInfo(id : number) : Observable<User>{
     return this.http.get<User>(`http://localhost:8080/users/${id}`);
   }
+  //ALL Client with id
+  getEmployeeInfo(username : string) : Observable<User>{
+    return this.http.get<User>(`http://localhost:8080/users/search/findByUsername?username=${username}`);
+  }
 
   getClientFolderCount(id : number ,year : number) : Observable<DossiersbyUserAndYear[]>{
     return  this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/user/${id}/folders/${year}`);

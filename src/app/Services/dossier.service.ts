@@ -14,7 +14,10 @@ export class DossierService {
 
   //All Dossier
   getAllDossiers() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/api/dossier/all");
+    const headers= new HttpHeaders()
+      .set('content-type', 'application/json; charset = utf-8');
+
+    return this.http.get<Dossier[]>("http://localhost:8080/api/dossier/all", {headers});
   }
 
   //Import Dossier
@@ -95,7 +98,7 @@ export class DossierService {
     });
 
     formData.append("form", blob);
-    for (var i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
 
       formData.append("document", files[i]);
 
