@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Rapportavg} from "../Models/rapportavg";
 import {RapportYearAvg} from "../Models/rapport-year-avg";
 import {RapportLineHelper} from "../Models/rapport-line-helper";
+import {Helper} from "../Models/rapportAgents/helper";
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,13 @@ export class RapportService {
   getlineData(year : number) : Observable<RapportLineHelper[]>{
     return this.http.get<RapportLineHelper[]>(`http://localhost:8080/api/rapport/getmonths/${year}`);
   }
+
+  getFoldersAgentsData() : Observable<Helper[]>{
+    return this.http.get<Helper[]>("http://localhost:8080/api/rapport/getmonthsAgents" );
+  }
+
+  getFoldersClientData() : Observable<Helper[]>{
+    return this.http.get<Helper[]>("http://localhost:8080/api/rapport/getmonthsClients" );
+  }
+
 }

@@ -1,26 +1,46 @@
 <div class="row layout-top-spacing">
-  <div class="table-responsive">
-    <table>
-      <thead>
+<!-- End Titre Content -->
+<div class="row" id="cancel-row">
+  <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="widget-content widget-content-area br-6">
+      <table id="html5-extension" class="table table-hover non-hover " style="width:100%">
+        <thead>
 
-      <tr>
-        <th rowspan="1" colspan="1" >
-          Client Name
-        </th>
-        <th rowspan="1" colspan="1" >
-          &nbsp;&nbsp;
-        </th>
-        <th class="align-content-center" rowspan="1" colspan="5" >
-          Janvier
-        </th>
-      </tr>
+        <tr>
+          <th rowspan="1" colspan="1" >
+            Agents Name
+          </th>
+          <th *ngFor="let help of helper" class="align-content-center" rowspan="1" colspan="3" >
+            {{help.month}}
+          </th>
+        </tr>
+        <tr>
 
-      </thead>
-      <tbody>
-      <tr >Total </tr>
-      <tr>Import</tr>
-      <tr>Export</tr>
-      </tbody>
-    </table>
+          <th>&nbsp;&nbsp;</th>
+          <ng-container *ngFor="let help_1 of helper">
+            <th >Import&nbsp;&nbsp;</th>
+            <th >Export&nbsp;&nbsp;</th>
+            <th >Total  </th>
+          </ng-container>
+        </tr>
+        </thead>
+        <tbody >
+
+        <tr *ngFor="let client of clients">
+          <th>{{client.username}}</th>
+          <ng-container *ngFor="let help_2 of helper">
+            <ng-container *ngFor="let help_3 of help_2.data">
+              <ng-container *ngIf="client.username == help_3.username">
+                <th >{{help_3.countImport}}&nbsp;&nbsp;</th>
+                <th >{{help_3.countExport}}&nbsp;&nbsp;</th>
+                <th >{{help_3.countTotal}} </th>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
 </div>
