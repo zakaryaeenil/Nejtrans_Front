@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../../Services/user.service";
 import {User} from "../../../Models/user";
 import {Router} from "@angular/router";
@@ -13,7 +13,8 @@ import {ToastrService} from "ngx-toastr";
 })
 export class ClientListComponent implements OnInit {
   user:User =new User();
-  Clients : any;
+  Clients : User[];
+  client_helper : any;
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal;
   constructor(private service : UserService , private router: Router , private toastr: ToastrService) { }
 
@@ -25,8 +26,8 @@ export class ClientListComponent implements OnInit {
   getClients(){
     this.service.getClients().subscribe(
       data =>{
-        this.Clients = data;
-        this.Clients = this.Clients._embedded.users;
+        this.client_helper = data;
+        this.Clients = this.client_helper._embedded.users;
         this.loadScripts();
       });
   }

@@ -5,6 +5,8 @@ import {Label, SingleDataSet} from "ng2-charts";
 import {AuthService} from "../Login/auth.service";
 import {User} from "../Models/user";
 import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
+import {Dossier} from "../Models/dossier";
+import {ChartsModel} from "../Models/charts-model";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +14,6 @@ import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  User : User;
   Employee : User[];
   Clients : User[];
   user_helper :any;
@@ -24,14 +25,15 @@ export class DashboardComponent implements OnInit {
   FolTotal : number;
 
 
-  doss : any;
+  i : Dossier[];
+  e : Dossier[];
+  doss : ChartsModel[];
   anio: number = new Date().getFullYear();
   import : any;
   export : any;
   CurrentUser : User;
-  folders_year : any;
-  completed : DossiersbyUserAndYear[];
-  folder_helper :any;
+  folders_year : ChartsModel[];
+  completed : ChartsModel[];
 
 
   EmployeeFolders : number;
@@ -65,7 +67,7 @@ export class DashboardComponent implements OnInit {
   barChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = [];
+  barChartLabels: Label[] =  ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',"JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
@@ -118,7 +120,7 @@ export class DashboardComponent implements OnInit {
 
   getTopEmployees(){
     this.service.getTopEmployees().subscribe(data =>{
-      this.Employee =data;
+      this.user_helper =data;
       this.Employee = this.user_helper._embedded.users;
 
     }
@@ -156,14 +158,18 @@ export class DashboardComponent implements OnInit {
       if (this.Auth.isAdmin()){
         this.service.getAllFolderbyYear(year).subscribe(data=>{
           this.doss=data;
-          let month = this.doss.map(function (elem){
-            return elem.month;
+          let total = this.doss.map(function (elem){
+            return elem.total;
           })
-          let count = this.doss.map(function (elem){
-            return elem.count;
+          let import_a = this.doss.map(function (elem){
+            return elem.impo;
           })
-          this.barChartLabels = month;
-          this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
+          let export_a = this.doss.map(function (elem){
+            return elem.expo;
+          })
+
+          this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
+
         })
       }
       else if (this.Auth.isClient()){
@@ -171,15 +177,18 @@ export class DashboardComponent implements OnInit {
           this.CurrentUser = data;
         this.service.getClientFolderCount(this.CurrentUser.id,year).subscribe(data=>{
           this.folders_year=data;
-          let month = this.folders_year.map(function (elem){
-            return elem.month;
+          let total = this.folders_year.map(function (elem){
+            return elem.total;
           })
-          let count = this.folders_year.map(function (elem){
-            return elem.count;
+          let import_a = this.folders_year.map(function (elem){
+            return elem.impo;
+          })
+          let export_a = this.folders_year.map(function (elem){
+            return elem.expo;
           })
 
-          this.barChartLabels = month;
-          this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
+          this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
+
         })
 
       })
@@ -187,16 +196,19 @@ export class DashboardComponent implements OnInit {
       else if (this.Auth.isEmployee()){
         this.service.getCurrentUser().subscribe(data =>{
           this.CurrentUser=data;
-          this.service.getEmployeeFoldercountByYear(this.CurrentUser.username,2,year).subscribe(data=>{
+          this.service.getEmployeeFoldercountByYear(this.CurrentUser.username,year).subscribe(data=>{
             this.completed=data;
-            let month = this.completed.map(function (elem){
-              return elem.month;
+            let total = this.completed.map(function (elem){
+              return elem.total;
             })
-            let count = this.completed.map(function (elem){
-              return elem.count+1;
+            let import_a = this.completed.map(function (elem){
+              return elem.impo;
             })
-            this.barChartLabels = month;
-            this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
+            let export_a = this.completed.map(function (elem){
+              return elem.expo;
+            })
+
+            this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
 
           })
 
@@ -221,16 +233,16 @@ export class DashboardComponent implements OnInit {
         })
       })
   }
-  // ALL Dossier by Client Import Per Year and type
+  //// ALL Dossier by Client Import Per Year and type
   getDossiersCLientPerYearAndType(year : number){
     this.service.getCurrentUser().subscribe(data => {
       this.CurrentUser = data;
       this.service.getClientsDossiersTypePerYear(this.CurrentUser.id, 'Import', year).subscribe(data => {
-        this.import = data;
+        this.i = data;
         this.service.getClientsDossiersTypePerYear(this.CurrentUser.id, 'Export', year).subscribe(data => {
-          this.export = data;
+          this.e = data;
           this.pieChartLabels = ['Import', 'Export'];
-          this.pieChartData = [this.import.length, this.export.length];
+          this.pieChartData = [this.i.length, this.e.length];
         })
       })
     })

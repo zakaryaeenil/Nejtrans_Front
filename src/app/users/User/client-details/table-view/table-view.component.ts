@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserService} from "../../../../Services/user.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -9,15 +10,14 @@ import {UserService} from "../../../../Services/user.service";
 })
 export class TableViewComponent implements OnInit {
 
-  @Input()
-  id: number;
+
   doss : any;
   public import = "Import";
   public export = "Export";
   public comp = 3;
   public enatt = 1;
   public entrai = 2;
-  constructor(private service : UserService) { }
+  constructor(private service : UserService ,private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getDossiersCLient();
@@ -26,7 +26,7 @@ export class TableViewComponent implements OnInit {
   // ALL Dossier by Client
   getDossiersCLient() {
 
-    this.service.getClientsDossiers(this.id).subscribe(data=>{
+    this.service.getClientsDossiers(this.activatedRoute.snapshot.params['id']).subscribe(data=>{
       this.doss=data;
       this.loadScripts();
     });

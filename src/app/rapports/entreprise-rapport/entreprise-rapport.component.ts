@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RapportService} from "../../Services/rapport.service";
 import {Rapportavg} from "../../Models/rapportavg";
 import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
@@ -105,7 +105,6 @@ export class EntrepriseRapportComponent implements OnInit {
   getFoldersYearAvg(){
     this.service_rapport.getFoldersYearAvg().subscribe(data =>{
       this.TotalYear = data;
-      console.log(this.TotalYear)
       this.TotalYear.avg = (this.TotalYear.result /this.TotalYear.lastYear)*100;
     })
   }
@@ -153,7 +152,6 @@ export class EntrepriseRapportComponent implements OnInit {
   getlineData(year : number){
       this.service_rapport.getlineData(year).subscribe(data =>{
       this.LineData = data;
-       console.log(this.LineData);
         let total = this.LineData.map(function (elem){
           return elem.countTotal;
         })

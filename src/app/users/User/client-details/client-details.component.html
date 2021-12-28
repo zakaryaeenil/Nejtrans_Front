@@ -1,3 +1,11 @@
+<div class="page-header">
+  <div class="float-left page-title">
+    <h3>Details :</h3>
+  </div>
+</div>
+
+
+
 <div class="row layout-spacing">
 
   <!-- Content -->
@@ -26,33 +34,33 @@
                     <div class="row">
                       <div class="col">
                     <label for="InputFirstName">FisrtName</label>
-                    <input type="text" class="form-control" id="InputFirstName" placeholder="{{client.firstName}}">
+                    <input type="text" class="form-control" id="InputFirstName" placeholder="">
                       </div>
                       <div class="col">
                         <label for="InputLastName">Last Name</label>
-                        <input type="text" class="form-control" id="InputLastName"  placeholder="{{client.lastName}}">
+                        <input type="text" class="form-control" id="InputLastName"  placeholder="">
                         </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="Username" placeholder="{{client.username}}">
+                    <input type="text" class="form-control" id="Username" placeholder="">
                   </div>
                   <div class="form-group">
                     <div class="row">
                       <div class="col">
                         <label for="Email">Email</label>
-                        <input type="email" class="form-control" id="Email" placeholder="{{client.email}}">
+                        <input type="email" class="form-control" id="Email" placeholder="">
                       </div>
                       <div class="col">
                         <label for="tel">Telephone</label>
-                        <input type="tel" class="form-control" id="tel"  placeholder="{{client.telephone}}">
+                        <input type="tel" class="form-control" id="tel"  placeholder="">
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="Adresse">Adresse</label>
-                    <textarea  class="form-control" id="Adresse" placeholder="{{client.address}}"></textarea>
+                    <textarea  class="form-control" id="Adresse" placeholder=""></textarea>
                   </div>
                   <div class="form-group">
                     <label *ngIf="client.enabled == false" class=" switch s-icons s-outline s-outline-success mr-2">
@@ -308,7 +316,7 @@
 
   </div>
 
-    <app-table-view [id] = client.id></app-table-view>
+    <app-table-view></app-table-view>
   <!-- END GLOBAL MANDATORY SCRIPTS -->
   <script src="assets/assets/js/authentication/form-2.js"></script>
 

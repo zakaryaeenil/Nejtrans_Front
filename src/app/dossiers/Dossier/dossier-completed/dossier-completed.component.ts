@@ -4,7 +4,6 @@ import {Dossier} from "../../../Models/dossier";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
 import {ToastrService} from "ngx-toastr";
-import {User} from "../../../Models/user";
 import * as FileSaver from "file-saver";
 
 @Component({
@@ -15,8 +14,6 @@ import * as FileSaver from "file-saver";
 })
 export class DossierCompletedComponent implements OnInit {
   doss_completed : any;
-  public import : 'import';
-  public export : 'export';
   public err= 0;
   public details : any;
   constructor( private service : DossierService , private router: Router , private Auth:AuthService , private toastr : ToastrService) {

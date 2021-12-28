@@ -5,6 +5,7 @@ import {User} from "../Models/user";
 import {Dossier} from "../Models/dossier";
 import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
 import {AuthService} from "../Login/auth.service";
+import {ChartsModel} from "../Models/charts-model";
 
 
 @Injectable({
@@ -60,8 +61,8 @@ export class UserService {
     return this.http.get<User>(`http://localhost:8080/users/search/findByUsername?username=${username}`);
   }
 
-  getClientFolderCount(id : number ,year : number) : Observable<DossiersbyUserAndYear[]>{
-    return  this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/user/${id}/folders/${year}`);
+  getClientFolderCount(id : number ,year : number) : Observable<ChartsModel[]>{
+    return  this.http.get<ChartsModel[]>(`http://localhost:8080/api/admin/charts/${id}/${year}/all`);
   }
 
   //ALL Employees
@@ -75,8 +76,8 @@ export class UserService {
   }
 
 
-  getEmployeeFoldercountByYear(username : string, id: number , year : number) : Observable<DossiersbyUserAndYear[]>{
-    return this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/employee/${username}/folders/${id}/${year}`);
+  getEmployeeFoldercountByYear(username : string, year : number) : Observable<ChartsModel[]>{
+    return this.http.get<ChartsModel[]>(`http://localhost:8080/api/admin/chartsemployee/${username}/${year}`);
   }
 
   getEmployeeFoldercountPerType(username : string, type: string) : Observable<number>{
@@ -90,8 +91,8 @@ export class UserService {
   }
 
   // Stats All Folders By year
-  getAllFolderbyYear(year : number) : Observable<DossiersbyUserAndYear[]>{
-    return this.http.get<DossiersbyUserAndYear[]>(`http://localhost:8080/api/admin/dossiers/count/total/${year}`);
+  getAllFolderbyYear(year : number) : Observable<ChartsModel[]>{
+    return this.http.get<ChartsModel[]>(`http://localhost:8080/api/admin/charts/${year}/all`);
   }
   //stats
   getClientsDossiersTypePerYear(id: number , type: string , year :number) : Observable<Dossier[]>{

@@ -51,7 +51,6 @@ export class AgentsRapportComponent implements OnInit {
         this.client_helper = data;
         this.ClientsList = this.client_helper._embedded.users;
         this.loadScripts_1()
-        console.log(this.ClientsList);
       });
 
   }

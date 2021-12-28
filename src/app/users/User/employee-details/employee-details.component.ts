@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../Services/user.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
 import {Color, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, SingleDataSet} from "ng2-charts";
 import {User} from "../../../Models/user";
+import {ChartsModel} from "../../../Models/charts-model";
 
 @Component({
   selector: 'app-employee-details',
@@ -13,17 +14,17 @@ import {User} from "../../../Models/user";
 export class EmployeeDetailsComponent implements OnInit {
   anio: number = new Date().getFullYear();
   client : User  = new User();
-  completed :any;
+  completed :ChartsModel[];
   doss_import : number;
   doss_export : number;
-  import : any;
-  export : any;
+  import : number;
+  export : number;
 
   // barcharts for Dossier per year
   barChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = [];
+  barChartLabels: Label[] =  ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',"JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
   barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
@@ -69,16 +70,19 @@ export class EmployeeDetailsComponent implements OnInit {
 
   getDossierperyearwithUsername(year : number){
 
-    this.service.getEmployeeFoldercountByYear(this.activatedRoute.snapshot.params['username'],2,year).subscribe(data=>{
+    this.service.getEmployeeFoldercountByYear(this.activatedRoute.snapshot.params['username'],year).subscribe(data=>{
       this.completed=data;
-      var month = this.completed.map(function (elem){
-        return elem.month;
+      let total = this.completed.map(function (elem){
+        return elem.total;
       })
-      var count = this.completed.map(function (elem){
-        return elem.count+1;
+      let import_a = this.completed.map(function (elem){
+        return elem.impo;
       })
-      this.barChartLabels = month;
-      this.barChartData = [{data : count+1 , label : 'Dossiers  Year '+year}];
+      let export_a = this.completed.map(function (elem){
+        return elem.expo;
+      })
+
+      this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
 
     })
   }
