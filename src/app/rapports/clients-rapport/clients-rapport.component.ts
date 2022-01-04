@@ -12,7 +12,6 @@ import {User} from "../../Models/user";
   styleUrls: ['./clients-rapport.component.css']
 })
 export class ClientsRapportComponent implements OnInit {
-
   helper : Helper[];
   sub : Subhelper[]
   clients : User[];
