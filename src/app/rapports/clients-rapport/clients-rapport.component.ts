@@ -28,16 +28,19 @@ export class ClientsRapportComponent implements OnInit {
   }
 
   getAgentsData(){
+    this.getClients();
+    this.service.getFoldersClientData().subscribe(data =>{
+      this.helper = data;
+      this.loadScripts();
+    })
+  }
+
+  getClients(){
     this.serv.getClients().subscribe(
       data =>{
         this.client_helper = data;
         this.clients = this.client_helper._embedded.users;
-        this.service.getFoldersAgentsData().subscribe(data =>{
-          this.helper = data;
-          this.loadScripts();
       });
-
-    })
   }
 
   getClientList(){
