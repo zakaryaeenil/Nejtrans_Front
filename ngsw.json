@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1641327247960,
+  "timestamp": 1641328418347,
   "index": "https://zakaryaeenil.github.io/Nejtrans_Front/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://zakaryaeenil.github.io/Nejtrans_Front/154.8245f394cf354227.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/770.9f4d50dbe2ae7a72.js",
-        "https://zakaryaeenil.github.io/Nejtrans_Front/800.a6f34041179b827c.js",
+        "https://zakaryaeenil.github.io/Nejtrans_Front/800.57c3ae10153a7b47.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/81.a31d9855cea002f7.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/9.3a97ab0795d071e2.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/common.7e2ac205c6919388.js",
@@ -22,7 +22,7 @@
         "https://zakaryaeenil.github.io/Nejtrans_Front/main.ba04946287ac4699.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/manifest.webmanifest",
         "https://zakaryaeenil.github.io/Nejtrans_Front/polyfills.58c809ac289df513.js",
-        "https://zakaryaeenil.github.io/Nejtrans_Front/runtime.618f4a5d9dec03d9.js",
+        "https://zakaryaeenil.github.io/Nejtrans_Front/runtime.27fbad5a7270926d.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/scripts.05c228419136dbff.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/styles.76dddd6ca4196ffe.css"
       ],
@@ -859,7 +859,7 @@
   "hashTable": {
     "https://zakaryaeenil.github.io/Nejtrans_Front/154.8245f394cf354227.js": "b6d9dbb73c8e0e2ec092b469c569c9baf22540d4",
     "https://zakaryaeenil.github.io/Nejtrans_Front/770.9f4d50dbe2ae7a72.js": "4aa609f91d3cba3eff5ccab572906ef39fc8a9fe",
-    "https://zakaryaeenil.github.io/Nejtrans_Front/800.a6f34041179b827c.js": "70b70f8a441e8e926ecc8dba78a1b8b661d6d851",
+    "https://zakaryaeenil.github.io/Nejtrans_Front/800.57c3ae10153a7b47.js": "10a8065f5eab1763170db721a6e009aeb6de58b7",
     "https://zakaryaeenil.github.io/Nejtrans_Front/81.a31d9855cea002f7.js": "db47b1d9156b0e25de6a1a8b4582276b0ce7aa19",
     "https://zakaryaeenil.github.io/Nejtrans_Front/9.3a97ab0795d071e2.js": "85b1fcdf40f553546172734dfd447906efd4addb",
     "https://zakaryaeenil.github.io/Nejtrans_Front/arrow-down.1c8c1022c4142cfb.png": "af0fd3369037c72db0aea778d51b70f1177c7a02",
@@ -1679,11 +1679,11 @@
     "https://zakaryaeenil.github.io/Nejtrans_Front/dropify.ef46db3751d8e999.ttf": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "https://zakaryaeenil.github.io/Nejtrans_Front/dropify.ef46db3751d8e999.woff": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "https://zakaryaeenil.github.io/Nejtrans_Front/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://zakaryaeenil.github.io/Nejtrans_Front/index.html": "887a781a444e2abe0f8503bb0b337acfc86d2aef",
+    "https://zakaryaeenil.github.io/Nejtrans_Front/index.html": "a9cc0edb15ca4e063f8edfc8d750ed537f095ec0",
     "https://zakaryaeenil.github.io/Nejtrans_Front/main.ba04946287ac4699.js": "5adf852e25b0c08f03cf47710ee9a8a664fd4a39",
     "https://zakaryaeenil.github.io/Nejtrans_Front/manifest.webmanifest": "a149355a5f299412f14d013e0016f3e8288a7a51",
     "https://zakaryaeenil.github.io/Nejtrans_Front/polyfills.58c809ac289df513.js": "4e895ed676d473a60d56e29f767e3e2a4792c06a",
-    "https://zakaryaeenil.github.io/Nejtrans_Front/runtime.618f4a5d9dec03d9.js": "ec4ea4a699c24c12fb8e68c27866bfe6eaea0d55",
+    "https://zakaryaeenil.github.io/Nejtrans_Front/runtime.27fbad5a7270926d.js": "150d00b5d5714a5502dea17dce08f0a7b757152d",
     "https://zakaryaeenil.github.io/Nejtrans_Front/scripts.05c228419136dbff.js": "41a2ae117a4833009b5056442c2a109f6e02da26",
     "https://zakaryaeenil.github.io/Nejtrans_Front/styles.76dddd6ca4196ffe.css": "8c974fd9462c0ce9fecb279a6e0b28e3609f4ad0"
   },
