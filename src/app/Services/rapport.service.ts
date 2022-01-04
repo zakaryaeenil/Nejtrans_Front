@@ -40,5 +40,5 @@ export class RapportService {
   getFoldersClientData() : Observable<Helper[]>{
     return this.http.get<Helper[]>(`${this.HostUrl}api/rapport/getmonthsClients`);
   }
-
+//
 }
