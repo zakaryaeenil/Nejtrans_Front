@@ -12,6 +12,7 @@ import {User} from "../../Models/user";
   styleUrls: ['./clients-rapport.component.css']
 })
 export class ClientsRapportComponent implements OnInit {
+
   helper : Helper[];
   sub : Subhelper[]
   clients : User[];
@@ -26,13 +27,13 @@ export class ClientsRapportComponent implements OnInit {
     this.getClientList();
 
   }
+
   getAgentsData(){
     this.getClients();
-    this.service.getFoldersClientData().subscribe(data =>{
+    this.service.getFoldersAgentsData().subscribe(data =>{
       this.helper = data;
       this.loadScripts();
     })
-
   }
 
   getClients(){
@@ -43,14 +44,12 @@ export class ClientsRapportComponent implements OnInit {
       });
   }
 
-
   getClientList(){
     this.serv.getClients().subscribe(
       data =>{
         this.client_helper = data;
         this.ClientsList = this.client_helper._embedded.users;
         this.loadScripts_1()
-        console.log(this.ClientsList);
       });
 
   }
@@ -90,5 +89,6 @@ export class ClientsRapportComponent implements OnInit {
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);
     } }
+
 
 }
