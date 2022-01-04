@@ -41,7 +41,7 @@ export class ClientsRapportComponent implements OnInit {
   }
 
   getClientList(){
-    this.serv.getEmployees().subscribe(
+    this.serv.getClients().subscribe(
       data =>{
         this.client_helper = data;
         this.ClientsList = this.client_helper._embedded.users;

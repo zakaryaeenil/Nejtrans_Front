@@ -1,61 +1,9 @@
 <div class="page-header">
   <div class="page-title">
-    <h3>Agents Rapport :</h3>
+    <h3>Clients Rapport :</h3>
   </div>
 </div>
 
-<div class="row layout-top-spacing">
-  <div class="row" id="cancel-row">
-    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-      <div class="widget-content widget-content-area br-6">
-        <table id="html5-extension" class="table table-hover non-hover " style="width:100%">
-          <thead>
-
-          <tr>
-            <th rowspan="1" colspan="1" >
-              Agents Name
-            </th>
-            <th *ngFor="let help of helper" class="align-content-center" rowspan="1" colspan="3" >
-              {{help.month}}
-            </th>
-            <th  class="align-content-center" rowspan="1" colspan="2" >
-              resultat
-            </th>
-          </tr>
-          <tr>
-
-            <th>&nbsp;&nbsp;</th>
-            <ng-container *ngFor="let help_1 of helper">
-              <th >Import&nbsp;&nbsp;</th>
-              <th >Export&nbsp;&nbsp;</th>
-              <th >Sub Total  </th>
-            </ng-container>
-            <th>Total&nbsp;&nbsp;</th>
-            <th>Avg&nbsp;&nbsp;</th>
-          </tr>
-          </thead>
-          <tbody >
-
-          <tr *ngFor="let client of clients">
-            <th>{{client.username}}</th>
-            <ng-container *ngFor="let help_2 of helper">
-              <ng-container *ngFor="let help_3 of help_2.data">
-                <ng-container *ngIf="client.username == help_3.username">
-                  <th >{{help_3.countImport}}&nbsp;&nbsp;</th>
-                  <th >{{help_3.countExport}}&nbsp;&nbsp;</th>
-                  <th ><span class="badge badge-success">{{help_3.countTotal}}</span> </th>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-            <th>{{client.countReservations | number : '1.0-0'}}</th>
-            <th>{{client.countReservations/12}}</th>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="row layout-top-spacing">
   <div class="row" id="cancel-row_1">
