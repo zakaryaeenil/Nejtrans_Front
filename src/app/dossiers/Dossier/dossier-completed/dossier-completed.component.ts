@@ -16,6 +16,13 @@ export class DossierCompletedComponent implements OnInit {
   doss_completed : any;
   public err= 0;
   public details : any;
+
+  public selectFile : File ;
+  public selectedFiles : File[] = [];
+  public type : string = '';
+  public i : number =1;
+  public Dossier_app : Dossier;
+
   constructor( private service : DossierService , private router: Router , private Auth:AuthService , private toastr : ToastrService) {
   }
 
@@ -26,6 +33,9 @@ export class DossierCompletedComponent implements OnInit {
 
   }
 
+  getNavigate(){
+    this.router.navigate(['/dossiers/create']);
+  }
   getDossiersCompleted() {
     if (this.Auth.isAdmin()){
     this.service.getDossiersCompleted().subscribe(
@@ -63,6 +73,45 @@ export class DossierCompletedComponent implements OnInit {
           // And any other code that should run only after 5s
         }, 2000);
       });
+  }
+
+
+  selectedFile(event){
+    this.selectFile = event.target.files[0];
+    this.selectedFiles.push(this.selectFile);
+    console.log(event.target.files[0])
+
+  }
+  addrow(){
+    this.i++;
+  }
+
+  deleterow(){
+    this.i--;
+  }
+
+  counter(i :number){
+    return new Array(this.i);
+  }
+  onFileSelected() {
+    if (this.selectedFile) {
+      this.service.ClientUpdateFolder(this.Dossier_app.id,this.selectedFiles).subscribe(data =>{
+
+          this.toastr.success('Dossier Created avec success', 'Creation dossier');
+          setTimeout(() => {
+            window.location.reload();
+            // And any other code that should run only after 5s
+          }, 2000);
+        },
+        error=>
+          this.toastr.error('Failled To Create Folder','Create Folder'));
+    }
+  }
+
+  getdossier(d :Dossier){
+    this.service.getDossier(d.id).subscribe(data =>{
+      this.Dossier_app = data;
+    })
   }
 
 

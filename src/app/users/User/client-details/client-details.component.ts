@@ -21,8 +21,8 @@ export class ClientDetailsComponent implements OnInit {
   a : number =0;
   t : number =0;
   c : number =0;
-  import : Dossier[];
-  export : Dossier[];
+  import : any;
+  export : any;
 
 
   //Charts Import Export //
@@ -136,13 +136,16 @@ export class ClientDetailsComponent implements OnInit {
 
   // ALL Dossier by Client Export
   getDossiersCLientExport(){
-    this.service.getClientsDossiersType(this.activatedRoute.snapshot.params['id'],'Export').subscribe(data=>{
-      this.doss_details_export=data;
-      this.pieChartLabels =['Import', 'Export'];
-      this.pieChartData =[this.doss_details_import.length,this.doss_details_export.length];
+    this.service.getClientsDossiersType(this.activatedRoute.snapshot.params['id'],'Export').subscribe(data=> {
+      this.doss_details_export = data;
+      this.service.getClientsDossiersType(this.activatedRoute.snapshot.params['id'], 'Import').subscribe(data => {
 
+        this.doss_details_import = data;
+        this.pieChartLabels = ['Import', 'Export'];
+        this.pieChartData = [this.doss_details_import.length, this.doss_details_export.length];
+
+      })
     })
-
   }
 
   getInfoClient(){
@@ -176,10 +179,12 @@ export class ClientDetailsComponent implements OnInit {
   getDossiersCLientPerYearAndType(year : number){
     this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Import' , year).subscribe(data=>{
       this.import=data;
+      this.import = this.import.length;
       this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Export' , year).subscribe(data=>{
         this.export=data;
+        this.export = this.export.length;
         this.pieChartLabels =['Import', 'Export'];
-        this.pieChartData =[this.import.length,this.export.length];
+        this.pieChartData =[this.import,this.export];
       })
     })
 

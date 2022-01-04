@@ -1,6 +1,9 @@
 @import "../../../../assets/plugins/table/datatable/datatables.css";
 @import "../../../../assets/plugins/table/datatable/custom_dt_html5.css";
 @import "../../../../assets/plugins/table/datatable/dt-global_style.css";
+@import "../../../../assets/assets/css/apps/invoice-add.css";
+@import "../../../../assets/plugins/dropify/dropify.min.css";
+@import "../../../../assets/assets/css/forms/theme-checkbox-radio.css";
 .center-block {
   display: table;  /* Instead of display:block */
   margin-left: auto;

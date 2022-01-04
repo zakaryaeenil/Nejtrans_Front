@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RapportService} from "../../Services/rapport.service";
 import {Rapportavg} from "../../Models/rapportavg";
 import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
-import { Label, SingleDataSet} from "ng2-charts";
+import {Color, Label, SingleDataSet} from "ng2-charts";
 import {UserService} from "../../Services/user.service";
 import {RapportYearAvg} from "../../Models/rapport-year-avg";
 import {RapportLineHelper} from "../../Models/rapport-line-helper";
@@ -63,6 +63,52 @@ export class EntrepriseRapportComponent implements OnInit {
   ExportYear : RapportYearAvg = new RapportYearAvg();
 
   LineData : RapportLineHelper[];
+  LineData_1 : RapportLineHelper[];
+  LineData_2 : RapportLineHelper[];
+
+//
+  lineChartData: ChartDataSets[] = [
+    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+  ];
+
+  lineChartLabels: Label[] = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',"JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+
+  lineChartOptions = {
+    responsive: true,
+  };
+
+  lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  ];
+
+  lineChartLegend = true;
+  lineChartPlugins = [];
+  lineChartType : ChartType = 'line';
+  //
+  lineChartData_1: ChartDataSets[] = [
+    { data: [85, 72, 78, 75, 77, 75], label: 'Crude oil prices' },
+  ];
+
+  lineChartLabels_1: Label[] = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',"JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+
+  lineChartOptions_1 = {
+    responsive: true,
+  };
+
+  lineChartColors_1: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  ];
+
+  lineChartLegend_1 = true;
+  lineChartPlugins_1 = [];
+  lineChartType_1 : ChartType = 'line';
+
 
   constructor(private service_rapport : RapportService,private service: UserService ) { }
 
@@ -76,28 +122,29 @@ export class EntrepriseRapportComponent implements OnInit {
     this.getExportYearAvg();
 
     this.getlineData(this.anio);
+    this.getlineALLData(this.anio);
 
-    this.getAllDossierperyear(this.anio);
     this.getImportExportwithYear(this.anio);
+    this.getlineDataImpo(this.anio);
 
   }
 
   getFoldersAvg(){
     this.service_rapport.getFoldersAvg().subscribe(data =>{
       this.Totalhelperclass = data;
-      this.Totalhelperclass.avg = (this.Totalhelperclass.result /this.Totalhelperclass.lastMounth)*100;
+      this.Totalhelperclass.avg = (this.Totalhelperclass.result )*100;
     })
   }
   getExportAvg(){
     this.service_rapport.getFoldersAvgpertype('Export').subscribe(data =>{
       this.Exporthelperclass = data;
-      this.Exporthelperclass.avg = (this.Exporthelperclass.result /this.Exporthelperclass.lastMounth)*100;
+      this.Exporthelperclass.avg = (this.Exporthelperclass.result )*100;
     })
   }
   getImportAvg(){
     this.service_rapport.getFoldersAvgpertype('Import').subscribe(data =>{
       this.Importhelperclass = data;
-      this.Importhelperclass.avg = (this.Importhelperclass.result /this.Importhelperclass.lastMounth)*100;
+      this.Importhelperclass.avg = (this.Importhelperclass.result )*100;
     })
   }
 
@@ -105,19 +152,19 @@ export class EntrepriseRapportComponent implements OnInit {
   getFoldersYearAvg(){
     this.service_rapport.getFoldersYearAvg().subscribe(data =>{
       this.TotalYear = data;
-      this.TotalYear.avg = (this.TotalYear.result /this.TotalYear.lastYear)*100;
+      this.TotalYear.avg = (this.TotalYear.result )*100;
     })
   }
   getExportYearAvg(){
     this.service_rapport.getFoldersAvgYearpertype('Export').subscribe(data =>{
       this.ExportYear = data;
-      this.ExportYear.avg = (this.ExportYear.result /this.ExportYear.lastYear)*100;
+      this.ExportYear.avg = (this.ExportYear.result )*100;
     })
   }
   getImportYearAvg(){
     this.service_rapport.getFoldersAvgYearpertype('Import').subscribe(data =>{
       this.ImportYear = data;
-      this.ImportYear.avg = (this.ImportYear.result /this.ImportYear.lastYear)*100;
+      this.ImportYear.avg = (this.ImportYear.result )*100;
     })
   }
 
@@ -132,29 +179,11 @@ export class EntrepriseRapportComponent implements OnInit {
       })
     })
   }
-  getAllDossierperyear(year : number){
-      this.service.getAllFolderbyYear(year).subscribe(data=>{
-        this.doss=data;
-        let month = this.doss.map(function (elem){
-          return elem.month;
-        })
-        let count = this.doss.map(function (elem){
-          return elem.count;
-        })
-        this.barChartLabels = month;
-        this.barChartData = [{data : count , label : 'Dossiers  Year '+year}];
-      })
-
-
-  }
-
 
   getlineData(year : number){
       this.service_rapport.getlineData(year).subscribe(data =>{
       this.LineData = data;
-        let total = this.LineData.map(function (elem){
-          return elem.countTotal;
-        })
+
         let import_a = this.LineData.map(function (elem){
           return elem.countImport;
         })
@@ -162,8 +191,34 @@ export class EntrepriseRapportComponent implements OnInit {
           return elem.countExport;
         })
 
-        this.barChartData_1 = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
+        this.barChartData_1 = [{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
       })
+  }
+
+  getlineDataImpo(year : number){
+    this.service_rapport.getlineData(year).subscribe(data =>{
+      this.LineData_2 = data;
+
+      let import_a = this.LineData_2.map(function (elem){
+        return elem.countImport;
+      })
+      let export_a = this.LineData_2.map(function (elem){
+        return elem.countExport;
+      })
+
+
+      this.lineChartData_1 = [{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
+    })
+  }
+  getlineALLData(year : number){
+    this.service_rapport.getlineData(year).subscribe(data =>{
+      this.LineData_1 = data;
+      let total = this.LineData_1.map(function (elem){
+        return elem.countTotal;
+      })
+
+      this.lineChartData = [{data : total , label : 'Total  Year '+year}];
+    })
   }
 
 

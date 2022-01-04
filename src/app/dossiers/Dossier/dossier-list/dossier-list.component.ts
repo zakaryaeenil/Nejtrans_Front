@@ -1,10 +1,13 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import {Dossier} from "../../../Models/dossier";
 import {DossierService} from "../../../Services/dossier.service";
 import {AuthService} from "../../../Login/auth.service";
 import {ToastrService} from "ngx-toastr";
 import * as FileSaver from "file-saver";
+import {HelperForm} from "../../../Models/helper-form";
+import {UserService} from "../../../Services/user.service";
+import {data} from "jquery";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -19,13 +22,61 @@ export class DossierListComponent implements OnInit{
    public enatt = 1;
    public entrai = 2;
    public details : any;
-  constructor(private service : DossierService ,private router : Router ,public Auth :AuthService, private toastr: ToastrService) {
+
+  public selectFile : File ;
+  public selectedFiles : File[] = [];
+  public type : string = '';
+  public i : number =1;
+  public Dossier_app : Dossier;
+
+  constructor(private service : DossierService ,private router : Router ,public Auth :AuthService, private toastr: ToastrService ) {
 
   }
 
   ngOnInit(): void {
 
     this.getDossiersALl();
+  }
+
+  getNavigate(){
+    this.router.navigate(['/dossiers/create']);
+  }
+  selectedFile(event){
+    this.selectFile = event.target.files[0];
+    this.selectedFiles.push(this.selectFile);
+    console.log(event.target.files[0])
+
+  }
+  addrow(){
+    this.i++;
+  }
+
+  deleterow(){
+    this.i--;
+  }
+
+  counter(i :number){
+    return new Array(this.i);
+  }
+  onFileSelected() {
+    if (this.selectedFile) {
+      this.service.ClientUpdateFolder(this.Dossier_app.id,this.selectedFiles).subscribe(data =>{
+
+          this.toastr.success('Dossier Created avec success', 'Creation dossier');
+          setTimeout(() => {
+            window.location.reload();
+            // And any other code that should run only after 5s
+          }, 2000);
+        },
+        error=>
+          this.toastr.error('Failled To Create Folder','Create Folder'));
+    }
+  }
+
+  getdossier(d :Dossier){
+    this.service.getDossier(d.id).subscribe(data =>{
+      this.Dossier_app = data;
+    })
   }
 
 
@@ -91,6 +142,7 @@ export class DossierListComponent implements OnInit{
       'assets/plugins/table/datatable/button-ext/jszip.min.js',
       'assets/plugins/table/datatable/button-ext/buttons.html5.min.js',
       'assets/plugins/table/datatable/button-ext/buttons.print.min.js',
+      'assets/plugins/dropify/dropify.min.js',
       'assets/export_table.js',
       //Load all your script files here'
     ];

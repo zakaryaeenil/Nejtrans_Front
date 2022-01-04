@@ -9,7 +9,7 @@
           <div class="invoice-content">
             <div class="invoice-detail-body">
               <div style="text-align:center">
-                <h2 style="font-style: initial">Ajouter Dossier</h2>
+                <h2 style="font-style: initial" >Ajouter Dossier</h2>
               </div>
               <div class="invoice-detail-terms">
 
@@ -42,8 +42,8 @@
 
                     <div class="form-group mb-4">
                       <label for="hello">Clients</label>
-                      <select #username *ngFor="let user of users"  id="users" class="form-control ">
-                        <option  value="{{user.username}}" >{{user.username}}</option>
+                      <select #username  id="users" class="form-control ">
+                        <option *ngFor="let user of users"   value="{{user.username}}" >{{user.username}}</option>
                       </select>
                     </div>
                   </div>
@@ -99,7 +99,7 @@
                 <button (click)="addrow()" class="btn btn-secondary  btn-sm">Add Item</button>
               </div>
               <div style="text-align:center">
-              <button type="submit" (click)="onFileSelected()" class="btn btn-primary mb-4 mr-2 btn-lg">Large button</button>
+              <button type="submit" (click)="onFileSelected()" class="btn btn-primary mb-4 mr-2 btn-lg">Ajouter</button>
               </div>
             </div>
 

@@ -110,10 +110,28 @@ export class DossierService {
 
   }
 
+  ClientUpdateFolder(id :number, files : File[]) {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("document", files[i]);
+    }
+
+    return this.http.put(`http://localhost:8080/api/dossier/${id}/update`,formData , {responseType : 'text' , headers : {
+        'Accept':'application/octet-stream'}});
+
+  }
+  getDossier(id : number) : Observable<Dossier>{
+    return this.http.get<Dossier>(`http://localhost:8080/dossiers/${id}`);
+  }
+
   getDocuments(id : number) : Observable<Document[]>{
     return this.http.get<Document[]>(`http://localhost:8080/dossiers/${id}/documents`)
   }
   DownloadDocument(id : number) :Observable<Blob> {
     return this.http.get<Blob>(`http://localhost:8080/api/documents/${id}/download`,{ responseType: 'blob' as 'json' });
   }
+
+
+
+
 }

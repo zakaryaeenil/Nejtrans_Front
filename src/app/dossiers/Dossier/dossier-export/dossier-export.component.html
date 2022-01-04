@@ -3,7 +3,7 @@
     <h3>Dossiers Export:</h3>
   </div>
   <div class="float-right page-title">
-    <button class="float-right btn btn-primary" type="button">
+    <button class="float-right btn btn-primary" (click)="getNavigate()" type="button">
       Creer Dossier &nbsp;
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder-plus"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
     </button>
@@ -67,7 +67,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
                       <a class="dropdown-item" data-toggle="modal" data-target="#standardModal" (click)="detailsInfo(dossier)" >Voir</a>
-                      <a class="dropdown-item" href="#">Modifier</a>
+                      <a class="dropdown-item" data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getdossier(dossier)">Modifier</a>
                       <a class="dropdown-item" (click)="DeleteDossier(dossier)">Supprimer</a>
                     </div>
                   </div>
@@ -109,6 +109,82 @@
         </ng-container>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!--Update Modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myLargeModalLabel">Update Dossier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="doc-container">
+        <div class="row">
+          <div class="col">
+
+            <div class="invoice-content">
+              <div class="invoice-detail-body">
+                <div class="invoice-detail-items">
+                  <div class="table-responsive">
+                    <table class="table table-bordered item-table">
+                      <thead>
+                      <tr>
+                        <th class=""></th>
+                        <th>Nom</th>
+                        <th class="">Documents</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <ng-container *ngFor="let in  of counter(i); let a = index " >
+                        <tr>
+                          <td class="delete-item-row">
+                            <ul class="table-controls">
+                              <li><a (click)="deleterow()" href="javascript:void(0);"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></a></li>
+                            </ul>
+                          </td>
+                          <td class="description">
+                            <select #type class="form-control">
+                              <option value="Facture" selected="selected">Facture</option>
+                              <option value="Connaissement/BL">Connaissement/BL</option>
+                              <option value="Certif. d'origine">Certif. d'origine</option>
+                              <option value="Certif. d'origine">bon a delivrer</option>
+                              <option value="CMR">CMR</option>
+                              <option value="Eng.import(Portnet">Eng.import(Portnet)</option>
+                              <option value="Lisence d'import">Lisence d'import</option>
+                              <option value="liscence d'export">liscence d'export</option>
+                              <option value="Scellee">Scellee</option>
+                              <option value="Autoris.Douane">Autoris.Douane</option>
+                              <option value="Certif.Phytosanitaire/veterinaire">Certif.Phytosanitaire/veterinaire </option>
+                              <option value="Autres">Autres</option>
+                            </select>
+                          </td>
+                          <td class="rate">
+                            <input type="file" class="file-input"
+                                   (change)="selectedFile($event)">
+                          </td>
+                        </tr>
+                      </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <button (click)="addrow()" class="btn btn-secondary  btn-sm">Add Item</button>
+                </div>
+                <div style="text-align:center">
+                  <button type="submit" (click)="onFileSelected()" class="btn btn-primary mb-4 mr-2 btn-lg">Update Dossier</button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

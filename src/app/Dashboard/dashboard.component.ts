@@ -4,7 +4,6 @@ import {ChartDataSets, ChartOptions, ChartType} from "chart.js";
 import {Label, SingleDataSet} from "ng2-charts";
 import {AuthService} from "../Login/auth.service";
 import {User} from "../Models/user";
-import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
 import {Dossier} from "../Models/dossier";
 import {ChartsModel} from "../Models/charts-model";
 
@@ -177,9 +176,9 @@ export class DashboardComponent implements OnInit {
           this.CurrentUser = data;
         this.service.getClientFolderCount(this.CurrentUser.id,year).subscribe(data=>{
           this.folders_year=data;
-          let total = this.folders_year.map(function (elem){
-            return elem.total;
-          })
+          //let total = this.folders_year.map(function (elem){
+            //return elem.total;
+        //  })
           let import_a = this.folders_year.map(function (elem){
             return elem.impo;
           })
@@ -187,7 +186,7 @@ export class DashboardComponent implements OnInit {
             return elem.expo;
           })
 
-          this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
+          this.barChartData = [{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
 
         })
 

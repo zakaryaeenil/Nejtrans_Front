@@ -4,6 +4,7 @@ import {Dossier} from "../../../Models/dossier";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../Login/auth.service";
 import * as FileSaver from "file-saver";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   encapsulation : ViewEncapsulation.None,
@@ -18,7 +19,13 @@ export class DossierEntraitementComponent implements OnInit {
   public err= 0;
   public details : any;
 
-  constructor( private service : DossierService , private router : Router , private Auth : AuthService) {
+  public selectFile : File ;
+  public selectedFiles : File[] = [];
+  public type : string = '';
+  public i : number =1;
+  public Dossier_app : Dossier;
+
+  constructor( private service : DossierService , private router : Router , private Auth : AuthService, private toastr: ToastrService) {
   }
 
 
@@ -27,6 +34,10 @@ export class DossierEntraitementComponent implements OnInit {
 
     this.getDossierEnTraitement();
 
+  }
+
+  getNavigate(){
+    this.router.navigate(['/dossiers/create']);
   }
 
   getDossierEnTraitement() {
@@ -63,6 +74,44 @@ export class DossierEntraitementComponent implements OnInit {
         this.router.navigate(['entraitement']);
         window.location.reload();
       });
+  }
+
+  selectedFile(event){
+    this.selectFile = event.target.files[0];
+    this.selectedFiles.push(this.selectFile);
+    console.log(event.target.files[0])
+
+  }
+  addrow(){
+    this.i++;
+  }
+
+  deleterow(){
+    this.i--;
+  }
+
+  counter(i :number){
+    return new Array(this.i);
+  }
+  onFileSelected() {
+    if (this.selectedFile) {
+      this.service.ClientUpdateFolder(this.Dossier_app.id,this.selectedFiles).subscribe(data =>{
+
+          this.toastr.success('Dossier Created avec success', 'Creation dossier');
+          setTimeout(() => {
+            window.location.reload();
+            // And any other code that should run only after 5s
+          }, 2000);
+        },
+        error=>
+          this.toastr.error('Failled To Create Folder','Create Folder'));
+    }
+  }
+
+  getdossier(d :Dossier){
+    this.service.getDossier(d.id).subscribe(data =>{
+      this.Dossier_app = data;
+    })
   }
 
   loadScripts() {
