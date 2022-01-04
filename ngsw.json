@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1641325223347,
+  "timestamp": 1641325930657,
   "index": "https://zakaryaeenil.github.io/Nejtrans_Front/index.html",
   "assetGroups": [
     {
@@ -19,7 +19,7 @@
         "https://zakaryaeenil.github.io/Nejtrans_Front/common.7e2ac205c6919388.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/favicon.ico",
         "https://zakaryaeenil.github.io/Nejtrans_Front/index.html",
-        "https://zakaryaeenil.github.io/Nejtrans_Front/main.7e651f0069a4c8e1.js",
+        "https://zakaryaeenil.github.io/Nejtrans_Front/main.ba04946287ac4699.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/manifest.webmanifest",
         "https://zakaryaeenil.github.io/Nejtrans_Front/polyfills.58c809ac289df513.js",
         "https://zakaryaeenil.github.io/Nejtrans_Front/runtime.007dae392f98e2d5.js",
@@ -1679,8 +1679,8 @@
     "https://zakaryaeenil.github.io/Nejtrans_Front/dropify.ef46db3751d8e999.ttf": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "https://zakaryaeenil.github.io/Nejtrans_Front/dropify.ef46db3751d8e999.woff": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
     "https://zakaryaeenil.github.io/Nejtrans_Front/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "https://zakaryaeenil.github.io/Nejtrans_Front/index.html": "2969fb5cad545193fbab285e283ab9b38a683ccc",
-    "https://zakaryaeenil.github.io/Nejtrans_Front/main.7e651f0069a4c8e1.js": "2f33920aae3847ced4b7b949a10219e7ac8e6d04",
+    "https://zakaryaeenil.github.io/Nejtrans_Front/index.html": "46e59a0d8a12f7d8052d7a10e5dcab4730c880c3",
+    "https://zakaryaeenil.github.io/Nejtrans_Front/main.ba04946287ac4699.js": "5adf852e25b0c08f03cf47710ee9a8a664fd4a39",
     "https://zakaryaeenil.github.io/Nejtrans_Front/manifest.webmanifest": "a149355a5f299412f14d013e0016f3e8288a7a51",
     "https://zakaryaeenil.github.io/Nejtrans_Front/polyfills.58c809ac289df513.js": "4e895ed676d473a60d56e29f767e3e2a4792c06a",
     "https://zakaryaeenil.github.io/Nejtrans_Front/runtime.007dae392f98e2d5.js": "c81f00eb65e6a23068a1b4a01cac3b5d4a7492ac",
