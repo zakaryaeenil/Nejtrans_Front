@@ -41,7 +41,7 @@
                   <div *ngIf="!Auth.isClient() " class="col">
 
                     <div class="form-group mb-4">
-                      <label for="hello">Clients</label>
+                      <label for="users">Clients</label>
                       <select #username  id="users" class="form-control ">
                         <option *ngFor="let user of users"   value="{{user.username}}" >{{user.username}}</option>
                       </select>
@@ -71,7 +71,7 @@
                         </ul>
                       </td>
                       <td class="description">
-                        <select #type class="form-control">
+                        <select (change)="selectedName($event)" class="form-control">
                         <option value="Facture" selected="selected">Facture</option>
                         <option value="Connaissement/BL">Connaissement/BL</option>
                         <option value="Certif. d'origine">Certif. d'origine</option>

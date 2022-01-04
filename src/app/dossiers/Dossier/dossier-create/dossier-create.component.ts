@@ -6,6 +6,7 @@ import {HelperForm} from "../../../Models/helper-form";
 import {AuthService} from "../../../Login/auth.service";
 import {ToastrService} from "ngx-toastr";
 
+
 @Component({
   encapsulation : ViewEncapsulation.None,
   selector: 'app-dossier-create',
@@ -14,10 +15,8 @@ import {ToastrService} from "ngx-toastr";
 })
 export class DossierCreateComponent implements OnInit {
 
-  public selectFile : File ;
   public selectedFiles : File[] = [];
   public type : string = '';
-  @ViewChild('type') typeo;
   @ViewChild('operation') operation;
   @ViewChild('dossiertype') dossiertype;
   @ViewChild('username') username;
@@ -33,19 +32,15 @@ export class DossierCreateComponent implements OnInit {
       this.getClient();
     }
   }
-
- // CreateFolder(){
-  //  this.service.ClientCreateFolder().subscribe( data =>{
-   //   console.log(data);
-  //  })
- // }
-
-
+  selectedName(events){
+    this.type = events.target.value.toString();
+  }
   selectedFile(event){
-    this.selectFile = event.target.files[0];
-    this.selectedFiles.push(this.selectFile);
-    console.log(event.target.files[0])
 
+    const selectFile: File = new File([event.target.files[0]], this.type);
+    this.selectedFiles.push(selectFile);
+    event.target.value = "";
+   console.log( this.selectedFiles);
   }
   addrow(){
     this.i++;
@@ -74,7 +69,7 @@ export class DossierCreateComponent implements OnInit {
     else {
       this.helperform.username=this.username.nativeElement.value.toString();
     }
-    this.type = this.typeo.nativeElement.value.toString();
+
 
     if (this.selectedFile) {
       this.service.ClientCreateFolder(this.helperform,this.selectedFiles).subscribe(data =>{

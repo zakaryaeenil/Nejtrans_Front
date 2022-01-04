@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Dossier} from "../Models/dossier";
 import {HelperForm} from "../Models/helper-form";
+import {environment} from "../../environments/environment.prod";
 
 
 
@@ -10,6 +11,7 @@ import {HelperForm} from "../Models/helper-form";
   providedIn: 'root'
 })
 export class DossierService {
+  private HostUrl=environment.url;
   constructor(private http : HttpClient) { }
 
   //All Dossier
@@ -17,63 +19,63 @@ export class DossierService {
     const headers= new HttpHeaders()
       .set('content-type', 'application/json; charset = utf-8');
 
-    return this.http.get<Dossier[]>("http://localhost:8080/api/dossier/all", {headers});
+    return this.http.get<Dossier[]>(`${this.HostUrl}api/dossier/all`, {headers});
   }
 
   //Import Dossier
   getDossiersImport() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/dossiers/search/findByTypeDossier?TypeDossier=Import");
+    return this.http.get<Dossier[]>(`${this.HostUrl}dossiers/search/findByTypeDossier?TypeDossier=Import`);
   }
 
   //Export Dossier
   getDossiersExport() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/dossiers/search/findByTypeDossier?TypeDossier=Export");
+    return this.http.get<Dossier[]>(`${this.HostUrl}dossiers/search/findByTypeDossier?TypeDossier=Export`);
   }
 
   //En attente Dossier
   getDossiersEnAttent() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/dossiers/search/findByAvailable?available=1");
+    return this.http.get<Dossier[]>(`${this.HostUrl}dossiers/search/findByAvailable?available=1`);
   }
 
   //En traitement Dossier
   getDossiersEntraitement() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/dossiers/search/findByAvailable?available=2");
+    return this.http.get<Dossier[]>(`${this.HostUrl}dossiers/search/findByAvailable?available=2`);
   }
 
   //Completed Dossier
   getDossiersCompleted() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/dossiers/search/findByAvailable?available=3");
+    return this.http.get<Dossier[]>(`${this.HostUrl}dossiers/search/findByAvailable?available=3`);
   }
 
   //Delete Dossier
   DeleteDossier(id: number) : Observable<any>{
-    return this.http.delete(`http://localhost:8080/api/dossier/${id}`,{responseType: 'text'});
+    return this.http.delete(`${this.HostUrl}api/dossier/${id}`,{responseType: 'text'});
   }
 
   // Get Folder By loggedIn Client
   getLoggedInClientFolders(type : string) : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>(`http://localhost:8080/api/client/myfolders/${type}`);
+    return this.http.get<Dossier[]>(`${this.HostUrl}api/client/myfolders/${type}`);
   }
 
   // Get Folder By loggedIn Client
   getLoggedInEmployeeFolders(type : string) : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>(`http://localhost:8080/api/employee/myfolders/${type}`);
+    return this.http.get<Dossier[]>(`${this.HostUrl}api/employee/myfolders/${type}`);
   }
 
   // Get Free folders
   getFreeFolders() : Observable<Dossier[]>{
-    return this.http.get<Dossier[]>("http://localhost:8080/api/employee/freefolders");
+    return this.http.get<Dossier[]>(`${this.HostUrl}api/employee/freefolders`);
   }
 
   ReservedFolder(folder : Dossier): Observable<Object>{
-    return this.http.patch(`http://localhost:8080/api/employee/bookfoolder/${folder.id}`,folder,{responseType: 'text'});
+    return this.http.patch(`${this.HostUrl}api/employee/bookfoolder/${folder.id}`,folder,{responseType: 'text'});
   }
   CompletedFolder(folder : Dossier): Observable<Object>{
-    return this.http.patch(`http://localhost:8080/api/employee/terminer/${folder.id}`,folder,{responseType: 'text'});
+    return this.http.patch(`${this.HostUrl}api/employee/terminer/${folder.id}`,folder,{responseType: 'text'});
   }
 
   Desabonner(folder : Dossier): Observable<Object>{
-    return this.http.patch(`http://localhost:8080/api/employee/unbookfoolder/${folder.id}`,folder,{responseType: 'text'});
+    return this.http.patch(`${this.HostUrl}api/employee/unbookfoolder/${folder.id}`,folder,{responseType: 'text'});
   }
 
 
@@ -83,7 +85,7 @@ export class DossierService {
 
     document.append("document", file,type);
 
-   return this.http.post(`http://localhost:8080/api/documents/2/upload`, document , {
+   return this.http.post(`${this.HostUrl}api/documents/2/upload`, document , {
       responseType: 'json',});
 
 
@@ -105,7 +107,7 @@ export class DossierService {
     }
 
      console.log(formData.get("form"));
-    return this.http.post("http://localhost:8080/api/dossier/save",formData , {responseType : 'text' , headers : {
+    return this.http.post(`${this.HostUrl}api/dossier/save`,formData , {responseType : 'text' , headers : {
         'Accept':'application/octet-stream'}});
 
   }
@@ -116,19 +118,19 @@ export class DossierService {
       formData.append("document", files[i]);
     }
 
-    return this.http.put(`http://localhost:8080/api/dossier/${id}/update`,formData , {responseType : 'text' , headers : {
+    return this.http.put(`${this.HostUrl}api/dossier/${id}/update`,formData , {responseType : 'text' , headers : {
         'Accept':'application/octet-stream'}});
 
   }
   getDossier(id : number) : Observable<Dossier>{
-    return this.http.get<Dossier>(`http://localhost:8080/dossiers/${id}`);
+    return this.http.get<Dossier>(`${this.HostUrl}dossiers/${id}`);
   }
 
   getDocuments(id : number) : Observable<Document[]>{
-    return this.http.get<Document[]>(`http://localhost:8080/dossiers/${id}/documents`)
+    return this.http.get<Document[]>(`${this.HostUrl}dossiers/${id}/documents`)
   }
   DownloadDocument(id : number) :Observable<Blob> {
-    return this.http.get<Blob>(`http://localhost:8080/api/documents/${id}/download`,{ responseType: 'blob' as 'json' });
+    return this.http.get<Blob>(`${this.HostUrl}api/documents/${id}/downloadDB`,{ responseType: 'blob' as 'json' });
   }
 
 
