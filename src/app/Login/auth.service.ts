@@ -4,11 +4,13 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "../Models/user";
 import {observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {environment} from "../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private HostUrl=environment.url;
   token:string;
   public loggedUser:string;
   public isloggedIn: boolean = false ;
@@ -17,7 +19,7 @@ export class AuthService {
   constructor(private router : Router , private http : HttpClient) { }
 
   login(user : User){
-    return this.http.post("http://localhost:8080/api/auth/login", user,  {observe : "response"});
+    return this.http.post(`${this.HostUrl}api/auth/login`, user,  {observe : "response"});
   }
   saveToken(jwt:string){
     localStorage.setItem('jwt',jwt);
@@ -36,7 +38,7 @@ export class AuthService {
   }
 
   forgot(email :string){
-    return this.http.put(`http://localhost:8080/api/auth/resetpassword/${email}`,email, {responseType: 'text'});
+    return this.http.put(`${this.HostUrl}api/auth/resetpassword/${email}`,email, {responseType: 'text'});
   }
 
 
