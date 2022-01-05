@@ -172,8 +172,8 @@ export class EntrepriseRapportComponent implements OnInit {
   getImportExportwithYear(year : number){
     this.service.getDashboardDossiersTypeAndYear('Export',year).subscribe(data=>{
       this.import=data;
-      this.service.getDashboardDossiersTypeAndYear('Import',year).subscribe(data=>{
-        this.export=data;
+      this.service.getDashboardDossiersTypeAndYear('Import',year).subscribe(res=>{
+        this.export=res;
         this.pieChartLabels =['Import', 'Export'];
         this.pieChartData =[this.import,this.export];
       })

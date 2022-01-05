@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../Models/user";
 import {Dossier} from "../Models/dossier";
-import {DossiersbyUserAndYear} from "../Models/dossiersby-user-and-year";
 import {AuthService} from "../Login/auth.service";
 import {ChartsModel} from "../Models/charts-model";
 import {environment} from "../../environments/environment.prod";

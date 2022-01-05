@@ -12,43 +12,43 @@
         <thead>
 
         <tr>
-          <th rowspan="1" colspan="1" >
+          <th id="name" rowspan="1" colspan="1" >
             Agents Name
           </th>
-          <th *ngFor="let help of helper" class="align-content-center" rowspan="1" colspan="3" >
+          <th id="month" *ngFor="let help of helper" class="align-content-center" rowspan="1" colspan="3" >
             {{help.month}}
           </th>
-          <th  class="align-content-center" rowspan="1" colspan="2" >
+          <th id="resultat"  class="align-content-center" rowspan="1" colspan="2" >
           resultat
           </th>
         </tr>
         <tr>
 
-          <th>&nbsp;&nbsp;</th>
+          <th id="">&nbsp;&nbsp;</th>
           <ng-container *ngFor="let help_1 of helper">
-            <th >Import&nbsp;&nbsp;</th>
-            <th >Export&nbsp;&nbsp;</th>
-            <th >Sub Total  </th>
+            <th id="Import" >Import&nbsp;&nbsp;</th>
+            <th id="Export" >Export&nbsp;&nbsp;</th>
+            <th id="subTotal" >Sub Total  </th>
           </ng-container>
-          <th>Total&nbsp;&nbsp;</th>
-          <th>Avg&nbsp;&nbsp;</th>
+          <th id="total">Total&nbsp;&nbsp;</th>
+          <th id="Avg">Avg&nbsp;&nbsp;</th>
         </tr>
         </thead>
         <tbody >
 
         <tr *ngFor="let client of clients">
-          <th>{{client.username}}</th>
+          <th id="username">{{client.username}}</th>
           <ng-container *ngFor="let help_2 of helper">
             <ng-container *ngFor="let help_3 of help_2.data">
               <ng-container *ngIf="client.username == help_3.username">
-                <th >{{help_3.countImport}}&nbsp;&nbsp;</th>
-                <th >{{help_3.countExport}}&nbsp;&nbsp;</th>
-                <th ><span class="badge badge-success">{{help_3.countTotal}}</span> </th>
+                <th id="countimport" >{{help_3.countImport}}&nbsp;&nbsp;</th>
+                <th id="countexport" >{{help_3.countExport}}&nbsp;&nbsp;</th>
+                <th id="counttotal" ><span class="badge badge-success">{{help_3.countTotal}}</span> </th>
               </ng-container>
             </ng-container>
           </ng-container>
-          <th>{{client.countReservations | number : '1.0-0'}}</th>
-          <th>{{client.countReservations/12}}</th>
+          <th id="reservation">{{client.countReservations | number : '1.0-0'}}</th>
+          <th id="permonth">{{client.countReservations/12}}</th>
         </tr>
         </tbody>
       </table>
@@ -65,12 +65,12 @@
         <table id="default-ordering" class="table table-hover" style="width:100%">
           <thead>
           <tr>
-            <th>Client</th>
-            <th>Fisrt Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Nb. Dossier</th>
-            <th>Creer À</th>
+            <th scope="col">Client</th>
+            <th scope="col">Fisrt Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Nb. Dossier</th>
+            <th scope="col">Creer À</th>
           </tr>
           </thead>
           <tbody>

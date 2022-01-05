@@ -80,9 +80,9 @@ export class ClientListComponent implements OnInit {
       'assets/assets/js/scrollspyNav.js'
       //Load all your script files here'
     ];
-    for (let i = 0; i < dynamicScripts.length; i++) {
+    for (let i of dynamicScripts) {
       const node = document.createElement('script');
-      node.src = dynamicScripts[i];
+      node.src = i;
       node.type = 'text/javascript';
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);

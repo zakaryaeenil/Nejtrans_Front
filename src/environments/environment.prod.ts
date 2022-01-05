@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  url:'https://nejtrans-app.herokuapp.com/'
+  url : 'http://localhost:8080/'
+ // url:'https://nejtrans-app.herokuapp.com/'
 };

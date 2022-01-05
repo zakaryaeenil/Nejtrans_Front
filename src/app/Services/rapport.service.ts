@@ -14,8 +14,7 @@ export class RapportService {
   private HostUrl=environment.url;
   constructor(private http : HttpClient) { }
 
-  // Entreprise
-    //Month
+
   getFoldersAvg() : Observable<Rapportavg>{
     return this.http.get<Rapportavg>(`${this.HostUrl}api/rapport/all`);
   }

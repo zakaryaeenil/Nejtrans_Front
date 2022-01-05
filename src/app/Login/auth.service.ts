@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../Models/user";
-import {observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../environments/environment.prod";
 
@@ -29,8 +28,9 @@ export class AuthService {
   }
 
   decodeJWT()
-  {   if (this.token == undefined)
-    return;
+  {   if (this.token == undefined){
+        return;
+         }
     const decodedToken = this.helper.decodeToken(this.token);
     this.roles = decodedToken.roles;
     this.isloggedIn = true;
@@ -43,7 +43,7 @@ export class AuthService {
 
 
   loadToken() {
-    this.token = <string>localStorage.getItem('jwt');
+    this.token  = localStorage.getItem('jwt');
     this.decodeJWT();
   }
 
@@ -62,24 +62,24 @@ export class AuthService {
 
 
 
-  isAdmin():Boolean{
+  isAdmin():boolean{
     if (!this.roles)
       return false;
     return this.roles.indexOf('ADMIN') >=0;
   }
-  isClient():Boolean{
+  isClient():boolean{
     if (!this.roles)
       return false;
     return this.roles.indexOf('USER') >=0;
   }
-  isEmployee():Boolean{
+  isEmployee():boolean{
     if (!this.roles)
       return false;
     return this.roles.indexOf('EMPLOYEE') >=0;
   }
 
 
-  isTokenExpired(): Boolean
+  isTokenExpired(): boolean
   {
     return  this.helper.isTokenExpired(this.token);
   }
@@ -88,10 +88,5 @@ export class AuthService {
   setLoggedUserFromLocalStorage(login : string) {
     this.loggedUser = login;
     this.isloggedIn = true;
-    this.getUserRoles(login);
-  }
-
-  getUserRoles(login :string){
-
   }
 }

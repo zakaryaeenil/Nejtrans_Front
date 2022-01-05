@@ -15,17 +15,18 @@
   <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="widget-content widget-content-area br-6">
       <table id="html5-extension" class="table table-hover non-hover " style="width:100%">
+       <caption>Mes Dossiers</caption>
         <thead>
         <tr>
-          <th>Client</th>
-          <th>Type</th>
-          <th>Nb. Documents</th>
-          <th>Disponiblité</th>
-          <th>Reseravation</th>
-          <th>Etat d'avanecement </th>
-          <th>Creer À</th>
-          <th *ngIf="Auth.isEmployee()" >Terminer</th>
-          <th class=" dt-no-sorting">Action</th>
+          <th scope="col">Client</th>
+          <th scope="col">Type</th>
+          <th scope="col">Nb. Documents</th>
+          <th scope="col">Disponiblité</th>
+          <th scope="col">Reseravation</th>
+          <th scope="col">Etat d'avanecement </th>
+          <th scope="col">Creer À</th>
+          <th scope="col" *ngIf="Auth.isEmployee()" >Terminer</th>
+          <th scope="col" class=" dt-no-sorting">Action</th>
         </tr>
         </thead>
         <tbody>

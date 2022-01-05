@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit {
   e : Dossier[];
   doss : ChartsModel[];
   anio: number = new Date().getFullYear();
-  import : any;
-  export : any;
+  import : number;
+  export : number;
   CurrentUser : User;
   folders_year : ChartsModel[];
   completed : ChartsModel[];
@@ -174,11 +174,8 @@ export class DashboardComponent implements OnInit {
       else if (this.Auth.isClient()){
         this.service.getCurrentUser().subscribe(data =>{
           this.CurrentUser = data;
-        this.service.getClientFolderCount(this.CurrentUser.id,year).subscribe(data=>{
-          this.folders_year=data;
-          //let total = this.folders_year.map(function (elem){
-            //return elem.total;
-        //  })
+        this.service.getClientFolderCount(this.CurrentUser.id,year).subscribe(res=>{
+          this.folders_year=res;
           let import_a = this.folders_year.map(function (elem){
             return elem.impo;
           })
@@ -225,8 +222,8 @@ export class DashboardComponent implements OnInit {
   getImportExportwithYear(year : number){
       this.service.getDashboardDossiersTypeAndYear('Export',year).subscribe(data=>{
         this.import=data;
-        this.service.getDashboardDossiersTypeAndYear('Import',year).subscribe(data=>{
-          this.export=data;
+        this.service.getDashboardDossiersTypeAndYear('Import',year).subscribe(res=>{
+          this.export=res;
           this.pieChartLabels =['Import', 'Export'];
           this.pieChartData =[this.import,this.export];
         })
@@ -236,29 +233,29 @@ export class DashboardComponent implements OnInit {
   getDossiersCLientPerYearAndType(year : number){
     this.service.getCurrentUser().subscribe(data => {
       this.CurrentUser = data;
-      this.service.getClientsDossiersTypePerYear(this.CurrentUser.id, 'Import', year).subscribe(data => {
-        this.i = data;
-        this.service.getClientsDossiersTypePerYear(this.CurrentUser.id, 'Export', year).subscribe(data => {
-          this.e = data;
+      this.service.getClientsDossiersTypePerYear(this.CurrentUser.id, 'Import', year).subscribe(data_1 => {
+        this.i = data_1;
+        this.service.getClientsDossiersTypePerYear(this.CurrentUser.id, 'Export', year).subscribe(res => {
+          this.e = res;
           this.pieChartLabels = ['Import', 'Export'];
           this.pieChartData = [this.i.length, this.e.length];
         })
       })
     })
   }
-  getDossiersEmployeeImportCountPeryear(year : number){
-    this.service.getCurrentUser().subscribe(data => {
-      this.CurrentUser = data;
-      this.service.getEmployeeFoldercountPerTypeWithYear(this.CurrentUser.username, 'Import', year).subscribe(data => {
-        this.import = data;
-        this.service.getEmployeeFoldercountPerTypeWithYear(this.CurrentUser.username, 'Export', year).subscribe(data => {
-          this.export = data;
-          this.pieChartLabels = ['Import', 'Export'];
-          this.pieChartData = [this.import, this.export];
-        })
-      })
-    })
-    }
+  async getDossiersEmployeeImportCountPeryear(year: number) {
+     this.service.getCurrentUser().subscribe(async data => {
+       this.CurrentUser = data;
+       await this.service.getEmployeeFoldercountPerTypeWithYear(this.CurrentUser.username, 'Import', year).subscribe(res => {
+         this.import = res;
+         this.service.getEmployeeFoldercountPerTypeWithYear(this.CurrentUser.username, 'Export', year).subscribe(red => {
+           this.export = red;
+           this.pieChartLabels = ['Import', 'Export'];
+           this.pieChartData = [this.import, this.export];
+         })
+       })
+     })
+  }
 
 
     //for Employee Dashboard
@@ -333,9 +330,9 @@ export class DashboardComponent implements OnInit {
       'assets/export_table.js',
       //Load all your script files here'
     ];
-    for (let i = 0; i < dynamicScripts.length; i++) {
+    for (let i of dynamicScripts) {
       const node = document.createElement('script');
-      node.src = dynamicScripts[i];
+      node.src = i;
       node.type = 'text/javascript';
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);

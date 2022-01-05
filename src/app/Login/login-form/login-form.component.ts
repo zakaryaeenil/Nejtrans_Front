@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {User} from "../../Models/user";
 import {Router} from "@angular/router";
@@ -9,15 +9,11 @@ import {Router} from "@angular/router";
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent  {
   user = new User();
   err:number = 0;
   constructor(private authService : AuthService,
               public router: Router) { }
-
-  ngOnInit(): void {
-
-  }
 
   onLoggedin()
   {

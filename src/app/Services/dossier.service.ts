@@ -100,9 +100,9 @@ export class DossierService {
     });
 
     formData.append("form", blob);
-    for (let i = 0; i < files.length; i++) {
+    for (let i of files) {
 
-      formData.append("document", files[i]);
+      formData.append("document",i);
 
     }
 
@@ -114,8 +114,8 @@ export class DossierService {
 
   ClientUpdateFolder(id :number, files : File[]) {
     const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("document", files[i]);
+    for (let i of files) {
+      formData.append("document", i);
     }
 
     return this.http.put(`${this.HostUrl}api/dossier/${id}/update`,formData , {responseType : 'text' , headers : {

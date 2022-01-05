@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
 
@@ -41,9 +41,9 @@ export class ForgotformComponent implements OnInit {
       'assets/assets/js/authentication/form-2.js'
       //Load all your script files here'
     ];
-    for (let i = 0; i < dynamicScripts.length; i++) {
+    for (let i of dynamicScripts) {
       const node = document.createElement('script');
-      node.src = dynamicScripts[i];
+      node.src = i;
       node.type = 'text/javascript';
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);

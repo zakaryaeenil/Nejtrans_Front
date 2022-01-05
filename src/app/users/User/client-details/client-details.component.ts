@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../Services/user.service";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
-import {Label, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color} from 'ng2-charts';
+import {Label, SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip} from 'ng2-charts';
 import {User} from "../../../Models/user";
 import {ChartsModel} from "../../../Models/charts-model";
 import {Dossier} from "../../../Models/dossier";
@@ -109,7 +109,7 @@ export class ClientDetailsComponent implements OnInit {
     let a = this.a;
     let t = this.t;
     let c = this.c;
-    this.service.getClientsDossiersPerYear(this.activatedRoute.snapshot.params['id'], year).subscribe(data=>{
+    this.service.getClientsDossiersPerYear(this.activatedRoute.snapshot.params['id'], year).subscribe(data => {
       this.doss_details=data;
       this.doss_details.forEach(function (value) {
         switch (value.available){
@@ -138,9 +138,9 @@ export class ClientDetailsComponent implements OnInit {
   getDossiersCLientExport(){
     this.service.getClientsDossiersType(this.activatedRoute.snapshot.params['id'],'Export').subscribe(data=> {
       this.doss_details_export = data;
-      this.service.getClientsDossiersType(this.activatedRoute.snapshot.params['id'], 'Import').subscribe(data => {
+      this.service.getClientsDossiersType(this.activatedRoute.snapshot.params['id'], 'Import').subscribe(res => {
 
-        this.doss_details_import = data;
+        this.doss_details_import = res;
         this.pieChartLabels = ['Import', 'Export'];
         this.pieChartData = [this.doss_details_import.length, this.doss_details_export.length];
 
@@ -180,8 +180,8 @@ export class ClientDetailsComponent implements OnInit {
     this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Import' , year).subscribe(data=>{
       this.import=data;
       this.import = this.import.length;
-      this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Export' , year).subscribe(data=>{
-        this.export=data;
+      this.service.getClientsDossiersTypePerYear(this.activatedRoute.snapshot.params['id'],'Export' , year).subscribe(res=>{
+        this.export=res;
         this.export = this.export.length;
         this.pieChartLabels =['Import', 'Export'];
         this.pieChartData =[this.import,this.export];
