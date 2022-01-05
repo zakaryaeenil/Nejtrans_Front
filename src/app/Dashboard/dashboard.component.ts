@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit {
   e : Dossier[];
   doss : ChartsModel[];
   anio: number = new Date().getFullYear();
-  import : number;
-  export : number;
+  import : any;
+  export : any;
   CurrentUser : User;
   folders_year : ChartsModel[];
   completed : ChartsModel[];
@@ -157,14 +157,14 @@ export class DashboardComponent implements OnInit {
       if (this.Auth.isAdmin()){
         this.service.getAllFolderbyYear(year).subscribe(data=>{
           this.doss=data;
-          let total = this.doss.map(function (elem){
-            return elem.total;
+          let total = this.doss.map(function (tot){
+            return tot.total;
           })
-          let import_a = this.doss.map(function (elem){
-            return elem.impo;
+          let import_a = this.doss.map(function (im){
+            return im.impo;
           })
-          let export_a = this.doss.map(function (elem){
-            return elem.expo;
+          let export_a = this.doss.map(function (ex){
+            return ex.expo;
           })
 
           this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
@@ -176,11 +176,11 @@ export class DashboardComponent implements OnInit {
           this.CurrentUser = data;
         this.service.getClientFolderCount(this.CurrentUser.id,year).subscribe(res=>{
           this.folders_year=res;
-          let import_a = this.folders_year.map(function (elem){
-            return elem.impo;
+          let import_a = this.folders_year.map(function (imp_a){
+            return imp_a.impo;
           })
-          let export_a = this.folders_year.map(function (elem){
-            return elem.expo;
+          let export_a = this.folders_year.map(function (expo_a){
+            return expo_a.expo;
           })
 
           this.barChartData = [{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
@@ -192,16 +192,16 @@ export class DashboardComponent implements OnInit {
       else if (this.Auth.isEmployee()){
         this.service.getCurrentUser().subscribe(data =>{
           this.CurrentUser=data;
-          this.service.getEmployeeFoldercountByYear(this.CurrentUser.username,year).subscribe(data=>{
-            this.completed=data;
-            let total = this.completed.map(function (elem){
-              return elem.total;
+          this.service.getEmployeeFoldercountByYear(this.CurrentUser.username,year).subscribe(res=>{
+            this.completed=res;
+            let total = this.completed.map(function (total){
+              return total.total;
             })
-            let import_a = this.completed.map(function (elem){
-              return elem.impo;
+            let import_a = this.completed.map(function (impo){
+              return impo.impo;
             })
-            let export_a = this.completed.map(function (elem){
-              return elem.expo;
+            let export_a = this.completed.map(function (expo){
+              return expo.expo;
             })
 
             this.barChartData = [{data : total , label : 'Dossiers  Year '+year},{data : import_a , label : 'Import  Year '+year},{data : export_a , label : 'Export  Year '+year}];
