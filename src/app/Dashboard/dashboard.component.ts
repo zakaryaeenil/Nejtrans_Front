@@ -194,8 +194,8 @@ export class DashboardComponent implements OnInit {
           this.CurrentUser=data;
           this.service.getEmployeeFoldercountByYear(this.CurrentUser.username,year).subscribe(res=>{
             this.completed=res;
-            let total = this.completed.map(function (total){
-              return total.total;
+            let total = this.completed.map(function (tot){
+              return tot.total;
             })
             let import_a = this.completed.map(function (impo){
               return impo.impo;
